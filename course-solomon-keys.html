@@ -106,6 +106,15 @@
   .syllabus-init{display:inline-block; font-size:0.76rem; font-weight:700; color:var(--teal-dark); background:var(--lav-pale); padding:4px 13px; border-radius:20px; margin-top:8px}
   .syllabus-pending{font-size:0.9rem; color:var(--text-mid); background:var(--white); border-radius:16px; padding:26px; text-align:center; border:1px dashed rgba(1,108,145,0.2)}
 
+  .course-layout{max-width:1060px; margin:0 auto; display:grid; grid-template-columns:1fr 300px; gap:36px; align-items:start}
+  .course-layout .c-body{max-width:none}
+  .course-side-image{position:sticky; top:100px}
+  .course-side-image img{width:100%; border-radius:20px; box-shadow:0 14px 34px rgba(1,92,120,0.16)}
+  @media(max-width:860px){
+    .course-layout{grid-template-columns:1fr; max-width:700px}
+    .course-side-image{position:static; order:-1; max-width:320px; margin:0 auto 8px}
+  }
+
   .btn-primary{background:linear-gradient(135deg,var(--sym-channel),#8a5cbf); color:#fff; padding:16px 40px; border-radius:50px; font-size:1.05rem; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 6px 22px rgba(108,59,153,0.32)}
   .c-cta{text-align:center; margin-top:8px}
 
@@ -166,13 +175,9 @@
 </section>
 
 <section>
+  <div class="course-layout">
   <div class="c-body fade-up">
     <p>קורס מתקדם במסלול שנה ב׳ — עבודה אנרגטית עמוקה לפתיחת שדות, ריפוי האגו וחיבור לשפע, לזוגיות אנרגטית ולאהבה, ועד לחיבור עם הניצוץ האלוהי והחופש הפנימי — 9 מפגשים של 3 שעות כל אחד, בזום או פרונטלי.</p>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="c-body">
     <h2 class="syllabus-heading fade-up">סילבוס הקורס</h2>
     <div class="syllabus-list">
       <div class="syllabus-lesson fade-up">
@@ -269,6 +274,10 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+    <div class="course-side-image fade-up">
+      <img src="course_img_keys_solomon.jpg" alt="" loading="lazy">
     </div>
   </div>
 </section>
