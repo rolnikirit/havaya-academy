@@ -120,7 +120,7 @@
       <a href="study-track.html">מסלול לימוד</a>
       <a href="personal-treatments.html" class="active">טיפולים אישיים</a>
       <a href="practitioners.html">מטפלים מוסמכים</a>
-      <a href="about-irit.html">מי אנחנו</a>
+      <a href="about-irit.html">אודות האקדמיה</a>
       <a href="blog.html">בלוג</a>
       <a href="events.html">אירועים</a>
     </nav>
@@ -186,6 +186,10 @@
             <option value="054">054</option><option value="055">055</option><option value="058">058</option>
           </select>
         </div>
+      </div>
+      <div class="form-group">
+        <label for="pt-email">אימייל</label>
+        <input id="pt-email" type="email" placeholder="אימייל" autocomplete="email" oninput="checkPersonalForm()">
       </div>
 
       <button class="btn-primary personal-book-btn disabled" id="pt-book-btn" type="button" onclick="bookPersonalTreatment()">קביעת טיפול לפי יומן אירית ←</button>
@@ -262,9 +266,11 @@ function checkPersonalForm(){
   const lastName = document.getElementById('pt-last-name').value.trim();
   const prefix = document.getElementById('pt-phone-prefix').value;
   const num = document.getElementById('pt-phone-num').value.trim();
+  const email = document.getElementById('pt-email').value.trim();
   const valid = type !== '' && format !== '' && purchase !== ''
     && firstName.length > 1 && lastName.length > 1
-    && prefix !== '' && num.length === 7;
+    && prefix !== '' && num.length === 7
+    && email.includes('@') && email.length > 4;
   document.getElementById('pt-book-btn').classList.toggle('disabled', !valid);
 }
 
@@ -279,6 +285,7 @@ function bookPersonalTreatment(){
   const prefix = document.getElementById('pt-phone-prefix').value;
   const num = document.getElementById('pt-phone-num').value.trim();
   const phone = prefix + '-' + num;
+  const email = document.getElementById('pt-email').value.trim();
 
   const lines = [
     'שלום אירית!',
@@ -286,6 +293,7 @@ function bookPersonalTreatment(){
     '',
     '*שם:* ' + firstName + ' ' + lastName,
     '*טלפון:* ' + phone,
+    '*אימייל:* ' + email,
     '*סוג טיפול:* ' + type,
     '*סוג מפגש:* ' + format,
     '*סוג רכישה:* ' + purchase,
