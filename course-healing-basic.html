@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<script src="accessibility.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הילינג מטפלים א׳ — הוויה</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:        #ffffff;
+    --off-white:    #faf3e0;
+    --lav-pale:     #f4ead9;
+    --lav-soft:     #ecdec2;
+    --teal-dark:    #015c78;
+    --teal-mid:     #0093ab;
+    --gold:         #b3854a;
+    --glow:         #f6d9a0;
+    --text-dark:    #015c78;
+    --text-mid:     #6b7d80;
+    --text-body:    #3c5058;
+    --sym-channel:  #6C3B99;
+    --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-ui:     cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *{margin:0; padding:0; box-sizing:border-box}
+  body{font-family:'Rubik',sans-serif; background:var(--off-white); color:var(--text-dark); direction:rtl}
+  img{display:block; max-width:100%}
+  a{color:inherit}
+  .fade-up{opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease-out), transform .6s var(--ease-out)}
+  .fade-up.visible{opacity:1; transform:translateY(0)}
+  .container{max-width:900px; margin:0 auto; padding:0 24px}
+  section{padding:60px 20px}
+
+  header{background:linear-gradient(90deg, #f2e6c9 0%, #8fb5c4 14%, #3d7d92 32%, #015c78 52%, #2a7288 68%, #a8cdd8 86%, #f2e6c9 100%); border-bottom:1px solid rgba(0,0,0,0.08); position:sticky; top:0; z-index:50}
+  .header-inner{max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff}
+  .brand img{height:64px; width:auto}
+  nav{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  nav a{position:relative; color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.9rem; font-weight:600; padding:8px 14px; border-radius:10px; transition:color 200ms ease}
+  nav a:hover, nav a:focus-visible, nav a.active{color:#fff}
+  nav a:hover, nav a:focus-visible{animation:tab-pop 4.5s ease-in-out infinite}
+  nav a.active::after{content:''; position:absolute; right:14px; left:14px; bottom:2px; height:3px; border-radius:3px; background:var(--glow)}
+  @keyframes tab-pop{
+    0%,100%{ transform:scale(1); background:rgba(246,217,160,0); box-shadow:0 0 0 rgba(246,217,160,0); }
+    50%{ transform:scale(1.18); background:rgba(246,217,160,0.18); box-shadow:0 0 22px rgba(246,217,160,0.55); }
+  }
+  .header-cta{background:var(--glow); color:var(--teal-dark); padding:9px 20px; border-radius:24px; font-size:0.85rem; font-weight:700; text-decoration:none; white-space:nowrap}
+  .nav-toggle{display:none; flex-direction:column; gap:5px; background:none; border:0; padding:8px; cursor:pointer}
+  .nav-toggle span{width:24px; height:2px; background:#fff; border-radius:2px}
+  .nav-dropdown{position:relative; display:flex; align-items:center}
+  .nav-dropdown-row{display:flex; align-items:center; gap:2px}
+  .nav-dropdown-toggle{background:none; border:0; color:rgba(255,255,255,0.7); cursor:pointer; padding:6px; font-size:0.65rem; line-height:1; transition:transform 200ms ease}
+  .nav-dropdown-toggle:hover{color:#fff}
+  .nav-dropdown.open .nav-dropdown-toggle{transform:rotate(180deg)}
+  .nav-dropdown-panel{position:absolute; top:100%; right:0; min-width:230px; max-height:0; overflow:hidden; opacity:0; background:#fff; border-radius:14px; box-shadow:0 16px 40px rgba(0,0,0,0.18); margin-top:10px; z-index:60; transition:max-height 250ms ease, opacity 200ms ease}
+  .nav-dropdown.open .nav-dropdown-panel{max-height:600px; opacity:1; padding:8px}
+  .nav-dropdown-panel a{display:block; padding:9px 14px; border-radius:10px; color:var(--teal-dark); font-size:0.84rem; font-weight:600; text-decoration:none}
+  .nav-dropdown-panel a:hover, .nav-dropdown-panel a:focus-visible{background:var(--lav-pale); color:var(--teal-dark)}
+  @media(hover:hover){
+    .nav-dropdown:hover .nav-dropdown-panel{max-height:600px; opacity:1; padding:8px}
+  }
+  @media(max-width:900px){
+    nav{display:none; position:absolute; top:100%; right:0; left:0; background:var(--teal-dark); flex-direction:column; align-items:stretch; gap:0; padding:8px 16px 16px; box-shadow:0 12px 24px rgba(0,0,0,0.15)}
+    nav.open{display:flex}
+    nav a{padding:12px 14px}
+    .nav-toggle{display:flex}
+    .nav-toggle{order:1}
+    .brand{order:2}
+    .header-cta{order:3}
+    .nav-dropdown{width:100%; flex-direction:column; align-items:stretch}
+    .nav-dropdown-row{width:100%; justify-content:space-between; padding-left:6px}
+    .nav-dropdown-panel{position:static; box-shadow:none; margin-top:0; border-radius:0; background:transparent; padding:0}
+    .nav-dropdown.open .nav-dropdown-panel{padding:4px 0 8px}
+    .nav-dropdown-panel a{color:rgba(255,255,255,0.82); padding:10px 28px}
+    .nav-dropdown-panel a:hover{background:rgba(255,255,255,0.08); color:#fff}
+  }
+  @media(max-width:420px){
+    .header-cta{padding:8px 14px; font-size:0.78rem}
+    .brand img{height:52px}
+  }
+
+  .c-hero{background:var(--lav-pale); text-align:center; padding:60px 20px}
+  .c-tag{font-size:0.78rem; font-weight:700; letter-spacing:2.5px; color:var(--sym-channel); text-transform:uppercase; margin-bottom:12px}
+  .c-title{font-size:clamp(1.6rem,4vw,2.4rem); font-weight:800; color:var(--teal-dark); margin-bottom:14px; max-width:760px; margin-left:auto; margin-right:auto}
+  .c-meta-line{font-size:0.95rem; color:var(--gold); font-weight:700}
+
+  .c-body{max-width:700px; margin:0 auto}
+  .c-body p{font-size:1.02rem; line-height:1.9; color:var(--text-body); margin-bottom:18px}
+
+  .c-materials{background:var(--off-white); border-radius:20px; padding:28px; border:1px solid rgba(1,108,145,0.09); margin-top:10px}
+  .c-materials h3{font-size:1.05rem; color:var(--teal-dark); margin-bottom:14px}
+  .c-materials .pending{font-size:0.85rem; color:var(--text-mid); background:var(--off-white); display:inline-block; padding:6px 14px; border-radius:10px}
+
+  .syllabus-heading{font-size:1.3rem; font-weight:800; color:var(--teal-dark); margin-bottom:24px; text-align:center}
+  .syllabus-list{display:flex; flex-direction:column; gap:14px}
+  .syllabus-lesson{background:var(--white); border-radius:18px; padding:20px 24px; display:flex; gap:16px; align-items:flex-start; border:1px solid rgba(1,108,145,0.08); box-shadow:0 8px 22px rgba(1,92,120,0.05)}
+  .syllabus-num{width:36px; height:36px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:1rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
+  .syllabus-content{flex:1; min-width:0}
+  .syllabus-topics{list-style:none; display:flex; flex-direction:column; gap:4px}
+  .syllabus-topics li{font-size:0.94rem; color:var(--text-body); line-height:1.6; padding-right:16px; position:relative}
+  .syllabus-topics li::before{content:'•'; color:var(--gold); position:absolute; right:0}
+
+  .btn-primary{background:linear-gradient(135deg,var(--sym-channel),#8a5cbf); color:#fff; padding:16px 40px; border-radius:50px; font-size:1.05rem; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 6px 22px rgba(108,59,153,0.32)}
+  .c-cta{text-align:center; margin-top:8px}
+
+  footer{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.1); padding:34px 20px; text-align:center; color:var(--text-mid); font-size:0.85rem}
+  footer a{text-decoration:none; color:var(--text-mid); margin:0 8px}
+  footer a:hover{color:var(--teal-dark)}
+  .footer-social{display:flex; justify-content:center; gap:16px; margin-top:14px}
+  .footer-social a{display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; background:var(--lav-pale); transition:background 180ms ease, transform 180ms ease}
+  .footer-social a:hover{background:var(--gold); transform:translateY(-2px)}
+  .footer-social svg{width:18px; height:18px; display:block}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="havaya_logo_hero.png" alt="הוויה — האקדמיה להפצת האור" onerror="this.style.display='none'">
+    </a>
+    <nav id="mainNav">
+      <a href="index.html">דף הבית</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-row">
+          <a href="courses-orbit.html" class="active">מפת קורסים</a>
+          <button type="button" class="nav-dropdown-toggle" aria-label="רשימת קורסים מהירה" aria-expanded="false">▾</button>
+        </span>
+        <div class="nav-dropdown-panel">
+          <a href="course-reiki.html">רייקי 1+2</a>
+          <a href="course-healing.html">הילינג מטפלים ב׳ - חיבור לנשמה</a>
+          <a href="course-michael.html">תיקשור קו אמצע</a>
+          <a href="course-solomon-keys.html">מפתחות המלך שלמה</a>
+          <a href="course-balance.html">איזון והרמוניה</a>
+          <a href="course-enoch.html">מפתחות המאסטר חנוך</a>
+          <a href="course-reiki3.html">רייקי 3 מאסטר</a>
+          <a href="course-healing-basic.html">הילינג מטפלים א׳</a>
+          <a href="course-metatron.html">מפתחות המאסטר מטטרון</a>
+          <a href="course-solomon-seals.html">חותמות המלך שלמה</a>
+        </div>
+      </div>
+      <a href="study-track.html">מסלול לימוד</a>
+      <a href="personal-treatments.html">טיפולים אישיים</a>
+      <a href="practitioners.html">מטפלים מוסמכים</a>
+      <a href="about-irit.html">מי אנחנו</a>
+      <a href="blog.html">בלוג</a>
+      <a href="events.html">אירועים</a>
+    </nav>
+    <a class="header-cta" href="index.html#contact">קביעת שיחת היכרות</a>
+    <button class="nav-toggle" id="navToggle" aria-label="תפריט" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="c-hero">
+  <div class="c-tag fade-up">קורס</div>
+  <h1 class="c-title fade-up">הילינג מטפלים א׳</h1>
+  <div class="c-meta-line fade-up">15 שעות לימוד · 5 מפגשים של 3 שעות · זום או פרונטלי</div>
+</section>
+
+
+
+<section>
+  <div class="c-body fade-up">
+    <p>יסודות הריפוי האנרגטי, כחלק ממסלול שנה א׳ — 5 מפגשים של 3 שעות כל אחד, בזום או פרונטלי.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="c-body">
+    <h2 class="syllabus-heading fade-up">סילבוס הקורס</h2>
+    <div class="syllabus-list">
+      <div class="syllabus-lesson fade-up">
+        <div class="syllabus-num">1</div>
+        <div class="syllabus-content">
+          <ul class="syllabus-topics">
+            <li>מבוא להילינג</li>
+            <li>הדגמה במטוטלת</li>
+            <li>טיפול עצמי</li>
+            <li>טיפול מרחוק</li>
+          </ul>
+        </div>
+      </div>
+      <div class="syllabus-lesson fade-up">
+        <div class="syllabus-num">2</div>
+        <div class="syllabus-content">
+          <ul class="syllabus-topics">
+            <li>שימוש בקריסטלים</li>
+            <li>שימוש במטוטלת</li>
+            <li>ניקוי פחד</li>
+          </ul>
+        </div>
+      </div>
+      <div class="syllabus-lesson fade-up">
+        <div class="syllabus-num">3</div>
+        <div class="syllabus-content">
+          <ul class="syllabus-topics">
+            <li>ישויות</li>
+            <li>התאמת קריסטלים למרכזי אנרגיה</li>
+            <li>חמשת האלמנטים</li>
+          </ul>
+        </div>
+      </div>
+      <div class="syllabus-lesson fade-up">
+        <div class="syllabus-num">4</div>
+        <div class="syllabus-content">
+          <ul class="syllabus-topics">
+            <li>אנרגיית הגוף</li>
+            <li>מבנה ההילה</li>
+            <li>הדרכה למטפל</li>
+          </ul>
+        </div>
+      </div>
+      <div class="syllabus-lesson fade-up">
+        <div class="syllabus-num">5</div>
+        <div class="syllabus-content">
+          <ul class="syllabus-topics">
+            <li>טיפול על מיטה</li>
+            <li>טיפול בעמוד שדרה</li>
+            <li>אנרגיית היהלום</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="c-body">
+    <div class="c-materials fade-up">
+      <h3>חומרים נוספים</h3>
+      <span class="pending">חומרים נוספים יתווספו בקרוב</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="c-cta fade-up">
+    <a class="btn-primary" href="index.html#contact">מתעניינת? השאירי פרטים ←</a>
+  </div>
+</section>
+
+<footer>
+  <div>© הוויה — האקדמיה להפצת האור · כפר סבא</div>
+  <div class="footer-social">
+    <a href="tel:+972504084159" aria-label="טלפון"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+    <a href="mailto:rolnik.irit@gmail.com" aria-label="אימייל"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    <a href="https://api.whatsapp.com/send?phone=972504084159" aria-label="וואטסאפ"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 360 362"><path fill="#25D366" fill-rule="evenodd" d="M307.546 52.566C273.709 18.684 228.706.017 180.756 0 81.951 0 1.538 80.404 1.504 179.235c-.017 31.594 8.242 62.432 23.928 89.609L0 361.736l95.024-24.925c26.179 14.285 55.659 21.805 85.655 21.814h.077c98.788 0 179.21-80.413 179.244-179.244.017-47.898-18.608-92.926-52.454-126.807v-.008Zm-126.79 275.788h-.06c-26.73-.008-52.952-7.194-75.831-20.765l-5.44-3.231-56.391 14.791 15.05-54.981-3.542-5.638c-14.912-23.721-22.793-51.139-22.776-79.286.035-82.14 66.867-148.973 149.051-148.973 39.793.017 77.198 15.53 105.328 43.695 28.131 28.157 43.61 65.596 43.593 105.398-.035 82.149-66.867 148.982-148.982 148.982v.008Zm81.719-111.577c-4.478-2.243-26.497-13.073-30.606-14.568-4.108-1.496-7.09-2.243-10.073 2.243-2.982 4.487-11.568 14.577-14.181 17.559-2.613 2.991-5.226 3.361-9.704 1.117-4.477-2.243-18.908-6.97-36.02-22.226-13.313-11.878-22.304-26.54-24.916-31.027-2.613-4.486-.275-6.91 1.959-9.136 2.011-2.011 4.478-5.234 6.721-7.847 2.244-2.613 2.983-4.486 4.478-7.469 1.496-2.991.748-5.603-.369-7.847-1.118-2.243-10.073-24.289-13.812-33.253-3.636-8.732-7.331-7.546-10.073-7.692-2.613-.13-5.595-.155-8.586-.155-2.991 0-7.839 1.118-11.947 5.604-4.108 4.486-15.677 15.324-15.677 37.361s16.047 43.344 18.29 46.335c2.243 2.991 31.585 48.225 76.51 67.632 10.684 4.615 19.029 7.374 25.535 9.437 10.727 3.412 20.49 2.931 28.208 1.779 8.604-1.289 26.498-10.838 30.228-21.298 3.73-10.46 3.73-19.433 2.613-21.298-1.117-1.865-4.108-2.991-8.586-5.234l.008-.017Z" clip-rule="evenodd"/></svg></a>
+    <a href="https://www.facebook.com/iritrolnik.havaya/" target="_blank" rel="noopener" aria-label="פייסבוק"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666.667 666.667"><defs><clipPath id="fbclip"><path d="M0 700h700V0H0Z"/></clipPath></defs><g clip-path="url(#fbclip)" transform="matrix(1.33333 0 0 -1.33333 -133.333 800)"><path d="M0 0c0 138.071-111.929 250-250 250S-500 138.071-500 0c0-117.245 80.715-215.622 189.606-242.638v166.242h-51.552V0h51.552v32.919c0 85.092 38.508 124.532 122.048 124.532 15.838 0 43.167-3.105 54.347-6.211V81.986c-5.901.621-16.149.932-28.882.932-40.993 0-56.832-15.528-56.832-55.9V0h81.659l-14.028-76.396h-67.631v-171.773C-95.927-233.218 0-127.818 0 0" fill="#0866ff" transform="translate(600 350)"/><path d="m0 0 14.029 76.396H-67.63v27.019c0 40.372 15.838 55.899 56.831 55.899 12.733 0 22.981-.31 28.882-.931v69.253c-11.18 3.106-38.509 6.212-54.347 6.212-83.539 0-122.048-39.441-122.048-124.533V76.396h-51.552V0h51.552v-166.242a250.559 250.559 0 0 1 60.394-7.362c10.254 0 20.358.632 30.288 1.831V0Z" fill="#fff" transform="translate(447.918 273.604)"/></g></svg></a>
+    <a href="https://www.instagram.com/iritrolnik" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264.583 264.583"><defs><radialGradient id="igA" cx="158.429" cy="578.088" r="52.352" gradientTransform="matrix(0 -4.03418 4.28018 0 -2332.227 942.236)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fc0"/><stop offset=".124" stop-color="#fc0"/><stop offset=".567" stop-color="#fe4a05"/><stop offset=".694" stop-color="#ff0f3f"/><stop offset="1" stop-color="#fe0657" stop-opacity="0"/></radialGradient><radialGradient id="igB" cx="199.788" cy="628.438" r="52.352" gradientTransform="matrix(-3.10797 .87652 -.6315 -2.23914 1345.65 1374.198)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff005f"/><stop offset="1" stop-color="#fc01d8"/></radialGradient></defs><path fill="url(#igB)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igA)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="#fff" d="M132.345 33.973c-26.716 0-30.07.117-40.563.594-10.472.48-17.62 2.136-23.876 4.567-6.47 2.51-11.958 5.87-17.426 11.335-5.472 5.464-8.834 10.948-11.354 17.412-2.44 6.252-4.1 13.397-4.57 23.858-.47 10.486-.593 13.838-.593 40.535 0 26.697.119 30.037.594 40.522.482 10.465 2.14 17.609 4.57 23.859 2.515 6.465 5.876 11.95 11.346 17.414 5.466 5.468 10.955 8.834 17.42 11.345 6.26 2.431 13.41 4.088 23.881 4.567 10.493.477 13.844.594 40.559.594 26.719 0 30.061-.117 40.555-.594 10.472-.48 17.63-2.136 23.888-4.567 6.468-2.51 11.948-5.877 17.414-11.345 5.472-5.464 8.834-10.949 11.354-17.412 2.419-6.252 4.079-13.398 4.57-23.858.472-10.486.595-13.828.595-40.525s-.123-30.047-.594-40.533c-.492-10.465-2.152-17.608-4.57-23.858-2.521-6.466-5.883-11.95-11.355-17.414-5.472-5.468-10.944-8.827-17.42-11.335-6.271-2.431-13.424-4.088-23.897-4.567-10.493-.477-13.834-.594-40.558-.594zm-8.825 17.715c2.62-.004 5.542 0 8.825 0 26.266 0 29.38.094 39.752.565 9.591.438 14.797 2.04 18.264 3.385 4.591 1.782 7.864 3.912 11.305 7.352 3.443 3.44 5.575 6.717 7.362 11.305 1.346 3.46 2.951 8.663 3.388 18.247.47 10.363.573 13.475.573 39.71 0 26.233-.102 29.346-.573 39.709-.44 9.584-2.042 14.786-3.388 18.247-1.783 4.587-3.919 7.854-7.362 11.292-3.443 3.441-6.712 5.57-11.305 7.352-3.463 1.352-8.673 2.95-18.264 3.388-10.37.47-13.486.573-39.752.573-26.268 0-29.38-.102-39.751-.573-9.592-.443-14.797-2.044-18.267-3.39-4.59-1.781-7.87-3.911-11.313-7.352-3.443-3.44-5.574-6.709-7.362-11.298-1.346-3.461-2.95-8.663-3.387-18.247-.472-10.363-.566-13.476-.566-39.726s.094-29.347.566-39.71c.438-9.584 2.04-14.786 3.387-18.25 1.783-4.588 3.919-7.865 7.362-11.305 3.443-3.441 6.722-5.57 11.313-7.357 3.468-1.351 8.675-2.949 18.267-3.389 9.075-.41 12.592-.532 30.926-.553zm61.337 16.322c-6.518 0-11.805 5.277-11.805 11.792 0 6.512 5.287 11.796 11.805 11.796 6.517 0 11.804-5.284 11.804-11.796 0-6.513-5.287-11.796-11.805-11.796zm-52.512 13.782c-27.9 0-50.519 22.603-50.519 50.482 0 27.879 22.62 50.471 50.52 50.471s50.51-22.592 50.51-50.471c0-27.879-22.613-50.482-50.513-50.482zm0 17.715c18.11 0 32.792 14.67 32.792 32.767 0 18.096-14.683 32.767-32.792 32.767-18.11 0-32.791-14.671-32.791-32.767 0-18.098 14.68-32.767 32.791-32.767z"/></svg></a>
+    <a href="accessibility-statement.html" aria-label="הצהרת נגישות"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M12 2a2.2 2.2 0 1 1 0 4.4A2.2 2.2 0 0 1 12 2zm9 7.4-6-1.2v3.4l3.6 1.2-1 3-3-1v7.2h-2v-5.6h-1.2V22H9.4v-7.2l-3 1-1-3L9 11.6V8.2L3 9.4l-.4-2L9 6.1c.6-.9 1.7-1.5 3-1.5s2.4.6 3 1.5l6.4 1.3-.4 2z"/></svg></a>
+  </div>
+</footer>
+
+<script>
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mainNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => dd.classList.remove('open'));
+  });
+});
+
+document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const dropdown = btn.closest('.nav-dropdown');
+    const isOpen = dropdown.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+});
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+    if (!dd.contains(e.target)) {
+      dd.classList.remove('open');
+      dd.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+      dd.classList.remove('open');
+      dd.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<script src="accessibility.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הוויה — האקדמיה להפצת האור</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:        #ffffff;
+    --off-white:    #faf3e0;
+    --lav-pale:     #f4ead9;
+    --lav-soft:     #ecdec2;
+    --teal-dark:    #015c78;
+    --teal-mid:     #0093ab;
+    --gold:         #b3854a;
+    --gold-light:   #d4a35f;
+    --glow:         #f6d9a0;
+    --text-dark:    #015c78;
+    --text-mid:     #6b7d80;
+    --text-body:    #3c5058;
+    /* Symbolic palette (approved 7.2026): health / protection / channeling / prayer / purity */
+    --sym-health:    #2E8577;
+    --sym-protect:   #1D6E8F;
+    --sym-channel:   #6C3B99;
+    --sym-prayer:    #C9A227;
+    --sym-purity:    #FAF7F0;
+    --font-display: 'Rubik', sans-serif;
+    --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-ui:     cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *{margin:0; padding:0; box-sizing:border-box}
+  body{font-family:'Rubik',sans-serif; background:radial-gradient(ellipse at 50% 8%, rgba(184,147,63,0.18), transparent 45%), #faf3e0; color:var(--text-dark); direction:rtl}
+  img{display:block; max-width:100%}
+  a{color:inherit}
+  .fade-up{opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease-out), transform .6s var(--ease-out)}
+  .fade-up.visible{opacity:1; transform:translateY(0)}
+  .container{max-width:1180px; margin:0 auto; padding:0 24px}
+  section{padding:70px 20px}
+
+  /* ── Header ── */
+  header{background:linear-gradient(90deg, #f2e6c9 0%, #8fb5c4 14%, #3d7d92 32%, #015c78 52%, #2a7288 68%, #a8cdd8 86%, #f2e6c9 100%); border-bottom:1px solid rgba(0,0,0,0.08); position:sticky; top:0; z-index:50}
+  .header-inner{max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff}
+  .brand img{height:64px; width:auto}
+  nav{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  nav a{position:relative; color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.9rem; font-weight:600; padding:8px 14px; border-radius:10px; transition:color 200ms ease}
+  nav a:hover, nav a:focus-visible, nav a.active{color:#fff}
+  nav a:hover, nav a:focus-visible{animation:tab-pop 4.5s ease-in-out infinite}
+  nav a.active::after{content:''; position:absolute; right:14px; left:14px; bottom:2px; height:3px; border-radius:3px; background:var(--glow)}
+  @keyframes tab-pop{
+    0%,100%{ transform:scale(1); background:rgba(246,217,160,0); box-shadow:0 0 0 rgba(246,217,160,0); }
+    50%{ transform:scale(1.18); background:rgba(246,217,160,0.18); box-shadow:0 0 22px rgba(246,217,160,0.55); }
+  }
+  .header-cta{background:var(--glow); color:var(--teal-dark); padding:9px 20px; border-radius:24px; font-size:0.85rem; font-weight:700; text-decoration:none; white-space:nowrap}
+  .nav-toggle{display:none; flex-direction:column; gap:5px; background:none; border:0; padding:8px; cursor:pointer}
+  .nav-toggle span{width:24px; height:2px; background:#fff; border-radius:2px}
+  .nav-dropdown{position:relative; display:flex; align-items:center}
+  .nav-dropdown-row{display:flex; align-items:center; gap:2px}
+  .nav-dropdown-toggle{background:none; border:0; color:rgba(255,255,255,0.7); cursor:pointer; padding:6px; font-size:0.65rem; line-height:1; transition:transform 200ms ease}
+  .nav-dropdown-toggle:hover{color:#fff}
+  .nav-dropdown.open .nav-dropdown-toggle{transform:rotate(180deg)}
+  .nav-dropdown-panel{position:absolute; top:100%; right:0; min-width:230px; max-height:0; overflow:hidden; opacity:0; background:#fff; border-radius:14px; box-shadow:0 16px 40px rgba(0,0,0,0.18); margin-top:10px; z-index:60; transition:max-height 250ms ease, opacity 200ms ease}
+  .nav-dropdown.open .nav-dropdown-panel{max-height:600px; opacity:1; padding:8px}
+  .nav-dropdown-panel a{display:block; padding:9px 14px; border-radius:10px; color:var(--teal-dark); font-size:0.84rem; font-weight:600; text-decoration:none}
+  .nav-dropdown-panel a:hover, .nav-dropdown-panel a:focus-visible{background:var(--lav-pale); color:var(--teal-dark)}
+  @media(hover:hover){
+    .nav-dropdown:hover .nav-dropdown-panel{max-height:600px; opacity:1; padding:8px}
+  }
+  @media(max-width:900px){
+    nav{display:none; position:absolute; top:100%; right:0; left:0; background:var(--teal-dark); flex-direction:column; align-items:stretch; gap:0; padding:8px 16px 16px; box-shadow:0 12px 24px rgba(0,0,0,0.15)}
+    nav.open{display:flex}
+    nav a{padding:12px 14px}
+    .nav-toggle{display:flex}
+    /* order in RTL: lower number = further right. hamburger right, logo middle, CTA left */
+    .nav-toggle{order:1}
+    .brand{order:2}
+    .header-cta{order:3}
+    .nav-dropdown{width:100%; flex-direction:column; align-items:stretch}
+    .nav-dropdown-row{width:100%; justify-content:space-between; padding-left:6px}
+    .nav-dropdown-panel{position:static; box-shadow:none; margin-top:0; border-radius:0; background:transparent; padding:0}
+    .nav-dropdown.open .nav-dropdown-panel{padding:4px 0 8px}
+    .nav-dropdown-panel a{color:rgba(255,255,255,0.82); padding:10px 28px}
+    .nav-dropdown-panel a:hover{background:rgba(255,255,255,0.08); color:#fff}
+  }
+  @media(max-width:420px){
+    .header-cta{padding:8px 14px; font-size:0.78rem}
+    .brand img{height:52px}
+  }
+
+  /* ── Hero ── */
+  .hero{min-height:88vh; background:transparent; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 0 60px; position:relative; overflow:hidden}
+  .hero-content{position:relative; z-index:1; max-width:720px; padding:0 20px}
+  .hero-logo{position:relative; width:100vw; margin-left:calc(-50vw + 50%); margin-right:calc(-50vw + 50%); margin-bottom:36px}
+  .hero-logo{overflow:hidden}
+  .hero-logo img{width:100%; display:block; filter:saturate(0.82) blur(9px)}
+  .hero-logo img.sharp{position:absolute; inset:0; filter:saturate(0.82);
+    -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 22%, black 78%, transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0%, black 22%, black 78%, transparent 100%)}
+  .hero-eyebrow{font-weight:600; font-style:italic; font-size:1.05rem; color:var(--sym-prayer); margin-bottom:8px}
+  .hero-divider{width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:0 auto 22px}
+  .hero-quote{font-size:clamp(1rem,2.2vw,1.2rem); color:var(--text-mid); font-style:italic; margin-bottom:34px; line-height:1.8}
+  .cta-group{display:flex; gap:16px; justify-content:center; flex-wrap:wrap}
+  .btn-primary{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid)); color:#fff; padding:16px 40px; border-radius:50px; font-size:1.05rem; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 6px 22px rgba(1,108,145,0.3); transition:transform 180ms var(--ease-ui)}
+  .btn-primary:hover{transform:translateY(-3px)}
+  .btn-secondary{background:#fff; color:var(--teal-dark); padding:16px 34px; border-radius:50px; font-size:1rem; font-weight:600; text-decoration:none; display:inline-block; border:1.5px solid rgba(1,108,145,0.3); transition:border-color 180ms ease}
+  .btn-secondary:hover{border-color:var(--teal-mid); background:var(--lav-pale)}
+
+  /* ── Trust strip ── */
+  .trust{background:var(--off-white); text-align:center}
+  .trust-sub{font-size:1.05rem; color:var(--text-mid); max-width:640px; margin:0 auto 16px; line-height:1.8}
+  .trust-method{display:inline-block; background:var(--lav-pale); border-right:3px solid var(--gold); border-radius:0 12px 12px 0; padding:10px 20px; font-size:0.9rem; color:var(--text-body)}
+  .trust-method strong{color:var(--teal-dark)}
+
+  /* ── Section heading ── */
+  .section-head{text-align:center; margin-bottom:44px}
+  .section-tag{font-size:0.78rem; font-weight:700; letter-spacing:2.5px; color:var(--teal-mid); text-transform:uppercase; margin-bottom:10px}
+  .section-title{font-size:clamp(1.7rem,3.6vw,2.3rem); font-weight:800; color:var(--teal-dark); margin-bottom:12px}
+  .section-desc{font-size:1rem; color:var(--text-mid); max-width:600px; margin:0 auto; line-height:1.8}
+
+  /* ── Courses ── */
+  .courses{background:var(--off-white); position:relative; overflow:hidden}
+  #coursesParticles{position:absolute; inset:0; pointer-events:none; opacity:0.7}
+  .courses-grid{position:relative; z-index:1; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px}
+
+  /* ── Course module list (step 1: skeleton only) ── */
+  .course-module-list{position:relative; z-index:1; display:flex; flex-direction:column; border-radius:20px; overflow:hidden; border:1px solid rgba(1,108,145,0.1); background:var(--white); box-shadow:0 10px 30px rgba(1,92,120,0.06)}
+  .cm-row{display:flex; align-items:center; gap:18px; padding:20px 24px; border-bottom:1px solid rgba(1,108,145,0.08); text-decoration:none; color:inherit}
+  .cm-row:last-child{border-bottom:none}
+  .cm-num{width:36px; height:36px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:0.95rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
+  .cm-body{flex:1; min-width:0}
+  .cm-name{font-size:1.05rem; font-weight:800; color:var(--teal-dark)}
+  .cm-meta{font-size:0.8rem; color:var(--text-mid); margin-top:3px}
+  .c-card{background:var(--white); border-radius:20px; overflow:hidden; border:1px solid rgba(1,108,145,0.09); border-right:4px solid var(--teal-dark);
+    display:flex; flex-direction:row; height:225px; position:relative; z-index:1;
+    transition:transform 280ms var(--ease-out), box-shadow 280ms var(--ease-out), z-index 0s 280ms}
+  @media(hover:hover) and (pointer:fine){
+    .c-card:hover{transform:scale(1.14); box-shadow:0 24px 54px rgba(1,108,145,0.22); z-index:10; transition:transform 280ms var(--ease-out), box-shadow 280ms var(--ease-out)}
+  }
+  .c-media{width:45%; flex-shrink:0; background:linear-gradient(135deg,var(--lav-soft),var(--lav-pale)); display:flex; align-items:center; justify-content:center; position:relative; background-size:cover; background-position:center}
+  .c-media::after{content:''; width:38px; height:38px; border-radius:50%; border:2px solid var(--gold); background:radial-gradient(circle, var(--glow) 0%, transparent 70%)}
+  .c-media[style]::after{display:none}
+  .c-featured-tag{position:absolute; top:10px; right:10px; background:var(--glow); color:var(--teal-dark); font-size:0.68rem; font-weight:800; padding:4px 10px; border-radius:20px; z-index:1}
+  .c-body{padding:16px 18px; display:flex; flex-direction:column; flex:1; min-width:0}
+  .c-name{font-size:1.2rem; font-weight:900; color:var(--teal-dark); margin-bottom:8px; line-height:1.25}
+  .c-desc{font-size:0.8rem; color:var(--text-mid); line-height:1.5; margin-bottom:8px; overflow:hidden}
+  .c-meta{font-size:0.74rem; color:var(--gold); font-weight:700; margin-bottom:10px; margin-top:auto}
+  .c-stats{margin-bottom:10px; margin-top:auto}
+  .c-stats div{font-size:0.74rem; color:var(--text-mid); line-height:1.5}
+  .c-stats div:first-child{color:var(--teal-dark); font-weight:700}
+  .c-price{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px}
+  @media(max-width:640px){
+    .c-card{flex-direction:column; height:auto}
+    .c-media{width:100%; height:170px}
+    @media(hover:hover) and (pointer:fine){ .c-card:hover{transform:scale(1.04)} }
+  }
+  .price-tbd{font-size:0.78rem; color:var(--text-mid); background:var(--off-white); padding:5px 12px; border-radius:10px}
+  .price-real{font-size:0.9rem; font-weight:800; color:var(--teal-dark)}
+  .c-link{font-size:0.83rem; font-weight:700; color:var(--teal-dark); text-decoration:none; white-space:nowrap}
+
+  /* ── Gift banner ── */
+  .gift{background:var(--sym-purity); border:1px solid rgba(1,92,120,0.08); border-radius:26px; padding:44px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; color:var(--text-dark); margin:0 auto; max-width:1132px}
+  .gift-icon{width:52px; height:52px; border-radius:50%; border:2px solid var(--gold); position:relative; flex-shrink:0}
+  .gift-icon::after{content:''; position:absolute; inset:12px; border-radius:50%; background:var(--sym-prayer)}
+  .gift-text h2{font-size:1.3rem; font-weight:800; margin-bottom:6px; color:var(--teal-dark)}
+  .gift-text p{font-size:0.9rem; color:var(--text-mid); max-width:440px; line-height:1.7}
+  .gift-inner{display:flex; align-items:center; gap:18px; flex:1; min-width:240px}
+  .soon-badge{background:rgba(1,92,120,0.08); color:var(--teal-dark); font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:20px; white-space:nowrap}
+
+  /* ── Method topics + FAQ (כותרות בלבד, אירית תשלח תוכן בהמשך) ── */
+  .method-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px}
+  @media(max-width:900px){ .method-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:520px){ .method-grid{grid-template-columns:1fr} }
+  .method-card{background:var(--white); border-radius:20px; padding:26px 22px; border:1px solid rgba(1,108,145,0.09); border-top:3px solid var(--sym-channel); box-shadow:0 8px 24px rgba(1,92,120,0.06); display:flex; flex-direction:column; align-items:flex-start; gap:12px}
+  .method-icon{width:34px; height:34px; border-radius:50%; border:2px solid var(--sym-channel); position:relative}
+  .method-icon::after{content:''; position:absolute; inset:8px; border-radius:50%; background:var(--sym-channel)}
+  .method-title{font-weight:800; font-size:1rem; color:var(--teal-dark); line-height:1.5}
+  .faq-section .section-head{margin-bottom:20px}
+
+  /* ── Dimensions ── */
+  .dims{background:var(--off-white)}
+  .dims-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+  @media(max-width:768px){ .dims-grid{grid-template-columns:1fr} }
+  .dim-card{background:var(--white); border-radius:20px; padding:28px 24px; border:1px solid rgba(1,108,145,0.09); border-top:3px solid var(--sym-health); box-shadow:0 8px 24px rgba(1,92,120,0.06)}
+  .dim-card.emotional{border-top-color:var(--sym-protect)}
+  .dim-card.spiritual{border-top-color:var(--sym-channel)}
+  .dim-icon{width:34px; height:34px; border-radius:50%; border:2px solid var(--sym-health); margin-bottom:14px; position:relative}
+  .dim-icon::after{content:''; position:absolute; inset:8px; border-radius:50%; background:var(--sym-health)}
+  .dim-card.emotional .dim-icon{border-color:var(--sym-protect)}
+  .dim-card.emotional .dim-icon::after{background:var(--sym-protect)}
+  .dim-card.spiritual .dim-icon{border-color:var(--sym-channel)}
+  .dim-card.spiritual .dim-icon::after{background:var(--sym-channel)}
+  .dim-title{font-weight:800; font-size:1.05rem; color:var(--teal-dark); margin-bottom:12px}
+  .dim-list{list-style:none; display:flex; flex-direction:column; gap:6px}
+  .dim-list li{font-size:0.85rem; color:var(--text-mid); padding-right:16px; position:relative}
+  .dim-list li::before{content:'•'; color:var(--gold); position:absolute; right:0}
+
+  /* ── Testimonials ── */
+  .testimonials{background:var(--off-white)}
+  .vt-carousel{position:relative; margin-bottom:28px}
+  .video-testimonials-grid{display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; padding:4px 2px 12px; scrollbar-width:none; cursor:grab}
+  .video-testimonials-grid::-webkit-scrollbar{display:none}
+  .video-testimonials-grid.dragging, .testimonials-grid.dragging{cursor:grabbing; user-select:none}
+  .video-testimonials-grid .vt-card{flex:0 0 280px; scroll-snap-align:start}
+  .vt-card{background:var(--white); border-radius:20px; overflow:hidden; border:1px solid rgba(1,108,145,0.09); box-shadow:0 10px 30px rgba(1,92,120,0.07)}
+  .vt-media{position:relative; width:100%; aspect-ratio:16/9; background:#000}
+  .vt-media video, .vt-media iframe{position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; pointer-events:none}
+  .vt-info{padding:18px 20px 14px}
+  .vt-name{font-weight:800; color:var(--teal-dark); font-size:1rem; margin-bottom:4px}
+  .vt-role{font-size:0.85rem; color:var(--text-mid)}
+
+  .vt-play{position:absolute; inset:0; width:100%; height:100%; border:0; background:rgba(1,20,26,0.18); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:background 200ms ease}
+  .vt-play:hover{background:rgba(1,20,26,0.32)}
+  .vt-play-icon{width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.92); box-shadow:0 8px 22px rgba(0,0,0,0.3);
+    display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0; transition:transform 200ms ease}
+  .vt-play:hover .vt-play-icon{transform:scale(1.08)}
+  .vt-play-icon::after{content:''; width:0; height:0; border-style:solid; border-width:11px 0 11px 18px; border-color:transparent transparent transparent var(--teal-dark); margin-right:-4px}
+
+  .video-testimonials-grid.has-active .vt-card{transition:opacity 300ms ease}
+  .video-testimonials-grid.has-active .vt-card:not(.vt-active){opacity:0.4}
+
+  .vt-modal{position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:24px}
+  .vt-modal.open{display:flex}
+  .vt-modal-backdrop{position:absolute; inset:0; background:rgba(1,20,26,0.86)}
+  .vt-modal-inner{position:relative; width:100%; max-width:820px; aspect-ratio:16/9; background:#000; border-radius:16px; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,0.5)}
+  .vt-modal-inner video, .vt-modal-inner iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .vt-modal-close{position:absolute; top:24px; left:24px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);
+    color:#fff; font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1}
+  .vt-modal-close:hover{background:rgba(255,255,255,0.28)}
+  .vt-nav{position:absolute; top:36%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%;
+    background:var(--white); border:1px solid rgba(1,108,145,0.15); box-shadow:0 8px 20px rgba(1,92,120,0.16);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; color:var(--teal-dark); font-size:1.2rem; font-weight:800; transition:background 150ms ease}
+  .vt-nav:hover{background:var(--lav-pale)}
+  .vt-nav.next{left:-18px}
+  .vt-nav.prev{right:-18px}
+  @media(max-width:820px){
+    .vt-nav{display:none}
+  }
+  .tt-carousel{position:relative; margin-top:8px}
+  .testimonials-grid{display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; padding:4px 2px 12px; scrollbar-width:none; cursor:grab}
+  .testimonials-grid::-webkit-scrollbar{display:none}
+  .testimonials-grid .t-card{flex:0 0 320px; scroll-snap-align:start}
+  .t-card{background:var(--lav-pale); border-radius:20px; padding:28px 26px; position:relative}
+  .t-stars{color:var(--gold); margin-bottom:12px; font-size:0.9rem}
+  .t-text{font-size:0.92rem; color:var(--text-body); line-height:1.8; margin-bottom:18px}
+  .t-author{display:flex; align-items:center; gap:12px}
+  .t-avatar{width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0}
+  .t-name{font-size:0.86rem; font-weight:700; color:var(--teal-dark)}
+  .t-role{font-size:0.76rem; color:var(--text-mid)}
+
+  /* ── CTA form ── */
+  .cta-section{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid)); text-align:center; color:#fff}
+  .cta-section h2{font-size:clamp(1.5rem,3vw,2rem); font-weight:800; margin-bottom:14px}
+  .cta-section .lead{max-width:520px; margin:0 auto 34px; opacity:0.92; line-height:1.8}
+  .cta-form{max-width:440px; margin:0 auto; background:rgba(255,255,255,0.08); border-radius:20px; padding:28px; text-align:right}
+  .form-group{margin-bottom:14px}
+  .cta-form input, .cta-form select{width:100%; padding:12px 14px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem}
+  .phone-row{display:flex; gap:8px}
+  .phone-row select{max-width:110px}
+  .btn-submit{width:100%; margin-top:6px; background:#fff; color:var(--teal-dark); padding:14px; border:none; border-radius:12px; font-size:1rem; font-weight:800; cursor:pointer; transition:opacity 150ms ease}
+  .btn-submit:disabled{opacity:0.5; cursor:not-allowed}
+
+  footer{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.1); padding:40px 20px 30px; text-align:center; color:var(--text-mid); font-size:0.85rem}
+  footer a{text-decoration:none; color:var(--text-mid); margin:0 8px}
+  footer a:hover{color:var(--teal-dark)}
+  .footer-social{display:flex; justify-content:center; gap:16px; margin-top:18px}
+  .footer-social a{display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; background:var(--lav-pale); transition:background 180ms ease, transform 180ms ease}
+  .footer-social a:hover{background:var(--gold); transform:translateY(-2px)}
+  .footer-social svg{width:18px; height:18px; display:block}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="havaya_logo_hero.png" alt="הוויה — האקדמיה להפצת האור" onerror="this.style.display='none'">
+    </a>
+    <nav id="mainNav">
+      <a href="index.html" class="active">דף הבית</a>
+      <a href="courses-orbit.html">מפת קורסים</a>
+      <a href="study-track.html">מסלול לימוד</a>
+      <a href="personal-treatments.html">טיפולים אישיים</a>
+      <a href="practitioners.html">מטפלים מוסמכים</a>
+      <a href="about-irit.html">מי אנחנו</a>
+      <a href="blog.html">בלוג</a>
+      <a href="events.html">אירועים</a>
+    </nav>
+    <a class="header-cta" href="#contact">קביעת שיחת היכרות</a>
+    <button class="nav-toggle" id="navToggle" aria-label="תפריט" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-logo fade-up">
+      <img src="hands_sky_banner.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'">
+      <img class="sharp" src="hands_sky_banner.jpg" alt="שתי כפות ידיים מול שמיים וענן, עם ניצוץ אור ביניהן" onerror="this.style.display='none'">
+    </div>
+    <div class="hero-divider fade-up"></div>
+    <h1 class="hero-quote fade-up">"כאשר הנשמה מתחברת אל האור — הריפוי מתרחש."</h1>
+    <div class="cta-group fade-up">
+      <a href="courses-orbit.html" class="btn-primary">גלי את הקורסים</a>
+      <a href="#contact" class="btn-secondary">שיחת היכרות חינם</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST ═══ -->
+<section class="trust">
+  <div class="container">
+    <p class="trust-sub fade-up">מתקשרת, מטפלת רוחנית ומנחת קבוצות — למעלה מ-25 שנים במגוון כלים, בהנחיית אירית רולניק.</p>
+  </div>
+</section>
+
+<!-- ═══ COURSES (מוסתר לפי בקשת רפי, 8.2026 - נשאר בקוד למקרה שאירית תרצה אותו בחזרה, לא נמחק) ═══ -->
+<section class="courses" id="courses" style="display:none">
+  <canvas id="coursesParticles"></canvas>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">מה לומדים אצלנו</div>
+      <h2 class="section-title">הקורסים והסדנאות</h2>
+      <p class="section-desc">חמישה מסלולים עיקריים — מהצעד הראשון ועד הסמכה מלאה כמטפל/ת</p>
+    </div>
+    <div class="courses-grid" id="coursesGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ GIFT ═══ -->
+<section>
+  <div class="gift fade-up">
+    <div class="gift-inner">
+      <div class="gift-icon"></div>
+      <div class="gift-text">
+        <h2>מדיטציה מוקלטת — מתנה</h2>
+        <p>מתנה קטנה להיכרות עם הדרך, לפני שמתחייבים לקורס</p>
+      </div>
+    </div>
+    <span class="soon-badge">בקרוב</span>
+  </div>
+</section>
+
+<!-- ═══ DIMENSIONS ═══ -->
+<section class="dims">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">הגישה שלנו</div>
+      <h2 class="section-title">ריפוי בשלושה רבדים</h2>
+    </div>
+    <div class="dims-grid">
+      <div class="dim-card spiritual fade-up">
+        <div class="dim-icon"></div>
+        <div class="dim-title">רוחני</div>
+        <ul class="dim-list"><li>חיבור לעצמי הגבוה</li><li>פיתוח אינטואיציה ותקשור</li><li>פתיחת היצירתיות</li><li>כוח להשפיע על המציאות</li></ul>
+      </div>
+      <div class="dim-card emotional fade-up">
+        <div class="dim-icon"></div>
+        <div class="dim-title">נפשי ורגשי</div>
+        <ul class="dim-list"><li>שחרור מתח ופחד</li><li>ריפוי דכאון והתמכרויות</li><li>שחרור כעסים וטראומות</li><li>הרפיה עמוקה של גוף ונפש</li></ul>
+      </div>
+      <div class="dim-card fade-up">
+        <div class="dim-icon"></div>
+        <div class="dim-title">פיזי</div>
+        <ul class="dim-list"><li>שחרור כאבים כרוניים</li><li>חיזוק המערכת החיסונית</li><li>איזון לחץ דם והורמונלי</li><li>החלמה מהירה ממחלות וניתוחים</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">חוויות מהקורסים</div>
+      <h2 class="section-title">מה אומרות הבוגרות?</h2>
+    </div>
+    <div class="vt-carousel">
+    <button class="vt-nav prev" id="vtPrev" aria-label="הבוגר/ת הקודם/ת"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button class="vt-nav next" id="vtNext" aria-label="הבוגר/ת הבא/ה"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <div class="video-testimonials-grid" id="vtTrack">
+      <div class="vt-card fade-up">
+        <div class="vt-info">
+          <div class="vt-name">שרון גוטליב</div>
+          <div class="vt-role">בוגרת קורס רייקי 1+2</div>
+        </div>
+        <div class="vt-media">
+          <video preload="metadata" src="testimonial_sharon_gotlieb.mp4"></video>
+          <button class="vt-play" type="button" data-video="testimonial_sharon_gotlieb.mp4" aria-label="הפעלת הסרטון של שרון גוטליב"><span class="vt-play-icon"></span></button>
+        </div>
+      </div>
+      <div class="vt-card fade-up">
+        <div class="vt-info">
+          <div class="vt-name">מירי צ'יגירינסקי</div>
+          <div class="vt-role">בוגרת קורס רייקי 1+2</div>
+        </div>
+        <div class="vt-media">
+          <iframe src="https://drive.google.com/file/d/15YUWhlNIx3K6g9h84gsmS_7ZHLG_ighc/preview" allow="autoplay" allowfullscreen></iframe>
+          <button class="vt-play" type="button" data-iframe="https://drive.google.com/file/d/15YUWhlNIx3K6g9h84gsmS_7ZHLG_ighc/preview" aria-label="הפעלת הסרטון של מירי צ'יגירינסקי"><span class="vt-play-icon"></span></button>
+        </div>
+      </div>
+      <div class="vt-card fade-up">
+        <div class="vt-info">
+          <div class="vt-name">ויויאנה רזניק</div>
+          <div class="vt-role">עברה טיפולים וקורסים אצל אירית</div>
+        </div>
+        <div class="vt-media">
+          <video preload="metadata" src="testimonial_viviana_reznik.mp4"></video>
+          <button class="vt-play" type="button" data-video="testimonial_viviana_reznik.mp4" aria-label="הפעלת הסרטון של ויויאנה רזניק"><span class="vt-play-icon"></span></button>
+        </div>
+      </div>
+      <div class="vt-card fade-up">
+        <div class="vt-info">
+          <div class="vt-name">קרן וייס</div>
+          <div class="vt-role">בוגרת קורס רייקי 1+2</div>
+        </div>
+        <div class="vt-media">
+          <video preload="metadata" src="testimonial_keren_weiss.mp4"></video>
+          <button class="vt-play" type="button" data-video="testimonial_keren_weiss.mp4" aria-label="הפעלת הסרטון של קרן וייס"><span class="vt-play-icon"></span></button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="vt-modal" id="vtModal">
+      <div class="vt-modal-backdrop"></div>
+      <button class="vt-modal-close" id="vtModalClose" aria-label="סגירה">×</button>
+      <div class="vt-modal-inner" id="vtModalInner"></div>
+    </div>
+
+    <div class="tt-carousel">
+    <button class="vt-nav prev" id="ttPrev" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+    <button class="vt-nav next" id="ttNext" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+    <div class="testimonials-grid" id="ttTrack">
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">אירית יקרה, כמי שהשתתפה בקורס תקשור שהעברת, אני רוצה ראשית להודות לך מקרב הלב, על לימוד בהיר, בבחינת הבנה ברורה, ובבחינת מלא באור. אור של האהבה, הקלילות, הידע והשמחה השופעים ממך ומשפיעים על המשתתפים. מודה לך על הידע הרב והשיטה שהעברת לנו תלמידיך בנדיבות, באהבה, ומתוך כבוד והערכה ליכולויות שלנו.<br><br>הלימוד איתך פתח לי פתח רחב יותר אל עצמי, אל הידע המצוי בי ולרשותי, בנה בי אמון רב יותר בעצמי, בהדרכה ובנשמתי. וזה מבחינתי הוא שינוי אדיר, כמי שסרבה בגלל פחדים לפתוח עצמה להדרכה ולנשמתה.<br><br>אני מוצאת עצמי יותר ויותר מאמינה לקול הפנימי שלי, יותר יודעת ומבינה את שקורה, בהיבט רחב יותר, עמוק יותר וגבוה יותר. הקשר ממשיך להתפתח ולהיבנות בכל פעם יותר, ואיתו תחושת הביטחון והידיעה שאינני לבד אף פעם. תודה לך שאפשרת כל אלו.</p>
+        <div class="t-author"><div class="t-avatar">ר</div><div><div class="t-name">ר.מ.</div><div class="t-role">בוגרת קורס תיקשור</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">אירית היקרה! תודה רבה על 9 שיעורים מעניינים, מלמדים, מצמיחים ומפתחים. התחברתי מאוד לתוכן הקורס, הוא היה מעשי ואני עכשיו גם רואה את תוצאותיו בחוץ. בזכותך הצלחתי למצוא את המקום שלי להתחברות שמרגיש נכון עבורי, ומפה הדרך שלי להפיץ את האור הלאה. תודה לך על האפשרות ועל הליווי, תודה על הקבוצה המדהימה שהייתה לנו. תודה על הגמישות, ההבנה, התמיכה והליווי. הכל מדויק בחיים וזו ההוכחה לכך ✨🪷</p>
+        <div class="t-author"><div class="t-avatar">א</div><div><div class="t-name">א.כ.</div><div class="t-role">בוגר/ת קורס תיקשור</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">אירית'שששש, אני כבר כמה שבועות רוצה להודות לך, לכתוב לך מהלב שלי ולהגיד, שלמרות ההתנגדות שהייתה לי בהתחלה — הפחדים, הקושי, החששות, השיפוטיות — בזכות המסע המשותף שלנו נפתח לי עולם שלם. הקורסים שלך והדרך שצעדנו יחד היתה אבן דרך מאוד משמעותית בהתפתחות הרוחנית ובשליחות שלי. אז רציתי להגיד לך תודה 🥹<br><br>אני חושבת שלקח לי זמן לעכל ולקלוט, ושהגיע הרגע שבו אני ממש רוצה להודות לך על היותך, על הדרך שלך ועל ההנחיה שלך.. מודה על האמונה והסובלנות כלפי בדרך הרוחנית ועל התמיכה ברגעים השבר קשים 🙌🏼<br><br>אני מודה עלייך ולך, אני שמחה על החיבור שנוצר בינינו 🙏</p>
+        <div class="t-author"><div class="t-avatar">מ</div><div><div class="t-name">מ.צ.</div><div class="t-role">בוגרת רייקי ומפתחות חנוך</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">ערב טוב ⭐⭐⭐ סיפרתי אתמול לאמא שלך, לבת שלי היה 38 מעלות חום. נילחצתי בהתחלה, אבל אחר כך כשנכנסתי לישון עשיתי לה רייקי מרחוק, ולמחרת קמה בלי חום, הכל בסדר והלכה לגן כרגיל 💖🦄🥳💪<br><br>עשיתי רייקי לחברה שלי ולבת שלה בחוף הים, מיד הגיע כלב לבן והתיישב לי מתחת לכיסא. שתיהן הרגישו מעולה 💚🔥💪 עושה לעצמי ומרגישה את אנרגיית האהבה של הרייקי. תחושה טובה!!<br><br>תודה רבה וחג שמח ושנה טובה מתוקה ומאושרת מלאה בפריצות דרך 🐠🐠🐠😇 ❤️❤️❤️ באהבה 🙏</p>
+        <div class="t-author"><div class="t-avatar">י</div><div><div class="t-name">י.א.</div><div class="t-role">בוגרת קורס רייקי</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">הולה אירית, תודה שוב על הקורס ועל האנרגיות וההכוונות. בא לי טוב מאוד ועשה אימפקט גדול! עוד יומיים כבר 3 שבועות נקי מסיגריות — דבר שלא קרה לי מאז שהתחלתי.</p>
+        <div class="t-author"><div class="t-avatar">א</div><div><div class="t-name">א.א.</div><div class="t-role">בוגר קורס רייקי</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">אירית היקרה ❤️, רציתי להגיד תודה רבה לך ולכל הפמלייה של: חנוך הבורא, שלמה, מיכאל וכל מי שנמצא. תודה על כל הקורס המדהים, על האנרגיות, הסבלנות — שאני יודעת שזה רק ההתחלה 😃 ואין לי מילים. תודה על כל הליווי המדהים שלך ושל החניכות, ועל כל התשובות שאת עונה לי תמיד בכל שעה. ואני יודעת שהקורס הזה בא לעזור לי לרפא את עצמי ולהגשים את עצמי ולרפא גם אנשים 😃 מחכה כבר לקורס של מטטרון ❤️</p>
+        <div class="t-author"><div class="t-avatar">ר</div><div><div class="t-name">ר.כ.</div><div class="t-role">בוגרת מפתחות חנוך</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">הי, זאת שוב אני. רציתי להגיד לך תודה על מי שהינך, ואת מיוחדת בדרכך האכפתית, מעניקה, עוזרת עד שאבין (ושהקב"ה תבין) וכמה שאלות אני שואלת ושוב שואלת, ואת עונה בסבלנות אין קץ.<br><br>מפרגנת לך בהמון אהבה. הצליחי יקירה בכל מה שתעשי. תשמרי היקר לך מכל המשפחה 🙏🙏🙏</p>
+        <div class="t-author"><div class="t-avatar">ל</div><div><div class="t-name">ל.ש.</div><div class="t-role">בוגרת קורס הילינג</div></div></div>
+      </div>
+      <div class="t-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">אירית, רק רציתי לפרגן ולהגיד שאת אלופה. מורה פשוט מצוינת וסבלנית אין קץ. אני מרותקת ללמוד ממך את הנושאים הללו.<br><br>חוויה מדהימה בשבילי.<br><br>כשאת מלמדת מרגישים שאת ביעוד שלך.<br><br>תודה 🙏 על כל מה שאת עושה.</p>
+        <div class="t-author"><div class="t-avatar">א</div><div><div class="t-name">א.ק.</div><div class="t-role">בוגרת קורס הילינג</div></div></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METHOD TOPICS (כותרות בלבד, אירית תשלח תוכן בהמשך) ═══ -->
+<section class="method-topics">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">השיטה של הוויה</div>
+      <h2 class="section-title">על השיטה</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-card fade-up">
+        <div class="method-icon"></div>
+        <h3 class="method-title">איך השיטה עובדת</h3>
+        <span class="soon-badge">בקרוב</span>
+      </div>
+      <div class="method-card fade-up">
+        <div class="method-icon"></div>
+        <h3 class="method-title">למי השיטה יכולה לעזור?</h3>
+        <span class="soon-badge">בקרוב</span>
+      </div>
+      <div class="method-card fade-up">
+        <div class="method-icon"></div>
+        <h3 class="method-title">למי הלימודים מתאימים?</h3>
+        <span class="soon-badge">בקרוב</span>
+      </div>
+      <div class="method-card fade-up">
+        <div class="method-icon"></div>
+        <h3 class="method-title">מייסדת השיטה</h3>
+        <span class="soon-badge">בקרוב</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ (כותרת בלבד, אירית תשלח תוכן בהמשך) ═══ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">לפני שמתחילים</div>
+      <h2 class="section-title">שאלות ותשובות</h2>
+      <span class="soon-badge">בקרוב</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section" id="contact">
+  <h2>מוכנה לצעד הבא?</h2>
+  <p class="lead">השאירי פרטים ואנחנו נחזור אלייך אישית לתיאום שיחת היכרות</p>
+  <div class="cta-form fade-up">
+    <div class="form-group">
+      <input id="f-name" type="text" placeholder="שם מלא" autocomplete="name" oninput="checkForm()">
+    </div>
+    <div class="form-group phone-row">
+      <input id="f-phone-num" type="text" maxlength="7" placeholder="מספר טלפון" oninput="checkForm()">
+      <select id="f-phone-prefix" onchange="checkForm()">
+        <option value="">קידומת</option>
+        <option value="050">050</option><option value="052">052</option><option value="053">053</option>
+        <option value="054">054</option><option value="055">055</option><option value="058">058</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select id="f-interest">
+        <option value="">מתעניינת ב... (אופציונלי)</option>
+        <option>תקשור קו אמצע עם המלאך מיכאל</option>
+        <option>הילינג מטפלים ב׳ - חיבור לנשמה</option>
+        <option>רייקי 1+2</option>
+        <option>רייקי 3 מאסטר טיפולי</option>
+        <option>קורס שנתי — מפתחות חנוך, מטטרון והמלך שלמה</option>
+        <option>טיפול אנרגטי רגשי ותקשור</option>
+        <option>עוד לא בטוחה — שיחת ייעוץ</option>
+      </select>
+    </div>
+    <button class="btn-submit" id="btn-submit" onclick="sendToWhatsApp()" disabled>שליחה בוואטסאפ ←</button>
+  </div>
+</section>
+
+<footer>
+  <div>© הוויה — האקדמיה להפצת האור · כפר סבא</div>
+  <div class="footer-social">
+    <a href="tel:+972504084159" aria-label="טלפון"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+    <a href="mailto:rolnik.irit@gmail.com" aria-label="אימייל"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    <a href="https://api.whatsapp.com/send?phone=972504084159" aria-label="וואטסאפ"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 360 362"><path fill="#25D366" fill-rule="evenodd" d="M307.546 52.566C273.709 18.684 228.706.017 180.756 0 81.951 0 1.538 80.404 1.504 179.235c-.017 31.594 8.242 62.432 23.928 89.609L0 361.736l95.024-24.925c26.179 14.285 55.659 21.805 85.655 21.814h.077c98.788 0 179.21-80.413 179.244-179.244.017-47.898-18.608-92.926-52.454-126.807v-.008Zm-126.79 275.788h-.06c-26.73-.008-52.952-7.194-75.831-20.765l-5.44-3.231-56.391 14.791 15.05-54.981-3.542-5.638c-14.912-23.721-22.793-51.139-22.776-79.286.035-82.14 66.867-148.973 149.051-148.973 39.793.017 77.198 15.53 105.328 43.695 28.131 28.157 43.61 65.596 43.593 105.398-.035 82.149-66.867 148.982-148.982 148.982v.008Zm81.719-111.577c-4.478-2.243-26.497-13.073-30.606-14.568-4.108-1.496-7.09-2.243-10.073 2.243-2.982 4.487-11.568 14.577-14.181 17.559-2.613 2.991-5.226 3.361-9.704 1.117-4.477-2.243-18.908-6.97-36.02-22.226-13.313-11.878-22.304-26.54-24.916-31.027-2.613-4.486-.275-6.91 1.959-9.136 2.011-2.011 4.478-5.234 6.721-7.847 2.244-2.613 2.983-4.486 4.478-7.469 1.496-2.991.748-5.603-.369-7.847-1.118-2.243-10.073-24.289-13.812-33.253-3.636-8.732-7.331-7.546-10.073-7.692-2.613-.13-5.595-.155-8.586-.155-2.991 0-7.839 1.118-11.947 5.604-4.108 4.486-15.677 15.324-15.677 37.361s16.047 43.344 18.29 46.335c2.243 2.991 31.585 48.225 76.51 67.632 10.684 4.615 19.029 7.374 25.535 9.437 10.727 3.412 20.49 2.931 28.208 1.779 8.604-1.289 26.498-10.838 30.228-21.298 3.73-10.46 3.73-19.433 2.613-21.298-1.117-1.865-4.108-2.991-8.586-5.234l.008-.017Z" clip-rule="evenodd"/></svg></a>
+    <a href="https://www.facebook.com/iritrolnik.havaya/" target="_blank" rel="noopener" aria-label="פייסבוק"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666.667 666.667"><defs><clipPath id="fbclip"><path d="M0 700h700V0H0Z"/></clipPath></defs><g clip-path="url(#fbclip)" transform="matrix(1.33333 0 0 -1.33333 -133.333 800)"><path d="M0 0c0 138.071-111.929 250-250 250S-500 138.071-500 0c0-117.245 80.715-215.622 189.606-242.638v166.242h-51.552V0h51.552v32.919c0 85.092 38.508 124.532 122.048 124.532 15.838 0 43.167-3.105 54.347-6.211V81.986c-5.901.621-16.149.932-28.882.932-40.993 0-56.832-15.528-56.832-55.9V0h81.659l-14.028-76.396h-67.631v-171.773C-95.927-233.218 0-127.818 0 0" fill="#0866ff" transform="translate(600 350)"/><path d="m0 0 14.029 76.396H-67.63v27.019c0 40.372 15.838 55.899 56.831 55.899 12.733 0 22.981-.31 28.882-.931v69.253c-11.18 3.106-38.509 6.212-54.347 6.212-83.539 0-122.048-39.441-122.048-124.533V76.396h-51.552V0h51.552v-166.242a250.559 250.559 0 0 1 60.394-7.362c10.254 0 20.358.632 30.288 1.831V0Z" fill="#fff" transform="translate(447.918 273.604)"/></g></svg></a>
+    <a href="https://www.instagram.com/iritrolnik" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264.583 264.583"><defs><radialGradient id="igA" cx="158.429" cy="578.088" r="52.352" gradientTransform="matrix(0 -4.03418 4.28018 0 -2332.227 942.236)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fc0"/><stop offset=".124" stop-color="#fc0"/><stop offset=".567" stop-color="#fe4a05"/><stop offset=".694" stop-color="#ff0f3f"/><stop offset="1" stop-color="#fe0657" stop-opacity="0"/></radialGradient><radialGradient id="igB" cx="199.788" cy="628.438" r="52.352" gradientTransform="matrix(-3.10797 .87652 -.6315 -2.23914 1345.65 1374.198)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff005f"/><stop offset="1" stop-color="#fc01d8"/></radialGradient></defs><path fill="url(#igB)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igA)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="#fff" d="M132.345 33.973c-26.716 0-30.07.117-40.563.594-10.472.48-17.62 2.136-23.876 4.567-6.47 2.51-11.958 5.87-17.426 11.335-5.472 5.464-8.834 10.948-11.354 17.412-2.44 6.252-4.1 13.397-4.57 23.858-.47 10.486-.593 13.838-.593 40.535 0 26.697.119 30.037.594 40.522.482 10.465 2.14 17.609 4.57 23.859 2.515 6.465 5.876 11.95 11.346 17.414 5.466 5.468 10.955 8.834 17.42 11.345 6.26 2.431 13.41 4.088 23.881 4.567 10.493.477 13.844.594 40.559.594 26.719 0 30.061-.117 40.555-.594 10.472-.48 17.63-2.136 23.888-4.567 6.468-2.51 11.948-5.877 17.414-11.345 5.472-5.464 8.834-10.949 11.354-17.412 2.419-6.252 4.079-13.398 4.57-23.858.472-10.486.595-13.828.595-40.525s-.123-30.047-.594-40.533c-.492-10.465-2.152-17.608-4.57-23.858-2.521-6.466-5.883-11.95-11.355-17.414-5.472-5.468-10.944-8.827-17.42-11.335-6.271-2.431-13.424-4.088-23.897-4.567-10.493-.477-13.834-.594-40.558-.594zm-8.825 17.715c2.62-.004 5.542 0 8.825 0 26.266 0 29.38.094 39.752.565 9.591.438 14.797 2.04 18.264 3.385 4.591 1.782 7.864 3.912 11.305 7.352 3.443 3.44 5.575 6.717 7.362 11.305 1.346 3.46 2.951 8.663 3.388 18.247.47 10.363.573 13.475.573 39.71 0 26.233-.102 29.346-.573 39.709-.44 9.584-2.042 14.786-3.388 18.247-1.783 4.587-3.919 7.854-7.362 11.292-3.443 3.441-6.712 5.57-11.305 7.352-3.463 1.352-8.673 2.95-18.264 3.388-10.37.47-13.486.573-39.752.573-26.268 0-29.38-.102-39.751-.573-9.592-.443-14.797-2.044-18.267-3.39-4.59-1.781-7.87-3.911-11.313-7.352-3.443-3.44-5.574-6.709-7.362-11.298-1.346-3.461-2.95-8.663-3.387-18.247-.472-10.363-.566-13.476-.566-39.726s.094-29.347.566-39.71c.438-9.584 2.04-14.786 3.387-18.25 1.783-4.588 3.919-7.865 7.362-11.305 3.443-3.441 6.722-5.57 11.313-7.357 3.468-1.351 8.675-2.949 18.267-3.389 9.075-.41 12.592-.532 30.926-.553zm61.337 16.322c-6.518 0-11.805 5.277-11.805 11.792 0 6.512 5.287 11.796 11.805 11.796 6.517 0 11.804-5.284 11.804-11.796 0-6.513-5.287-11.796-11.805-11.796zm-52.512 13.782c-27.9 0-50.519 22.603-50.519 50.482 0 27.879 22.62 50.471 50.52 50.471s50.51-22.592 50.51-50.471c0-27.879-22.613-50.482-50.513-50.482zm0 17.715c18.11 0 32.792 14.67 32.792 32.767 0 18.096-14.683 32.767-32.792 32.767-18.11 0-32.791-14.671-32.791-32.767 0-18.098 14.68-32.767 32.791-32.767z"/></svg></a>
+    <a href="accessibility-statement.html" aria-label="הצהרת נגישות"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--teal-dark)" d="M12 2a2.2 2.2 0 1 1 0 4.4A2.2 2.2 0 0 1 12 2zm9 7.4-6-1.2v3.4l3.6 1.2-1 3-3-1v7.2h-2v-5.6h-1.2V22H9.4v-7.2l-3 1-1-3L9 11.6V8.2L3 9.4l-.4-2L9 6.1c.6-.9 1.7-1.5 3-1.5s2.4.6 3 1.5l6.4 1.3-.4 2z"/></svg></a>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+/* ⚠️ כל קורס שמופיע בטבלאות "מסלול לימוד" (שנה א' ושנה ב') מקבל כאן כרטיס משלו, באותו
+   סדר שהוא מופיע שם. sessions/price מגיעים ישירות מאותה טבלה - נתונים אמיתיים ומאושרים,
+   לא הומצאו. רייקי 1+2 / תקשור מיכאל / הילינג מטפלים ב׳ - חיבור לנשמה כבר היו כרטיסים בפני עצמם -
+   רק הועשרו כאן במחיר האמיתי. שאר קורסי שנה א'+ב' הם כרטיסים חדשים.
+   קורסים בלי עמוד ייעודי משלהם (כל מה שחוץ מ-5 המקוריים) מקשרים ל-#year1/#year2 במסלול
+   הלימוד עצמו, שם יש את כל הפירוט - שם לא בודים עמוד ריק בשבילם.
+   רייקי 3 הוא היחיד שלא מופיע בטבלת מסלול הלימוד בכלל - אין לו sessions/price אמיתיים,
+   ולכן נשאר עם ה-meta הקיים ו"מחיר: יעודכן" בכנות.
+   image = תמונת/וידאו-תצוגה בצד המדיה - כרגע יש רק לרייקי 1+2 (תמונת הסרטון האמיתי). */
+const COURSES = [
+  // ── שנה א' ──
+  { name:'רייקי 1+2', desc:'ארבעה שבועות, מפגשי 3 שעות, קבוצה אינטימית. כולל אתחולים וקבוצת וואטסאפ תומכת עם הקלטות מהמפגשים.',
+    sessions:4, hoursPerSession:3, format:'זום או פרונטלי', price:2200, meta:'כולל סרטון היכרות + חומרי בונוס', page:'course-reiki.html',
+    image:'course_img_reiki12.jpg', featured:true },
+  { name:'קורס איזון והרמוניה', desc:'כלים לאיזון והרמוניה אנרגטית, כחלק ממסלול שנה א׳.',
+    sessions:4, hoursPerSession:3, format:'זום או פרונטלי', price:2000, page:'course-balance.html',
+    image:'course_img_balance.jpg' },
+  { name:'תקשור קו אמצע עם המלאך מיכאל', desc:'קורס לפיתוח יכולת התקשור דרך "קו האמצע" בחיבור לאנרגיית המלאך מיכאל.',
+    sessions:9, hoursPerSession:3, format:'זום או כפר סבא', price:4800, page:'course-michael.html',
+    image:'course_img_tikshoret.jpg' },
+  { name:'הילינג מטפלים א׳', desc:'יסודות הריפוי האנרגטי, כחלק ממסלול שנה א׳.',
+    sessions:5, hoursPerSession:3, format:'זום או פרונטלי', price:3800, page:'course-healing-basic.html',
+    image:'course_img_healing_basic.jpg' },
+  { name:'הילינג מטפלים ב׳ - חיבור לנשמה', desc:'תהליך ריפוי נפשי ורגשי עמוק, דרך שיטת חיבור לנשמה.',
+    sessions:10, hoursPerSession:3, format:'זום או פרונטלי', price:5250, page:'course-healing.html',
+    image:'course_img_healing.jpg' },
+  // ── שנה ב' ──
+  { name:'מפתחות המאסטר חנוך', desc:'מסלול שנה ב׳ — מפתחות המאסטר חנוך.',
+    sessions:8, hoursPerSession:3, format:'זום או פרונטלי', price:4200, page:'course-enoch.html',
+    image:'course_img_enoch.jpg' },
+  { name:'מפתחות המאסטר מטטרון', desc:'עבודה אנרגטית עמוקה עם אנרגיית המאסטר מטטרון, כחלק ממסלול שנה ב׳.',
+    sessions:8, hoursPerSession:3, format:'זום או פרונטלי', price:4200, page:'course-metatron.html',
+    image:'course_img_metatron.jpg' },
+  { name:'מפתחות המלך שלמה', desc:'עבודה אנרגטית עמוקה לפתיחת שדות, ריפוי האגו וחיבור לשפע ולאהבה, כחלק ממסלול שנה ב׳.',
+    sessions:9, hoursPerSession:3, format:'זום או פרונטלי', price:4800, page:'course-solomon-keys.html',
+    image:'course_img_keys_solomon.jpg' },
+  { name:'חותמות המלך שלמה', desc:'עבודה אנרגטית עמוקה לריפוי ההישרדות, שחרור קארמות וניקוי תת המודע, כחלק ממסלול שנה ב׳.',
+    sessions:6, hoursPerSession:3, format:'זום או פרונטלי', price:3200, page:'course-solomon-seals.html',
+    image:'course_img_seals_solomon.jpg' },
+  // ── לא חלק מהמסלול השנתי ──
+  { name:'רייקי 3 מאסטר טיפולי', desc:'הכשרה מלאה למאסטר רייקי, כולל אתחולים והעברת סמלים.', meta:'הכי מפורט — יש דף נחיתה ייעודי', page:'course-reiki3.html',
+    image:'course_img_reiki3.jpg' },
+];
+
+document.getElementById('coursesGrid').innerHTML = COURSES.map(c => {
+  const stats = c.sessions
+    ? `<div class="c-stats">
+        <div>${c.sessions} מפגשים · ${c.hoursPerSession} שעות למפגש</div>
+        <div>${c.sessions * c.hoursPerSession} שעות לימוד סה״כ · ${c.format}</div>
+      </div>`
+    : (c.meta ? `<div class="c-meta">${c.meta}</div>` : '');
+  const priceHTML = c.price
+    ? `<span class="price-real">${c.price.toLocaleString()} ₪</span>`
+    : `<span class="price-tbd">מחיר: יעודכן</span>`;
+  return `
+  <a class="c-card fade-up" href="${c.page}" style="text-decoration:none; color:inherit">
+    <div class="c-body">
+      <div class="c-name">${c.name}</div>
+      <div class="c-desc">${c.desc}</div>
+      ${stats}
+      <div class="c-price">
+        ${priceHTML}
+        <span class="c-link">לפרטים ←</span>
+      </div>
+    </div>
+    <div class="c-media"${c.image ? ` style="background-image:url('${c.image}')"` : ''}>
+      ${c.featured ? '<span class="c-featured-tag">הקורס המומלץ</span>' : ''}
+    </div>
+  </a>`;
+}).join('');
+
+/* Ambient rising-light particles, ported to plain canvas (no React) - same technique
+   as the reference component, in the site's gold/cream palette instead of blue/white. */
+(function initCoursesParticles(){
+  const canvas = document.getElementById('coursesParticles');
+  const section = document.getElementById('courses');
+  if (!canvas || !section) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function makeParticle(w, h){
+    const p = {};
+    p.reset = function(){
+      p.x = Math.random() * w;
+      p.y = Math.random() * h;
+      p.speed = Math.random() / 5 + 0.1;
+      p.opacity = 1;
+      p.fadeStart = Date.now() + Math.random() * 6000 + 1000;
+      p.fadingOut = false;
+    };
+    p.update = function(){
+      p.y -= p.speed;
+      if (p.y < 0) p.reset();
+      if (!p.fadingOut && Date.now() > p.fadeStart) p.fadingOut = true;
+      if (p.fadingOut){
+        p.opacity -= 0.008;
+        if (p.opacity <= 0) p.reset();
+      }
+    };
+    p.draw = function(){
+      const warmth = 200 + Math.random() * 55;
+      ctx.fillStyle = `rgba(${warmth}, ${170 + Math.random()*40}, 110, ${p.opacity * 0.8})`;
+      ctx.fillRect(p.x, p.y, 0.6, Math.random() * 2 + 1);
+    };
+    p.reset();
+    p.y = Math.random() * h;
+    return p;
+  }
+
+  function resize(){
+    canvas.width = section.clientWidth;
+    canvas.height = section.clientHeight;
+    const count = Math.floor((canvas.width * canvas.height) / 9000);
+    particles = Array.from({length: count}, () => makeParticle(canvas.width, canvas.height));
+  }
+
+  function tick(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(tick);
+})();
+
+
+function checkForm(){
+  const name = document.getElementById('f-name').value.trim();
+  const prefix = document.getElementById('f-phone-prefix').value;
+  const num = document.getElementById('f-phone-num').value.trim();
+  const valid = name.length > 1 && prefix !== '' && num.length === 7;
+  document.getElementById('btn-submit').disabled = !valid;
+}
+
+function sendToWhatsApp(){
+  const name = document.getElementById('f-name').value.trim();
+  const prefix = document.getElementById('f-phone-prefix').value;
+  const num = document.getElementById('f-phone-num').value.trim();
+  const interest = document.getElementById('f-interest').value;
+  const phone = prefix + '-' + num;
+
+  const lines = [
+    'שלום אירית!',
+    'קיבלת פנייה חדשה מהאתר:',
+    '',
+    '*שם:* ' + name,
+    '*טלפון:* ' + phone,
+    interest ? '*מתעניינת ב:* ' + interest : '',
+    '',
+    'המתעניינת מבקשת לשמוע עוד.',
+  ].filter(Boolean);
+
+  const url = 'https://wa.me/972504084159?text=' + encodeURIComponent(lines.join('\n'));
+  window.open(url, '_blank');
+  window.open('https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3fw6nNRFyfaIAb-T05neMX2W1qB49BQYsjzv_0bJEaQhkHNA2pTQEsXsgUzvKkK8svkPKoaNt3', '_blank');
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+/* Mobile menu: the nav collapses under 900px (see @media rule), this button reveals it. */
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mainNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => dd.classList.remove('open'));
+  });
+});
+
+document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const dropdown = btn.closest('.nav-dropdown');
+    const isOpen = dropdown.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+});
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+    if (!dd.contains(e.target)) {
+      dd.classList.remove('open');
+      dd.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+      dd.classList.remove('open');
+      dd.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
+/* ── Video testimonials carousel ── */
+const vtTrack = document.getElementById('vtTrack');
+const vtCards = Array.from(vtTrack.querySelectorAll('.vt-card'));
+let vtIndex = 0;
+function vtScrollTo(i){
+  vtIndex = (i + vtCards.length) % vtCards.length;
+  vtCards[vtIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+}
+document.getElementById('vtNext').addEventListener('click', () => vtScrollTo(vtIndex + 1));
+document.getElementById('vtPrev').addEventListener('click', () => vtScrollTo(vtIndex - 1));
+
+/* ── Text testimonials carousel ── */
+const ttTrack = document.getElementById('ttTrack');
+const ttCards = Array.from(ttTrack.querySelectorAll('.t-card'));
+let ttIndex = 0;
+function ttScrollTo(i){
+  ttIndex = (i + ttCards.length) % ttCards.length;
+  ttCards[ttIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+}
+document.getElementById('ttNext').addEventListener('click', () => ttScrollTo(ttIndex + 1));
+document.getElementById('ttPrev').addEventListener('click', () => ttScrollTo(ttIndex - 1));
+
+/* ── Hover-to-scroll on the nav arrows: hold the mouse over an arrow and
+   the row scrolls continuously toward it (no repeated clicking needed to
+   page through many cards) — works with a mouse; touch/mobile still uses
+   the drag/swipe on the row itself. Page is RTL, so "next" moves scrollLeft
+   in the negative direction (see the RTL note on makeTrackDraggable). */
+function wireHoverAutoScroll(track, prevBtn, nextBtn, speed = 4){
+  let raf = null, dir = 0;
+  function loop(){
+    track.scrollLeft += dir * speed;
+    raf = requestAnimationFrame(loop);
+  }
+  function start(d){
+    dir = d;
+    track.classList.add('auto-scroll');
+    if (!raf) raf = requestAnimationFrame(loop);
+  }
+  function stop(){
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+    track.classList.remove('auto-scroll');
+  }
+  nextBtn.addEventListener('mouseenter', () => start(-1));
+  nextBtn.addEventListener('mouseleave', stop);
+  nextBtn.addEventListener('focus', () => start(-1));
+  nextBtn.addEventListener('blur', stop);
+  prevBtn.addEventListener('mouseenter', () => start(1));
+  prevBtn.addEventListener('mouseleave', stop);
+  prevBtn.addEventListener('focus', () => start(1));
+  prevBtn.addEventListener('blur', stop);
+
+  // גלגלת עכבר -> גלילה אופקית, אבל רק כשהעכבר ממש על כפתורי החץ - לא על כל
+  // השורה, אחרת אי אפשר לגלול את הדף למטה כשעוברים דרך אזור הקרוסלה
+  function wheelToScroll(e){
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      track.scrollLeft -= e.deltaY; // RTL: "קדימה" זז שלילי
+      e.preventDefault();
+    }
+  }
+  nextBtn.addEventListener('wheel', wheelToScroll, { passive: false });
+  prevBtn.addEventListener('wheel', wheelToScroll, { passive: false });
+}
+wireHoverAutoScroll(vtTrack, document.getElementById('vtPrev'), document.getElementById('vtNext'));
+wireHoverAutoScroll(ttTrack, document.getElementById('ttPrev'), document.getElementById('ttNext'));
+
+/* ── Carousel usability: click-and-drag with the mouse, for when the nav
+   arrows are hidden (narrow windows) or a user just tries the obvious
+   thing on desktop instead of hunting for tiny arrow buttons ── */
+function makeTrackDraggable(track){
+  // click-and-drag with the mouse
+  let isDown = false, startX = 0, startScroll = 0, moved = false;
+  track.addEventListener('mousedown', (e) => {
+    isDown = true; moved = false;
+    startX = e.clientX;
+    startScroll = track.scrollLeft;
+    track.classList.add('dragging');
+  });
+  window.addEventListener('mouseup', () => { isDown = false; track.classList.remove('dragging'); });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    track.scrollLeft = startScroll + dx;
+  });
+  // suppress the click-through (e.g. play button) right after a real drag
+  track.addEventListener('click', (e) => {
+    if (moved) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+}
+makeTrackDraggable(vtTrack);
+makeTrackDraggable(ttTrack);
+
+/* ── Video testimonials: play button → center card + exclusive fullscreen modal ── */
+const vtModal = document.getElementById('vtModal');
+const vtModalInner = document.getElementById('vtModalInner');
+const vtModalClose = document.getElementById('vtModalClose');
+
+function vtOpenModal(card, btn){
+  vtTrack.classList.add('has-active');
+  vtCards.forEach(c => c.classList.toggle('vt-active', c === card));
+  vtIndex = vtCards.indexOf(card);
+  card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+  vtModalInner.querySelectorAll('video, iframe').forEach(el => el.remove());
+  const videoSrc = btn.dataset.video;
+  const iframeSrc = btn.dataset.iframe;
+  let media;
+  if (videoSrc){
+    media = document.createElement('video');
+    media.src = videoSrc;
+    media.controls = true;
+    media.autoplay = true;
+    media.playsInline = true;
+  } else {
+    media = document.createElement('iframe');
+    media.src = iframeSrc;
+    media.allow = 'autoplay; fullscreen';
+    media.allowFullscreen = true;
+  }
+  vtModalInner.appendChild(media);
+  vtModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function vtCloseModal(){
+  vtModal.classList.remove('open');
+  document.body.style.overflow = '';
+  vtTrack.classList.remove('has-active');
+  vtCards.forEach(c => c.classList.remove('vt-active'));
+  vtModalInner.querySelectorAll('video, iframe').forEach(el => el.remove());
+}
+
+document.querySelectorAll('.vt-play').forEach(btn => {
+  btn.addEventListener('click', () => vtOpenModal(btn.closest('.vt-card'), btn));
+});
+vtModalClose.addEventListener('click', vtCloseModal);
+document.querySelector('.vt-modal-backdrop').addEventListener('click', vtCloseModal);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') vtCloseModal(); });
+</script>
+</body>
+</html>
