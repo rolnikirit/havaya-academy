@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <script src="accessibility.js"></script>
+<script>
+if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+window.addEventListener('pageshow', () => window.scrollTo(0, 0));
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הוויה — האקדמיה להפצת האור</title>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -78,7 +82,8 @@
     .brand{order:2}
     .header-cta{order:3}
     .nav-dropdown{width:100%; flex-direction:column; align-items:stretch}
-    .nav-dropdown-row{width:100%; justify-content:space-between; padding-left:6px}
+    .nav-dropdown-row{width:100%; justify-content:flex-start; gap:8px}
+    .nav-dropdown-toggle{background:rgba(255,255,255,0.14); border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; font-size:0.8rem; padding:0}
     .nav-dropdown-panel{position:static; box-shadow:none; margin-top:0; border-radius:0; background:transparent; padding:0}
     .nav-dropdown.open .nav-dropdown-panel{padding:4px 0 8px}
     .nav-dropdown-panel a{color:rgba(255,255,255,0.82); padding:10px 28px}
@@ -846,12 +851,32 @@ function ttScrollTo(i){
 document.getElementById('ttNext').addEventListener('click', () => ttScrollTo(ttIndex + 1));
 document.getElementById('ttPrev').addEventListener('click', () => ttScrollTo(ttIndex - 1));
 
+/* ── כפתורי הניווט מוצגים רק כשיש לאן לגלול בכיוון הזה: בכניסה לעמוד
+   (scrollLeft=0) אין "קודם" כי אין לאן לחזור, רק "הבא". ברגע שמתחילים
+   לגלול נוסף גם כפתור ה"קודם"; בסוף הרשימה נעלם ה"הבא". RTL: scrollLeft
+   שלילי ככל שגוללים קדימה, ולכן maxScroll הוא הערך השלילי ביותר. */
+function wireBoundaryVisibility(track, prevBtn, nextBtn){
+  function update(){
+    const maxScroll = -(track.scrollWidth - track.clientWidth);
+    prevBtn.style.display = track.scrollLeft >= -2 ? 'none' : '';
+    nextBtn.style.display = track.scrollLeft <= maxScroll + 2 ? 'none' : '';
+  }
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+wireBoundaryVisibility(vtTrack, document.getElementById('vtPrev'), document.getElementById('vtNext'));
+wireBoundaryVisibility(ttTrack, document.getElementById('ttPrev'), document.getElementById('ttNext'));
+
 /* ── Hover-to-scroll on the nav arrows: hold the mouse over an arrow and
    the row scrolls continuously toward it (no repeated clicking needed to
    page through many cards) — works with a mouse; touch/mobile still uses
    the drag/swipe on the row itself. Page is RTL, so "next" moves scrollLeft
    in the negative direction (see the RTL note on makeTrackDraggable). */
 function wireHoverAutoScroll(track, prevBtn, nextBtn, speed = 4){
+  // גלילה רציפה בהחזקת עכבר מיועדת רק למכשירים עם עכבר אמיתי - במגע, "מעבר עכבר"
+  // סינתטי יכול להיתחל בלי "עזיבה" מתאימה אחריו ולגרום לגלילה שלא נעצרת לבד
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   let raf = null, dir = 0;
   function loop(){
     track.scrollLeft += dir * speed;
