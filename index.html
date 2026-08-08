@@ -228,12 +228,11 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .vt-name{font-weight:800; color:var(--teal-dark); font-size:1rem; margin-bottom:4px}
   .vt-role{font-size:0.85rem; color:var(--text-mid)}
 
-  .vt-play{position:absolute; inset:0; width:100%; height:100%; border:0; background:rgba(1,20,26,0.18); cursor:pointer;
-    display:flex; align-items:center; justify-content:center; transition:background 200ms ease}
-  .vt-play:hover{background:rgba(1,20,26,0.32)}
+  .vt-play{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:72px; border:0; background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; padding:0}
   .vt-play-icon{width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.92); box-shadow:0 8px 22px rgba(0,0,0,0.3);
     display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0; transition:transform 200ms ease}
-  .vt-play:hover .vt-play-icon{transform:scale(1.08)}
+  @media(hover:hover){ .vt-play:hover .vt-play-icon{transform:scale(1.08)} }
   .vt-play-icon::after{content:''; width:0; height:0; border-style:solid; border-width:11px 0 11px 18px; border-color:transparent transparent transparent var(--teal-dark); margin-right:-4px}
 
   .video-testimonials-grid.has-active .vt-card{transition:opacity 300ms ease}
@@ -250,7 +249,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .vt-nav{position:absolute; top:36%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%;
     background:var(--white); border:1px solid rgba(1,108,145,0.15); box-shadow:0 8px 20px rgba(1,92,120,0.16);
     display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; color:var(--teal-dark); font-size:1.2rem; font-weight:800; transition:background 150ms ease}
-  .vt-nav:hover{background:var(--lav-pale)}
+  @media(hover:hover){ .vt-nav:hover{background:var(--lav-pale)} }
   .vt-nav.next{left:-18px}
   .vt-nav.prev{right:-18px}
   @media(max-width:820px){
@@ -834,7 +833,7 @@ const vtTrack = document.getElementById('vtTrack');
 const vtCards = Array.from(vtTrack.querySelectorAll('.vt-card'));
 let vtIndex = 0;
 function vtScrollTo(i){
-  vtIndex = (i + vtCards.length) % vtCards.length;
+  vtIndex = Math.max(0, Math.min(i, vtCards.length - 1));
   vtCards[vtIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
 }
 document.getElementById('vtNext').addEventListener('click', () => vtScrollTo(vtIndex + 1));
@@ -845,7 +844,7 @@ const ttTrack = document.getElementById('ttTrack');
 const ttCards = Array.from(ttTrack.querySelectorAll('.t-card'));
 let ttIndex = 0;
 function ttScrollTo(i){
-  ttIndex = (i + ttCards.length) % ttCards.length;
+  ttIndex = Math.max(0, Math.min(i, ttCards.length - 1));
   ttCards[ttIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
 }
 document.getElementById('ttNext').addEventListener('click', () => ttScrollTo(ttIndex + 1));

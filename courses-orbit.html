@@ -292,12 +292,17 @@ document.addEventListener('keydown', (e) => {
 const mapDropdown = document.querySelector('.nav-dropdown');
 if (mapDropdown) {
   const toggleBtn = mapDropdown.querySelector('.nav-dropdown-toggle');
+  // במובייל התפריט עצמו סגור מאחורי ההמבורגר, אז בלי לפתוח גם אותו הרשימה
+  // שמהבהבת לא נראית בכלל - פותחים אותו יחד לרגע, תואם להתנהגות בדסקטופ.
+  const isMobileNav = window.matchMedia('(max-width: 900px)').matches;
+  if (isMobileNav) mainNav.classList.add('open');
   mapDropdown.classList.add('open');
   toggleBtn.setAttribute('aria-expanded', 'true');
   setTimeout(() => {
     if (!mapDropdown.matches(':hover')) {
       mapDropdown.classList.remove('open');
       toggleBtn.setAttribute('aria-expanded', 'false');
+      if (isMobileNav) mainNav.classList.remove('open');
     }
   }, 2000);
 }
@@ -518,7 +523,23 @@ function mapPositionPreview(item) {
   item.preview.style.top = top + 'px';
 }
 
+function mapIsTouch() {
+  return !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+}
+
 function mapWireHover(items) {
+  items.forEach((it) => { it.tapOpened = false; });
+
+  function closeAll() {
+    items.forEach((it) => {
+      it.preview.classList.remove('show');
+      it.node.classList.remove('active');
+      it.node.classList.remove('dimmed');
+      it.line.classList.remove('dimmed');
+      it.tapOpened = false;
+    });
+  }
+
   items.forEach((item) => {
     let hideTimer = null;
     function enter() {
@@ -537,6 +558,7 @@ function mapWireHover(items) {
       hideTimer = setTimeout(() => {
         item.preview.classList.remove('show');
         item.node.classList.remove('active');
+        item.tapOpened = false;
         items.forEach((other) => {
           other.node.classList.remove('dimmed');
           other.line.classList.remove('dimmed');
@@ -547,6 +569,27 @@ function mapWireHover(items) {
     item.node.addEventListener('mouseleave', leave);
     item.preview.addEventListener('mouseenter', enter);
     item.preview.addEventListener('mouseleave', leave);
+
+    // במגע אין "hover" אמיתי - לחיצה ראשונה על צומת פותחת רק את הכרטיסייה
+    // (כמו hover בדסקטופ), ולא עוברת ישר לדף הסילבוס. לחיצה שנייה, על צומת
+    // שכבר "נגעו" בו, כן מנווטת - כמו לחיצה כפולה. משתמשים בדגל item.tapOpened
+    // נפרד (לא בקלאס .active) כי מגע יכול "לדמות" mouseenter רגעי לפני ה-click,
+    // וזה כבר מוסיף .active לפני שה-click בכלל רץ.
+    item.node.addEventListener('click', (e) => {
+      if (!mapIsTouch()) return;
+      if (!item.tapOpened) {
+        e.preventDefault();
+        item.tapOpened = true;
+        enter();
+      }
+    });
+  });
+
+  // לחיצה מחוץ לכל צומת/כרטיסייה במגע - חוזרים לתצוגת האנימציה הרגילה
+  document.addEventListener('click', (e) => {
+    if (!mapIsTouch()) return;
+    const insideAny = items.some((it) => it.node.contains(e.target) || it.preview.contains(e.target));
+    if (!insideAny) closeAll();
   });
 }
 
