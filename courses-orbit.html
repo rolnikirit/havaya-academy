@@ -141,8 +141,15 @@
   .map-orbit-preview .op-price{font-size:0.92rem; font-weight:800; color:var(--teal-dark); padding-top:8px; border-top:1px solid rgba(1,108,145,0.08)}
   @media(max-width:700px){
     .map-stage{height:80vh; min-height:560px}
-    .map-orbit-node{font-size:0.85rem; padding:7px 14px}
+    .map-orbit-node{font-size:0.78rem; padding:6px 12px}
+    .map-orbit-node.settled{font-size:0.72rem; padding:5px 11px}
   }
+
+  .map-quicklist-section{padding:44px 20px 60px; text-align:center}
+  .map-quicklist-title{font-size:1.2rem; font-weight:800; color:var(--teal-dark); margin-bottom:20px}
+  .map-quicklist{display:flex; flex-wrap:wrap; justify-content:center; gap:12px; max-width:900px; margin:0 auto}
+  .map-quicklist a{background:var(--white); border:1px solid rgba(1,108,145,0.15); border-radius:999px; padding:11px 22px; font-size:0.9rem; font-weight:700; color:var(--teal-dark); text-decoration:none; box-shadow:0 6px 16px rgba(1,92,120,0.06); transition:background 150ms ease}
+  .map-quicklist a:hover{background:var(--lav-pale)}
 
   footer{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.1); padding:34px 20px; text-align:center; color:var(--text-mid); font-size:0.85rem}
   footer a{text-decoration:none; color:var(--text-mid); margin:0 8px}
@@ -203,6 +210,21 @@
   <img class="map-center-logo" src="havaya_logo_hero.png" alt="הוויה">
   <svg class="map-lines" id="mapSvg"></svg>
 </div>
+
+<section class="map-quicklist-section">
+  <div class="map-quicklist-title fade-up">או בחרו ישירות מרשימת הקורסים</div>
+  <div class="map-quicklist fade-up">
+    <a href="course-reiki.html">רייקי 1+2</a>
+    <a href="course-balance.html">איזון והרמוניה</a>
+    <a href="course-michael.html">תיקשור קו אמצע</a>
+    <a href="course-healing-basic.html">הילינג מטפלים א׳</a>
+    <a href="course-healing.html">הילינג מטפלים ב׳ - חיבור לנשמה</a>
+    <a href="course-enoch.html">מפתחות המאסטר חנוך</a>
+    <a href="course-metatron.html">מפתחות המאסטר מטטרון</a>
+    <a href="course-solomon-keys.html">מפתחות המלך שלמה</a>
+    <a href="course-solomon-seals.html">חותמות המלך שלמה</a>
+  </div>
+</section>
 
 <footer>
   <div>© הוויה — האקדמיה להפצת האור · כפר סבא</div>
@@ -303,10 +325,64 @@ const MAP_COURSES = [
 const mapStage = document.getElementById('mapStage');
 const mapSvg = document.getElementById('mapSvg');
 
+function mapResolveCollisions(items, gap, margin) {
+  const stageW = mapStage.clientWidth, stageH = mapStage.clientHeight;
+  const logoEl = document.querySelector('.map-center-logo');
+  const stageBox = mapStage.getBoundingClientRect();
+  const logoBox = logoEl.getBoundingClientRect();
+  const logo = {
+    left: logoBox.left - stageBox.left - 10, right: logoBox.right - stageBox.left + 10,
+    top: logoBox.top - stageBox.top - 10, bottom: logoBox.bottom - stageBox.top + 10,
+  };
+
+  for (let pass = 0; pass < 8; pass++) {
+    let moved = false;
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        const a = items[i], b = items[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const overlapX = (a.halfW + b.halfW + gap) - Math.abs(dx);
+        const overlapY = (a.halfH + b.halfH + gap) - Math.abs(dy);
+        if (overlapX > 0 && overlapY > 0) {
+          moved = true;
+          if (overlapX < overlapY) {
+            const push = overlapX / 2 * (Math.sign(dx) || 1);
+            a.x -= push; b.x += push;
+          } else {
+            const push = overlapY / 2 * (Math.sign(dy) || 1);
+            a.y -= push; b.y += push;
+          }
+        }
+      }
+    }
+    items.forEach(item => {
+      const l = item.x - item.halfW, r = item.x + item.halfW, t = item.y - item.halfH, bo = item.y + item.halfH;
+      const overlapX = Math.min(r, logo.right) - Math.max(l, logo.left);
+      const overlapY = Math.min(bo, logo.bottom) - Math.max(t, logo.top);
+      if (overlapX > 0 && overlapY > 0) {
+        moved = true;
+        const logoCx = (logo.left + logo.right) / 2, logoCy = (logo.top + logo.bottom) / 2;
+        if (overlapX < overlapY) {
+          item.x += item.x < logoCx ? -overlapX : overlapX;
+        } else {
+          item.y += item.y < logoCy ? -overlapY : overlapY;
+        }
+      }
+    });
+    items.forEach(item => {
+      item.x = Math.max(margin + item.halfW, Math.min(item.x, stageW - margin - item.halfW));
+      item.y = Math.max(margin + item.halfH, Math.min(item.y, stageH - margin - item.halfH));
+    });
+    if (!moved) break;
+  }
+}
+
 function mapLayout() {
   const cx = mapStage.clientWidth / 2;
   const cy = mapStage.clientHeight / 2;
   const N = MAP_COURSES.length;
+  const isMobile = mapStage.clientWidth <= 700;
+  const margin = 6;
 
   mapSvg.setAttribute('viewBox', `0 0 ${mapStage.clientWidth} ${mapStage.clientHeight}`);
   mapSvg.innerHTML = '';
@@ -314,17 +390,13 @@ function mapLayout() {
   const items = MAP_COURSES.map((course, i) => {
     const angle = (-90 + i * (360 / N)) * Math.PI / 180;
     const isStraightDown = i === 5;
-    const radiusX = mapStage.clientWidth * (i % 2 === 0 ? 0.24 : 0.36);
-    const radiusY = mapStage.clientHeight * ((i % 2 === 0 || isStraightDown) ? 0.30 : 0.44);
-    const x = cx + radiusX * Math.cos(angle);
-    const y = cy + radiusY * Math.sin(angle);
+    const radiusX = mapStage.clientWidth * (isMobile ? (i % 2 === 0 ? 0.26 : 0.38) : (i % 2 === 0 ? 0.24 : 0.36));
+    const radiusY = mapStage.clientHeight * (isMobile ? ((i % 2 === 0 || isStraightDown) ? 0.34 : 0.44) : ((i % 2 === 0 || isStraightDown) ? 0.30 : 0.44));
+    let x = cx + radiusX * Math.cos(angle);
+    let y = cy + radiusY * Math.sin(angle);
 
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', cx); line.setAttribute('y1', cy);
-    line.setAttribute('x2', x); line.setAttribute('y2', y);
-    const dist = Math.hypot(x - cx, y - cy);
-    line.setAttribute('stroke-dasharray', dist);
-    line.setAttribute('stroke-dashoffset', dist);
     line.classList.add('map-orbit-line');
     mapSvg.appendChild(line);
 
@@ -335,6 +407,11 @@ function mapLayout() {
     node.style.left = cx + 'px';
     node.style.top = cy + 'px';
     mapStage.appendChild(node);
+
+    node.classList.add('settled');
+    const halfW = node.offsetWidth / 2;
+    const halfH = node.offsetHeight / 2;
+    node.classList.remove('settled');
 
     const priceHTML = course.price
       ? `${course.price.toLocaleString()} ₪`
@@ -358,7 +435,17 @@ function mapLayout() {
       </div>`;
     mapStage.appendChild(preview);
 
-    return { course, x, y, cx, cy, line, node, preview };
+    return { course, x, y, cx, cy, line, node, preview, halfW, halfH };
+  });
+
+  mapResolveCollisions(items, 6, margin);
+
+  items.forEach(item => {
+    const dist = Math.hypot(item.x - item.cx, item.y - item.cy);
+    item.line.setAttribute('x2', item.x);
+    item.line.setAttribute('y2', item.y);
+    item.line.setAttribute('stroke-dasharray', dist);
+    item.line.setAttribute('stroke-dashoffset', dist);
   });
 
   return items;
