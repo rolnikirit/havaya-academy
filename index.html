@@ -832,9 +832,15 @@ document.addEventListener('keydown', (e) => {
 const vtTrack = document.getElementById('vtTrack');
 const vtCards = Array.from(vtTrack.querySelectorAll('.vt-card'));
 let vtIndex = 0;
+// גלילה אופקית בלבד, ממוקדת רק ל-track עצמו - לא scrollIntoView, כדי שלא
+// יזיז את העמוד אנכית (זה קרה כי כרטיסים בגבהים שונים גרמו לדפדפן "לתקן"
+// גם את גלילת העמוד כדי להראות את הכרטיס במלואו).
 function vtScrollTo(i){
   vtIndex = Math.max(0, Math.min(i, vtCards.length - 1));
-  vtCards[vtIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+  const card = vtCards[vtIndex];
+  const trackRect = vtTrack.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  vtTrack.scrollTo({ left: vtTrack.scrollLeft + (cardRect.right - trackRect.right), behavior: 'smooth' });
 }
 document.getElementById('vtNext').addEventListener('click', () => vtScrollTo(vtIndex + 1));
 document.getElementById('vtPrev').addEventListener('click', () => vtScrollTo(vtIndex - 1));
@@ -845,7 +851,10 @@ const ttCards = Array.from(ttTrack.querySelectorAll('.t-card'));
 let ttIndex = 0;
 function ttScrollTo(i){
   ttIndex = Math.max(0, Math.min(i, ttCards.length - 1));
-  ttCards[ttIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+  const card = ttCards[ttIndex];
+  const trackRect = ttTrack.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  ttTrack.scrollTo({ left: ttTrack.scrollLeft + (cardRect.right - trackRect.right), behavior: 'smooth' });
 }
 document.getElementById('ttNext').addEventListener('click', () => ttScrollTo(ttIndex + 1));
 document.getElementById('ttPrev').addEventListener('click', () => ttScrollTo(ttIndex - 1));
