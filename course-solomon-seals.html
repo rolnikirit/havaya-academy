@@ -112,16 +112,15 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .syllabus-pending{font-size:0.9rem; color:var(--text-mid); background:var(--white); border-radius:16px; padding:26px; text-align:center; border:1px dashed rgba(1,108,145,0.2)}
 
   .course-layout{max-width:1140px; margin:0 auto; display:grid; grid-template-columns:1fr 400px;
-    grid-template-areas:"heading image" "list image"; gap:4px 36px; align-items:start}
-  .syllabus-heading{grid-area:heading}
-  .syllabus-list{grid-area:list}
+    grid-template-areas:"content image"; gap:4px 36px; align-items:start}
+  .course-content{grid-area:content}
   .course-side-image{grid-area:image}
   .course-layout .c-body{max-width:none}
   .course-side-image{position:sticky; top:100px}
   .course-side-image img{width:100%; border-radius:20px; box-shadow:0 14px 34px rgba(1,92,120,0.16)}
   @media(max-width:860px){
     .course-layout{grid-template-columns:1fr; max-width:700px;
-      grid-template-areas:"image" "heading" "list"}
+      grid-template-areas:"image" "content"}
     .course-side-image{position:static; max-width:320px; margin:0 auto 8px}
   }
 
@@ -189,9 +188,13 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   </div>
 </section>
 
+<section style="padding-top:0; padding-bottom:0">
+  <h2 class="syllabus-heading fade-up" style="max-width:1140px; margin:0 auto 28px">סילבוס הקורס</h2>
+</section>
+
 <section style="padding-top:0">
   <div class="course-layout">
-    <h2 class="syllabus-heading fade-up">סילבוס הקורס</h2>
+    <div class="course-content">
     <div class="syllabus-list">
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">1</div>
@@ -255,6 +258,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
           </ul>
         </div>
       </div>
+    </div>
     </div>
     <div class="course-side-image fade-up">
       <img src="course_img_seals_solomon.jpg" alt="" loading="lazy">

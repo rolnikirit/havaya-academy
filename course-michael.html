@@ -105,6 +105,13 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .c-materials .pending{font-size:0.85rem; color:var(--text-mid); background:var(--off-white); display:inline-block; padding:6px 14px; border-radius:10px}
 
   .syllabus-heading{font-size:1.3rem; font-weight:800; color:var(--teal-dark); margin-bottom:24px; text-align:center}
+  .faq-list{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
+  .faq-item{background:var(--white); border-radius:16px; border:1px solid rgba(1,108,145,0.09); padding:4px 22px; box-shadow:0 6px 18px rgba(1,92,120,0.05)}
+  .faq-item summary{padding:16px 0; font-weight:700; color:var(--teal-dark); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+'; font-size:1.3rem; color:var(--gold); flex-shrink:0; transition:transform 180ms var(--ease-ui)}
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-answer{padding:0 0 18px; color:var(--text-body); line-height:1.8; font-size:0.95rem}
   .syllabus-list{display:flex; flex-direction:column; gap:9px}
   .syllabus-lesson{background:var(--white); border-radius:14px; padding:12px 18px; display:flex; gap:12px; align-items:flex-start; border:1px solid rgba(1,108,145,0.08); box-shadow:0 6px 16px rgba(1,92,120,0.05)}
   .syllabus-num{width:28px; height:28px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
@@ -116,16 +123,15 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .syllabus-pending{font-size:0.9rem; color:var(--text-mid); background:var(--white); border-radius:16px; padding:26px; text-align:center; border:1px dashed rgba(1,108,145,0.2)}
 
   .course-layout{max-width:1140px; margin:0 auto; display:grid; grid-template-columns:1fr 400px;
-    grid-template-areas:"heading image" "list image"; gap:4px 36px; align-items:start}
-  .syllabus-heading{grid-area:heading}
-  .syllabus-list{grid-area:list}
+    grid-template-areas:"content image"; gap:4px 36px; align-items:start}
+  .course-content{grid-area:content}
   .course-side-image{grid-area:image}
   .course-layout .c-body{max-width:none}
   .course-side-image{position:sticky; top:100px}
   .course-side-image img{width:100%; border-radius:20px; box-shadow:0 14px 34px rgba(1,92,120,0.16)}
   @media(max-width:860px){
     .course-layout{grid-template-columns:1fr; max-width:700px;
-      grid-template-areas:"image" "heading" "list"}
+      grid-template-areas:"image" "content"}
     .course-side-image{position:static; max-width:320px; margin:0 auto 8px}
   }
 
@@ -195,10 +201,34 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   </div>
 </section>
 
+<section style="padding-top:0; padding-bottom:0">
+  <h2 class="syllabus-heading fade-up" style="max-width:1140px; margin:0 auto 28px">שאלות ותשובות</h2>
+</section>
+
 <section style="padding-top:0">
   <div class="course-layout">
-    <h2 class="syllabus-heading fade-up">סילבוס הקורס</h2>
-    <div class="syllabus-list">
+    <div class="course-content">
+      <div class="faq-list" style="margin-bottom:36px">
+        <details class="faq-item fade-up">
+          <summary>למי מיועד התקשור?</summary>
+          <p class="faq-answer">אם את/ה רוצה לחוות את החלק הרוחני שלך, שמכיר את מסע חייך, את השיעורים שבחרת לעבור, ושיסייע לך בעזרת הדרכה חכמה, <strong>אמיתית, אוהבת ומדויקת לך</strong>.<br><br>אם את/ה רוצה לשחרר את הבלבול בחייך, <strong>לצאת מהספקות וחוסר היכולת להחליט!</strong><br><br>אם את/ה רוצה להרגיש בטוח/ה, מודרכ/ת בחייך, לדעת שיש מי שמנחה אותך ועם מי להתייעץ.<br><br>התקשור מיועד לך!</p>
+        </details>
+        <details class="faq-item fade-up">
+          <summary>מהו תקשור? מיהו המדריך הרוחני האישי?</summary>
+          <p class="faq-answer">מאז לידתנו, ואף לפני כן, אנו מלווים על ידי המדריך האישי שלנו. בילדותי גדלתי על האמונה של הסבתות שיש מלאך ששומר עלינו ומלווה אותנו.<br><br>המדריך הרוחני הוא ישות רוחנית אנרגטית — ישות אור המלווה אותנו בממד הרוחני. תפקידו להיות עבורנו כמגדלור: לסייע, לכוון ולהעניק הבנה רחבה וגבוהה יותר מזו שאנו יכולים לקבל רק דרך השכל.<br><br>לכל אדם יש מדריך ראשי המלווה אותו לאורך חייו, ולעיתים מצטרפים מדריכים נוספים כאשר יש לאדם ייעוד של הבאת ידע, ריפוי או השפעה מיטיבה לעולם.<br><br>התקשורת עם המדריך נעשית באמצעות תהליך הנקרא תקשור — יכולת לקלוט מסרים והכוונה מהמדריך האישי ומהחלק הגבוה של הנשמה, העצמי הגבוה. אני מאמינה שכל אדם יכול לפתח יכולת זו, אם הוא פתוח לכך ומוכן לעבור תהליך של שינוי והתפתחות.<br><br>המדריך האישי מסייע לנו בשאלות ובדילמות בחיי היום־יום, מנושאים פשוטים ועד שאלות עמוקות ורוחניות. אנו חווים אותו כחבר אוהב ותומך, שמסייע לנו להכיר את עצמנו, להבין את האירועים בחיינו, להתחבר לייעוד שלנו ולממש את היכולות הטמונות בנו.<br><br>המדריך אינו בוחר עבורנו ואינו מחליט במקומנו, אלא מאיר לנו אפשרויות ומכוון אותנו בדרך המדויקת עבורנו. הוא אינו מנבא עתידות, אלא מציג כיוונים, פוטנציאלים והמלצות, מתוך ההבנה שהעתיד אינו קבוע ושיש לנו יכולת להשפיע וליצור את המציאות שלנו — "הכול צפוי והרשות נתונה".</p>
+        </details>
+        <details class="faq-item fade-up">
+          <summary>מהו הייחוד של שיטת "תקשור קו האמצע עם המלאך מיכאל"?</summary>
+          <p class="faq-answer">בשנים האחרונות תחום התקשור התרחב מאוד. אנשים רבים מתחברים באופן אינטואיטיבי, ואחרים לומדים לפתח יכולת תקשור.<br><br>אני מאמינה שכדי להכיל באמת את אנרגיית הנשמה ואת הידע שהיא מביאה, נדרשת עבודת ניקוי פנימית מתמשכת. האגו והחלק המנטלי שלנו משפיעים מאוד על הדרך שבה אנו מפרשים מסרים, ולעיתים הרצון לתוצאות מהירות עלול לערבב בין ההדרכה האמיתית לבין הרצונות, הפחדים והשיפוטים שלנו.<br><br>כדי להיות מחוברים להדרכה גבוהה ואמיתית, חשוב להיות בתהליך של התבוננות פנימית, ניקוי העבר, שחרור פחדים ואמונות מגבילות, וזיהוי הדפוסים שמנתקים אותנו מהחיבור העמוק שלנו.<br><br>העבודה העצמית מבוססת על התבוננות כנה, הבנת הבחירות שיצרנו, לקיחת אחריות וביצוע שינוי אמיתי. מתוך המקום הזה, התקשור הופך לכלי שמקדם אותנו בהתפתחות הרוחנית.<br><br>"תקשור קו האמצע" הוא תהליך ייחודי שקיבלה ופיתחה שושנה דונאיה בתקשור עם המלאך מיכאל, מתוך שנים רבות של עבודה, חקר והתנסות בתחום התודעה והריפוי, שמטרתו לדייק את היכולת לקבל ידע ומסרים נקיים ומדויקים, ולהבחין בין מסר שמגיע מההדרכה הגבוהה לבין מסר שמתערבב עם האגו.<br><br>התהליך נוצר בעקבות מקרה שבו תלמידה התחברה לזמן קצר לתקשור וקיבלה מסר נכון ומיטיב, אך לאחר מכן התחברה ללא מודעות לחלק האגואי, והמסר השתנה והפך לשיפוטי וביקורתי. המתקשרת עצמה לא הייתה מודעת למעבר הזה.<br><br>מתוך כך התקבלה הטכניקה שמטרתה לפתח הבחנה ואחריות בתקשור. תקשור לאחרים הוא אחריות גדולה, ולכן חשוב שהמתקשר ילמד לזהות את מקור המסר ולהכיר את ההבדל בין הדרכה אמיתית לבין השפעות אישיות.<br><br>בקורס, בכל שיעור, אני מלווה את התלמידים בתהליך של דיוק והבחנה, עד שהם לומדים לזהות האם הם מחוברים באמת להדרכה שלהם. כל תלמיד מקבל גם אבחון אישי על החסימות שלו וכלים לעבודה פנימית בבית — כדי לנקות ולחזק את "הצינור".<br><br>זה אינו תהליך חד־פעמי, אלא דרך חיים.<br><br>השיטה מיועדת למי שמרגיש רצון כן ואמיתי לקבל הדרכה מהחלק הגבוה שלו, ומוכן להתחייב לתהליך מתמשך של למידה, ניקוי והתפתחות.</p>
+        </details>
+        <details class="faq-item fade-up">
+          <summary>איך "חיבור לנשמה" מתחבר ל"תקשור קו האמצע"?</summary>
+          <p class="faq-answer">כפי שהוסבר, "חיבור לנשמה" הוא תהליך של זיהוי וריפוי הניתוקים והחסימות שנוצרו בעקבות אירועים משמעותיים בחיינו.<br><br>בתהליך התקשור, החיבור לנשמה הוא הבסיס לקבלת מסרים מדויקים ונקיים. כאשר קיימים פחדים, כאבים או חסימות לא מודעות, הם עלולים להשפיע על היכולת לקבל את ההדרכה בצורה בהירה.<br><br>לכן "תקשור קו האמצע" משלב את עבודת החיבור והניקוי הפנימי, כדי שהמתקשר ילמד להבחין בין קול ההדרכה הגבוהה לבין קולות שמגיעים מהאגו, מהפחדים או מהפרשנות האישית.<br><br>ככל שהחיבור לנשמה עמוק ונקי יותר, כך מתאפשר תקשור מדויק, אחראי ובהיר יותר.</p>
+        </details>
+      </div>
+
+      <h2 class="syllabus-heading fade-up">סילבוס הקורס</h2>
+      <div class="syllabus-list">
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">1</div>
         <div class="syllabus-content">
@@ -291,6 +321,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
           </ul>
         </div>
       </div>
+    </div>
     </div>
     <div class="course-side-image fade-up">
       <img src="course_img_tikshoret.jpg" alt="" loading="lazy">
