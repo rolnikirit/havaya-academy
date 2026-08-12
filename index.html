@@ -196,6 +196,29 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .faq-item[open] summary::after{transform:rotate(45deg)}
   .faq-answer{padding:0 0 18px; color:var(--text-body); line-height:1.8; font-size:0.95rem}
 
+  /* ── Vision ── */
+  .vision-lead{max-width:760px; margin:0 auto 40px; text-align:center}
+  .vision-lead p{font-size:1.08rem; line-height:1.9; color:var(--text-body); margin-bottom:16px}
+  .vision-lead p:last-child{margin-bottom:0}
+  .vision-audience-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:48px}
+  @media(max-width:768px){ .vision-audience-grid{grid-template-columns:1fr} }
+  .vision-audience-card{background:var(--white); border-radius:20px; padding:26px 24px; border:1px solid rgba(1,108,145,0.09); border-top:3px solid var(--gold); box-shadow:0 8px 24px rgba(1,92,120,0.06)}
+  .vision-audience-card p{font-size:0.92rem; line-height:1.75; color:var(--text-body)}
+  .vision-block{max-width:760px; margin:0 auto 40px}
+  .vision-block h3{font-size:1.2rem; font-weight:800; color:var(--teal-dark); margin-bottom:14px; text-align:center}
+  .vision-block p{font-size:0.98rem; line-height:1.85; color:var(--text-body); margin-bottom:14px}
+  .vision-block p:last-child{margin-bottom:0}
+  .vision-offer{background:linear-gradient(135deg, rgba(1,92,120,0.05), rgba(179,133,74,0.08)); border:1px solid rgba(1,108,145,0.12); border-radius:26px; padding:40px 36px; max-width:760px; margin:0 auto 40px; text-align:center}
+  .vision-offer-tag{font-size:0.78rem; font-weight:700; letter-spacing:1.5px; color:var(--gold); text-transform:uppercase; margin-bottom:10px}
+  .vision-offer h3{font-size:1.25rem; font-weight:800; color:var(--teal-dark); margin-bottom:12px}
+  .vision-offer p{font-size:0.98rem; line-height:1.8; color:var(--text-body); margin-bottom:18px}
+  .vision-offer-result{font-size:0.92rem; color:var(--text-dark); background:var(--white); border-radius:14px; padding:14px 20px; display:inline-block; line-height:1.7}
+  .vision-why{max-width:640px; margin:0 auto}
+  .vision-why h3{font-size:1.2rem; font-weight:800; color:var(--teal-dark); margin-bottom:18px; text-align:center}
+  .vision-why-list{list-style:none; display:flex; flex-direction:column; gap:10px}
+  .vision-why-list li{font-size:0.95rem; color:var(--text-body); line-height:1.6; padding-right:22px; position:relative}
+  .vision-why-list li::before{content:'•'; color:var(--gold); position:absolute; right:0; font-weight:800}
+
   /* ── Dimensions ── */
   .dims{background:var(--off-white)}
   .dims-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
@@ -350,6 +373,66 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <p class="section-desc">חמישה מסלולים עיקריים — מהצעד הראשון ועד הסמכה מלאה כמטפל/ת</p>
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ VISION ═══ -->
+<section class="vision">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">מי אנחנו</div>
+      <h2 class="section-title">החזון</h2>
+    </div>
+
+    <div class="vision-lead fade-up">
+      <p>"הוויה – האקדמיה להפצת אור הבורא" היא בית שמחבר את האדם למהות הפנימית שלו, לאור הבורא וליכולת להיות מי שהוא באמת.</p>
+      <p>זהו מרחב של ריפוי אנרגטי, צמיחה רוחנית והתמרה, שבו האדם לומד לחבר בין נשמתו לבין חייו, בין הרוח לבין החומר, ולהפוך ל"מלך בממלכתו" — יוצר מודע של מציאותו.</p>
+    </div>
+
+    <div class="vision-audience-grid fade-up">
+      <div class="vision-audience-card">
+        <p>האקדמיה מיועדת לאנשים שכבר עברו תהליכים רוחניים ומרגישים שהגיע הזמן לעלות מדרגה.</p>
+      </div>
+      <div class="vision-audience-card">
+        <p>למי שמבקש לרפא את עצמו ואחרים מבפנים, לפתוח נתיבים חדשים לנשמה, במציאות הפיזית שלו. לממש את ייעודו.</p>
+      </div>
+      <div class="vision-audience-card">
+        <p>למי שמרגיש קריאה להפוך את הרוחניות לדרך מקצועית — מטפלים, מנחים ומורי דרך של אור.</p>
+      </div>
+    </div>
+
+    <div class="vision-block fade-up">
+      <p>ייחודה של האקדמיה הוא בחיבור נדיר בין ידע גבוה של הבורא, המלאך מיכאל, המאסטר חנוך, המאסטר מטטרון והמלך שלמה לבין פרקטיקה יומיומית של ריפוי אנרגטי.</p>
+      <p>היא נבנית מתוך גישה נשית של רכות, דיוק ונוכחות — הקבלה הנקבית — ומשלבת חניכה מתמשכת, פרקטיקום חי וליווי צמוד לאורך השנים. זהו מרחב שבו ידע עתיק פוגש תודעה מודרנית, ויחד יוצרים שינוי מציאותי בחיי האדם.</p>
+    </div>
+
+    <div class="vision-block fade-up">
+      <h3>ברמה המעשית</h3>
+      <p>ההבנה שהאדם מגיע לשלמות רק כאשר מתקיים חיבור חי בין גוף, נפש, נשמה ואור הבורא. רק איחוד אמיתי של ארבעת הרבדים יוצר ריפוי פיזי, רגשי ומנטלי עמוק.</p>
+      <p>הדרך לכך נוצרת דרך חיבור ישיר לנשמה, פתיחת ערוצי הקשבה להדרכה הגבוהה, ורכישת כלים אנרגטיים מעשיים לריפוי בכל שלבי החיים.</p>
+      <p>המטפל לומד לעבוד עם מצבו האנרגטי והרוחני ועם זה של מטופליו, לזהות חסימות, לפתוח נתיבים וליישם ריפוי מדויק מתוך בהירות גבוהה.</p>
+      <p>השלב הגבוה — הכשרת מורים שילמדו ויפיצו את השיטה.</p>
+      <p>זהו מרחב שמגדל מטפלים ומורים להיות מקור של אור, ריפוי ותודעה — עבור עצמם, ולאחר מכן עבור כל אדם.</p>
+      <p>התהליך שהתלמיד עובר הוא חזרה הביתה: לחיבור לנשמה, ליכולת לתקשר עם ההדרכה הגבוהה שלו, לשחרור חסמי עבר, לפתיחת יכולות הריפוי הטבעיות שלו ולבניית אמון עמוק בעוצמה הפנימית. זהו שינוי תודעתי שמביא תנועה אמיתית ביחסים, בעשייה, בבריאות ובמימוש השליחות. האדם הופך להיות אדם שלם שמחזיק אור בענווה ובביטחון — ומסוגל ללוות אחרים בדרכם.</p>
+    </div>
+
+    <div class="vision-offer fade-up">
+      <div class="vision-offer-tag">הצעת הליבה — מסלול המטפלים</div>
+      <h3>מסלול מטפלים בריפוי אנרגטי והוויה רוחנית</h3>
+      <p>מסע עומק של שלוש שנים, שבמהלכו אדם לומד לרפא, להקשיב לנשמה שלו, לתקשר, לעבוד אנרגטית ולהפוך למטפל מקצועי ובטוח.</p>
+      <div class="vision-offer-result"><strong>התוצאה:</strong> אדם שהוא מטפל מדויק, מחובר, מחזיק תדר גבוה, בעל מקצוע רוחני יציב וקהילה שמלווה אותו לאורך השנים.</div>
+    </div>
+
+    <div class="vision-why fade-up">
+      <h3>למה השיטה עובדת?</h3>
+      <ul class="vision-why-list">
+        <li>שילוב של ידע עתיק עם כלים אנרגטיים ופרקטיקה יומיומית, וניסיון של 30 שנה בעשרות ואלפי תלמידים ומטופלים</li>
+        <li>חניכות ושיטה בנויה בקפידה</li>
+        <li>תנועה פנימית אמיתית — לא רק לימוד "מידע"</li>
+        <li>חיבור בין גוף, רגש, אנרגיה ונשמה</li>
+        <li>יצירת שינוי ממשי בחיים ובהנהגת המציאות</li>
+      </ul>
+    </div>
   </div>
 </section>
 
