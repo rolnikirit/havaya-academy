@@ -120,7 +120,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
     background-size:250% 100%, auto;
     background-repeat:no-repeat, no-repeat;
     -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
-    animation:academyShimmer 2.2s linear infinite;
+    animation:academyShimmer 3s linear infinite;
   }
   @keyframes academyShimmer{
     from{background-position:0% center, 0 0}
@@ -192,24 +192,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .gift-inner{display:flex; align-items:center; gap:18px; flex:1; min-width:240px}
   .soon-badge{background:rgba(1,92,120,0.08); color:var(--teal-dark); font-size:0.72rem; font-weight:700; padding:4px 12px; border-radius:20px; white-space:nowrap}
 
-  /* ── Method topics + FAQ ── */
-  .method-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px}
-  .method-card{background:var(--white); border-radius:20px; padding:26px 22px; border:1px solid rgba(1,108,145,0.09); border-top:3px solid var(--teal-dark); box-shadow:0 8px 24px rgba(1,92,120,0.06); display:flex; flex-direction:column; align-items:flex-start; gap:12px}
-  .method-icon{width:34px; height:34px; border-radius:50%; border:2px solid var(--teal-dark); position:relative}
-  .method-icon::after{content:''; position:absolute; inset:8px; border-radius:50%; background:var(--teal-dark)}
-  .method-title{font-weight:800; font-size:1rem; color:var(--teal-dark); line-height:1.5}
-  .method-tags{display:flex; flex-wrap:wrap; gap:8px}
-  .method-tag{background:var(--lav-pale); color:var(--text-body); font-size:0.82rem; padding:5px 12px; border-radius:20px}
-  .method-name{font-size:0.95rem; color:var(--text-body); line-height:1.6}
-  .method-card-founder{grid-column:span 2; flex-direction:row; align-items:center; gap:20px; text-decoration:none; transition:transform 180ms var(--ease-ui), box-shadow 180ms ease}
-  .method-card-founder:hover{transform:translateY(-3px); box-shadow:0 14px 32px rgba(1,92,120,0.14)}
-  .method-founder-photo{width:100px; height:100px; border-radius:50%; object-fit:cover; flex-shrink:0; border:3px solid var(--off-white); box-shadow:0 4px 14px rgba(1,92,120,0.15)}
-  .method-founder-text{display:flex; flex-direction:column; gap:8px; align-items:flex-start}
-  .method-founder-bio{font-size:0.88rem; color:var(--text-mid); line-height:1.65}
-  @media(max-width:520px){
-    .method-card-founder{flex-direction:column; text-align:center}
-    .method-founder-text{align-items:center}
-  }
+  /* ── FAQ ── */
   .faq-section .section-head{margin-bottom:20px}
   .faq-list{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
   .faq-item{background:var(--white); border-radius:16px; border:1px solid rgba(1,108,145,0.09); padding:4px 22px; box-shadow:0 6px 18px rgba(1,92,120,0.05)}
@@ -256,24 +239,6 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .vision-why-list{list-style:none; display:flex; flex-direction:column; gap:10px}
   .vision-why-list li{font-size:0.95rem; color:var(--text-body); line-height:1.6; padding-right:22px; position:relative}
   .vision-why-list li::before{content:'•'; color:var(--gold); position:absolute; right:0; font-weight:800}
-
-  /* ── Dimensions ── */
-  .dims{background:var(--off-white)}
-  .dims-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
-  @media(max-width:768px){ .dims-grid{grid-template-columns:1fr} }
-  .dim-card{background:var(--white); border-radius:20px; padding:28px 24px; border:1px solid rgba(1,108,145,0.09); border-top:3px solid var(--sym-health); box-shadow:0 8px 24px rgba(1,92,120,0.06)}
-  .dim-card.emotional{border-top-color:var(--sym-protect)}
-  .dim-card.spiritual{border-top-color:var(--sym-channel)}
-  .dim-icon{width:34px; height:34px; border-radius:50%; border:2px solid var(--sym-health); margin-bottom:14px; position:relative}
-  .dim-icon::after{content:''; position:absolute; inset:8px; border-radius:50%; background:var(--sym-health)}
-  .dim-card.emotional .dim-icon{border-color:var(--sym-protect)}
-  .dim-card.emotional .dim-icon::after{background:var(--sym-protect)}
-  .dim-card.spiritual .dim-icon{border-color:var(--sym-channel)}
-  .dim-card.spiritual .dim-icon::after{background:var(--sym-channel)}
-  .dim-title{font-weight:800; font-size:1.05rem; color:var(--teal-dark); margin-bottom:12px}
-  .dim-list{list-style:none; display:flex; flex-direction:column; gap:6px}
-  .dim-list li{font-size:0.85rem; color:var(--text-mid); padding-right:16px; position:relative}
-  .dim-list li::before{content:'•'; color:var(--gold); position:absolute; right:0}
 
   /* ── Testimonials ── */
   .testimonials{background:var(--off-white)}
@@ -362,11 +327,10 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <a href="index.html" class="active">דף הבית</a>
       <a href="courses-orbit.html">מפת קורסים</a>
       <a href="study-track.html">מסלול לימוד</a>
-      <a href="personal-treatments.html">טיפולים אישיים</a>
-      <a href="practitioners.html">מטפלים מוסמכים</a>
+      <a href="personal-treatments.html">טיפולים ומטפלים</a>
       <a href="about-irit.html">אודות האקדמיה</a>
       <a href="blog.html">בלוג</a>
-      <a href="events.html">אירועים</a>
+      <a href="events.html">אירועים וגלריה</a>
     </nav>
     <a class="header-cta" href="#contact">קביעת שיחת היכרות</a>
     <button class="nav-toggle" id="navToggle" aria-label="תפריט" aria-expanded="false" aria-controls="mainNav">
@@ -517,33 +481,6 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   </div>
 </section>
 
-<!-- ═══ DIMENSIONS ═══ -->
-<section class="dims">
-  <div class="container">
-    <div class="section-head fade-up">
-      <div class="section-tag">הגישה שלנו</div>
-      <h2 class="section-title">ריפוי בשלושה רבדים</h2>
-    </div>
-    <div class="dims-grid">
-      <div class="dim-card spiritual fade-up">
-        <div class="dim-icon"></div>
-        <div class="dim-title">רוחני</div>
-        <ul class="dim-list"><li>חיבור לעצמי הגבוה</li><li>פיתוח אינטואיציה ותקשור</li><li>פתיחת היצירתיות</li><li>כוח להשפיע על המציאות</li></ul>
-      </div>
-      <div class="dim-card emotional fade-up">
-        <div class="dim-icon"></div>
-        <div class="dim-title">נפשי ורגשי</div>
-        <ul class="dim-list"><li>שחרור מתח ופחד</li><li>ריפוי דכאון והתמכרויות</li><li>שחרור כעסים וטראומות</li><li>הרפיה עמוקה של גוף ונפש</li></ul>
-      </div>
-      <div class="dim-card fade-up">
-        <div class="dim-icon"></div>
-        <div class="dim-title">פיזי</div>
-        <ul class="dim-list"><li>שחרור כאבים כרוניים</li><li>חיזוק המערכת החיסונית</li><li>איזון לחץ דם והורמונלי</li><li>החלמה מהירה ממחלות וניתוחים</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="testimonials">
   <div class="container">
@@ -649,55 +586,6 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="t-author"><div class="t-avatar">א</div><div><div class="t-name">א.ק.</div><div class="t-role">בוגרת קורס הילינג</div></div></div>
       </div>
     </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ METHOD TOPICS (כותרות בלבד, אירית תשלח תוכן בהמשך) ═══ -->
-<section class="method-topics">
-  <div class="container">
-    <div class="section-head fade-up">
-      <div class="section-tag">השיטה של הוויה</div>
-      <h2 class="section-title">על השיטה</h2>
-    </div>
-    <div class="method-grid">
-      <div class="method-card fade-up">
-        <div class="method-icon"></div>
-        <h3 class="method-title">איך השיטה עובדת</h3>
-        <span class="soon-badge">בקרוב</span>
-      </div>
-      <div class="method-card fade-up">
-        <div class="method-icon"></div>
-        <h3 class="method-title">למי השיטה יכולה לעזור?</h3>
-        <div class="method-tags">
-          <span class="method-tag">עוברים</span>
-          <span class="method-tag">תינוקות</span>
-          <span class="method-tag">ילדים ומתבגרים</span>
-          <span class="method-tag">מבוגרים</span>
-        </div>
-      </div>
-      <div class="method-card fade-up">
-        <div class="method-icon"></div>
-        <h3 class="method-title">למי הלימודים מתאימים?</h3>
-        <div class="method-tags">
-          <span class="method-tag">מטפלים בשיטות אחרות</span>
-          <span class="method-tag">הורים לילדים</span>
-          <span class="method-tag">מי שרוצה להפיץ את האור ולטפל</span>
-        </div>
-      </div>
-      <a class="method-card method-card-founder fade-up" href="about-irit.html">
-        <img class="method-founder-photo" src="founder_irit.jpg" alt="אירית רולניק, מייסדת האקדמיה" loading="lazy">
-        <div class="method-founder-text">
-          <h3 class="method-title">מייסדת האקדמיה</h3>
-          <p class="method-founder-bio">אירית רולניק — מעל 30 שנה של ליווי מטפלים ומטופלים מתוך חיבור עמוק לנשמה ולאור.</p>
-          <span class="c-link">לסיפור המלא ←</span>
-        </div>
-      </a>
-      <div class="method-card fade-up">
-        <div class="method-icon"></div>
-        <h3 class="method-title">מייסדת השיטה</h3>
-        <div class="method-name">שושנה דונאיה</div>
-      </div>
     </div>
   </div>
 </section>
