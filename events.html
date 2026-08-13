@@ -91,8 +91,18 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .gallery-head{text-align:center; margin-bottom:30px}
   .gallery-title{font-size:clamp(1.5rem,3.2vw,2rem); font-weight:800; color:var(--teal-dark); margin-bottom:8px}
   .gallery-sub{font-size:0.92rem; color:var(--text-mid); max-width:480px; margin:0 auto}
-  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; max-width:900px; margin:0 auto}
-  .gallery-placeholder{aspect-ratio:1; border-radius:16px; border:1.5px dashed rgba(1,108,145,0.25); background:var(--off-white); display:flex; align-items:center; justify-content:center; color:var(--text-mid); font-size:0.78rem; text-align:center; padding:10px}
+  .gallery-photo{border-radius:16px; width:100%; height:100%; object-fit:cover; object-position:center top; display:block; box-shadow:0 8px 24px rgba(1,92,120,0.1)}
+
+  /* ── Sticky-scroll gallery ── */
+  .sticky-gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:1000px; margin:0 auto}
+  .sticky-gallery-col{display:flex; flex-direction:column; gap:14px}
+  .sticky-gallery-col:not(.sticky-col) .gallery-photo{height:260px}
+  .sticky-gallery-col.sticky-col{position:sticky; top:96px; height:calc(100vh - 116px); display:grid; grid-template-rows:1fr 1fr; gap:14px}
+  @media(max-width:768px){
+    .sticky-gallery{grid-template-columns:1fr}
+    .sticky-gallery-col.sticky-col{position:static; height:auto; display:flex; flex-direction:column}
+    .sticky-gallery-col.sticky-col .gallery-photo{height:260px}
+  }
 
   /* ── Calendar ── */
   .cal-wrap{max-width:640px; margin:0 auto; background:var(--white); border-radius:24px; padding:28px 26px; box-shadow:0 16px 44px rgba(1,92,120,0.1); border:1px solid rgba(1,108,145,0.08)}
@@ -215,13 +225,26 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
     <h2 class="gallery-title">גלריה</h2>
     <p class="gallery-sub">תמונות מאירועים, הרצאות ומפגשים — יתעדכן בהמשך</p>
   </div>
-  <div class="gallery-grid fade-up">
-    <div class="gallery-placeholder">בקרוב</div>
-    <div class="gallery-placeholder">בקרוב</div>
-    <div class="gallery-placeholder">בקרוב</div>
-    <div class="gallery-placeholder">בקרוב</div>
-    <div class="gallery-placeholder">בקרוב</div>
-    <div class="gallery-placeholder">בקרוב</div>
+  <div class="sticky-gallery fade-up">
+    <div class="sticky-gallery-col">
+      <img class="gallery-photo" src="gallery_1.jpg" alt="אירית לצד עמודי המידע של הוויה באירוע" loading="lazy">
+      <img class="gallery-photo" src="gallery_11.jpg" alt="אירית ושושנה דונאיה" loading="lazy">
+      <img class="gallery-photo" src="gallery_5.jpg" alt="הענקת תעודת רייקי לבוגרת" loading="lazy">
+      <img class="gallery-photo" src="gallery_9.jpg" alt="אירית מרצה עם מיקרופון" loading="lazy">
+      <img class="gallery-photo" src="gallery_12.jpg" alt="אירית מתראיינת בשידור חי ברדיו" loading="lazy">
+    </div>
+    <div class="sticky-gallery-col sticky-col">
+      <img class="gallery-photo" src="gallery_2.jpg" alt="אירית מרצה מול מסך הוויה" loading="lazy">
+      <img class="gallery-photo" src="gallery_8.jpg" alt="טיפול אנרגטי במהלך מפגש" loading="lazy">
+    </div>
+    <div class="sticky-gallery-col">
+      <img class="gallery-photo" src="gallery_4.jpg" alt="מפגש קבוצתי בסלון ביתי" loading="lazy">
+      <img class="gallery-photo" src="gallery_7.jpg" alt="הענקת תעודת רייקי לבוגרת" style="object-position:center 44%" loading="lazy">
+      <img class="gallery-photo" src="gallery_6.jpg" alt="הענקת תעודת רייקי לבוגרת" loading="lazy">
+      <img class="gallery-photo" src="gallery_10.jpg" alt="קבוצת בוגרות רייקי עם תעודות" loading="lazy">
+      <img class="gallery-photo" src="gallery_3.jpg" alt="חמש בוגרות בצילום קבוצתי" loading="lazy">
+      <img class="gallery-photo" src="gallery_13.jpg" alt="הענקת תעודת רייקי לשרון גוטליב" style="object-position:center 15%" loading="lazy">
+    </div>
   </div>
 </section>
 

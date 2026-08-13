@@ -5,7 +5,7 @@
 <script src="accessibility.js"></script>
 <script>
 if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-window.addEventListener('pageshow', () => window.scrollTo(0, 0));
+window.addEventListener('pageshow', () => { if (!location.hash) window.scrollTo(0, 0); });
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הסיפור שלי — אירית רולניק — הוויה</title>
@@ -124,6 +124,16 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .btn-primary{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid)); color:#fff; padding:16px 40px; border-radius:50px; font-size:1.05rem; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 6px 22px rgba(1,108,145,0.3)}
   .s-cta{text-align:center; margin-top:8px}
 
+  /* ── Shoshana Donaya (מייסדת השיטה) ── */
+  .founder-section{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.08); border-bottom:1px solid rgba(1,108,145,0.08); scroll-margin-top:90px}
+  .sub-head{text-align:center; margin:46px 0 22px}
+  .sub-head h3{font-size:clamp(1.2rem,2.8vw,1.5rem); font-weight:800; color:var(--teal-dark)}
+  .method-block-list{display:flex; flex-direction:column; gap:18px; margin-top:22px}
+  .method-block{background:var(--white); border-radius:18px; padding:24px 26px; border:1px solid rgba(1,108,145,0.09); box-shadow:0 8px 24px rgba(1,92,120,0.05)}
+  .method-block h4{font-size:1.05rem; font-weight:800; color:var(--teal-dark); margin-bottom:10px}
+  .method-block p{font-size:0.94rem; line-height:1.8; color:var(--text-body); margin-bottom:10px}
+  .method-block p:last-child{margin-bottom:0}
+
   footer{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.1); padding:34px 20px; text-align:center; color:var(--text-mid); font-size:0.85rem}
   footer a{text-decoration:none; color:var(--text-mid); margin:0 8px}
   footer a:hover{color:var(--teal-dark)}
@@ -183,6 +193,76 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <div class="s-moto-label">המוטו שלי</div>
       <p>לא ליצור תלות במטפל – אלא לפתוח לאדם את הדלת, כך שיוכל להתחבר לעצמו, להמשיך לצמוח בכוחות עצמו ולהפיץ את האור הלאה.</p>
     </div>
+  </div>
+</section>
+
+<section class="founder-section" id="shoshana">
+  <div class="s-body fade-up">
+    <div class="s-photo fade-up" style="margin-bottom:22px">
+      <img src="founder_shoshana.jpg" alt="שושנה דונאיה — מייסדת השיטה">
+    </div>
+    <div class="s-tag" style="text-align:center">מייסדת השיטה</div>
+    <h2 class="s-title" style="text-align:center; margin-bottom:28px">שושנה דונאיה</h2>
+
+    <p>שושנה דונאיה היא מורה רוחנית, הילרית ומתקשרת, מאסטר לרייקי, אמנית וסופרת. במשך כשלושה עשורים היא עוסקת בהוראה, טיפול, ריפוי אנרגטי והתפתחות רוחנית.</p>
+    <p>שושנה היא מייסדת הדרך והשיטה שעל בסיסן נבנה גוף הידע של האקדמיה "הוויה", שהקימה בתה אירית כדי לאגד, להעמיק ולהנגיש את הידע, השיטות והתהליכים שהתפתחו לאורך דרכה של שושנה.</p>
+    <p>במהלך השנים עברו דרך שושנה עשרות אלפי תלמידים ומטופלים, והיא הכשירה מטפלים, מדריכים ומאסטרים.</p>
+
+    <div class="sub-head"><h3>הדרך הרוחנית</h3></div>
+    <p>דרכה הרוחנית של שושנה החלה בלימודי תקשור בסיסי, הילינג בסיסי והרמוניה אצל מורתה רינת אקשטיין. בהמשך למדה רייקי, רייקי סייקם ורייקי קרונה אצל ד"ר אלונה מילמן ז"ל, והוסמכה כמסטרית בשיטות אלה. לאורך השנים לימדה, טיפלה והכשירה תלמידים ומדריכים.</p>
+    <p>בהמשך דרכה התקבל אצל שושנה בתהליכי תקשור גוף ידע ייחודי, שכלל שיטות, תהליכים וטכניקות ריפוי והתפתחות. מתוך ידע זה התפתחו, בין היתר, חיבור לנשמה עם המלאך מיכאל, חיבור לזוגיות האנרגטית והקוסמית, חיבור לשפע, חיבור לבורא ותקשור קו האמצע.</p>
+    <p>תקשור קו האמצע התפתח מתוך בסיס התקשור שרכשה שושנה בתחילת דרכה, אך הטכניקה והדרך הייחודית שלו התקבלו אצלה בהמשך בתקשור עם המלאך מיכאל.</p>
+
+    <div class="sub-head"><h3>השיטות, הקורסים והספרים</h3></div>
+    <div class="method-block-list">
+      <div class="method-block">
+        <h4>חיבור לנשמה עם המלאך מיכאל</h4>
+        <p>תהליך שהתקבל בתקשור לפני כשלושים שנה, ועוסק בחיבור האדם לנשמתו וביכולת להכיל ולבטא את איכויותיו הגבוהות.</p>
+        <p>הקורס "החיבור לנשמה עם המלאך מיכאל" מכשיר תלמידים ומטפלים לעבודה בשיטה.</p>
+        <p>הספר "ריפוי עם המלאך מיכאל – חיבור לנשמה" מעמיק את הידע ומביא כלים ותובנות לעבודה עם הנשמה, הריפוי והחיים.</p>
+      </div>
+      <div class="method-block">
+        <h4>חיבור לזוגיות האנרגטית והקוסמית</h4>
+        <p>תהליך שהתקבל בתקשור עם המאסטר מטטרון והמלאך מיכאל, העוסק בזיהוי ובריפוי חסימות עמוקות הקשורות לזוגיות ולמערכות יחסים.</p>
+      </div>
+      <div class="method-block">
+        <h4>חיבור לשפע</h4>
+        <p>תהליך הכולל אבחון אישי, עבודה אנרגטית וכלים לשחרור אמונות וחסימות הקשורות לשפע ולכסף.</p>
+      </div>
+      <div class="method-block">
+        <h4>חיבור לבורא</h4>
+        <p>תהליך שהתקבל בתקשור עם הבורא הקדום והמאסטר מטטרון, ועוסק בחיבור בין תדר הנשמה לבין הגוף הפיזי ובהבאת איכויות הנשמה לידי ביטוי בחיים.</p>
+      </div>
+      <div class="method-block">
+        <h4>תקשור קו האמצע</h4>
+        <p>טכניקה ייחודית שהתקבלה בתקשור עם המלאך מיכאל, המאפשרת דרך מובנית לבחינה ולדיוק של תהליכי תקשור ולחיבור למקורות רוחניים שונים.</p>
+      </div>
+      <div class="method-block">
+        <h4>מפתחות המאסטר חנוך</h4>
+        <p>הידע של מפתחות המאסטר חנוך לידע העילאי – הקבלה הנקבית התקבל בתקשור וכולל סמלים, מפתחות ותהליכים לעבודה אנרגטית, אישית ורוחנית.</p>
+        <p>הספר "מפתחות המאסטר חנוך לידע העילאי – הקבלה הנקבית" מביא את גוף הידע המתוקשר, והקורס מעביר אותו במסגרת לימודית וחווייתית.</p>
+      </div>
+      <div class="method-block">
+        <h4>מפתחות המאסטר מטטרון</h4>
+        <p>הידע של מפתחות המאסטר מטטרון לריפוי אנרגיית הסרטן – ידע מתוקשר העוסק באנרגיית הסרטן ברובד האנרגטי והרוחני ובתהליכי העבודה והריפוי הקשורים אליה.</p>
+        <p>הספר והקורס מאפשרים להעמיק בגוף ידע זה ולעבוד עם המפתחות והתהליכים האנרגטיים שבו.</p>
+      </div>
+      <div class="method-block">
+        <h4>מפתחות וחותמות המלך שלמה</h4>
+        <p>מפתחות וחותמות המלך שלמה – חיבור למהות הגבוהה התקבלו בתקשור ומביאים ידע העוסק באחדות, שלום, חיבור למהות הגבוהה והתעלות מעל נפרדות ומחסומים.</p>
+        <p>הספר והקורס מובילים לתהליך הדרגתי של עבודה עם המפתחות והחותמות.</p>
+      </div>
+      <div class="method-block">
+        <h4>שיטת ההילינג "החיבור לנשמה"</h4>
+        <p>שיטה להכשרת מטפלים, המשלבת את החיבור לנשמה עם הילינג ואנרגיית הבורא ועבודה ברבדים הפיזי, הרגשי, המנטלי והרוחני.</p>
+        <p>הידע והשיטה התקבלו והתפתחו בתהליכי תקשור, והועברו לאורך השנים במסגרת טיפולים, קורסים והכשרת מטפלים.</p>
+      </div>
+    </div>
+
+    <div class="sub-head"><h3>מ"הדרך של שושנה" אל "הוויה"</h3></div>
+    <p>במשך כשלושה עשורים העבירה שושנה את הידע שלה לתלמידים ומטופלים רבים. השיטות, התהליכים והידע שהתקבלו בתקשור, יחד עם הידע שרכשה והעבירה בתחומי הרייקי וההילינג, הספרים והניסיון הרב שצברה, יצרו גוף ידע רחב ומדורג.</p>
+    <p>מתוך גוף ידע זה הקימה אירית את האקדמיה "הוויה", כמסגרת המאחדת ומנגישה את הדרך והידע של שושנה למסלול לימודי והתפתחותי.</p>
+    <p>המסלול משלב בין רייקי והילינג, חיבור לנשמה, תקשור, ובהמשך עבודה עם מפתחות המאסטר חנוך, המאסטר מטטרון ומפתחות וחותמות המלך שלמה.</p>
   </div>
 </section>
 

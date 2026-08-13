@@ -217,6 +217,18 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .about-method-audience-list li{font-size:0.95rem; line-height:1.75; color:var(--text-body); padding-right:22px; position:relative}
   .about-method-audience-list li::before{content:'•'; color:var(--gold); position:absolute; right:0; font-weight:800}
 
+  /* ── Founders (2 separate stacked spotlights, not a paired grid) ── */
+  .founder-spotlight{display:flex; align-items:stretch; background:var(--white); border-radius:22px; overflow:hidden; border:1px solid rgba(1,108,145,0.09); box-shadow:0 10px 30px rgba(1,92,120,0.07); text-decoration:none; color:inherit; max-width:820px; margin:0 auto 24px; transition:transform 180ms var(--ease-ui), box-shadow 180ms ease}
+  .founder-spotlight:last-child{margin-bottom:0}
+  .founder-spotlight:hover{transform:translateY(-3px); box-shadow:0 16px 40px rgba(1,92,120,0.12)}
+  .founder-spotlight-photo{width:36%; flex-shrink:0; object-fit:cover; object-position:center top; display:block}
+  .founder-spotlight-body{padding:28px 32px; display:flex; flex-direction:column; justify-content:center}
+  .founder-spotlight-text{font-size:0.93rem; line-height:1.75; color:var(--text-body); margin-bottom:14px}
+  @media(max-width:600px){
+    .founder-spotlight{flex-direction:column}
+    .founder-spotlight-photo{width:100%; height:220px}
+  }
+
   /* ── Vision ── */
   .vision-lead{max-width:760px; margin:0 auto 40px; text-align:center}
   .vision-lead p{font-size:1.08rem; line-height:1.9; color:var(--text-body); margin-bottom:16px}
@@ -478,6 +490,40 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <li>יצירת שינוי ממשי בחיים ובהנהגת המציאות</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<!-- ═══ FOUNDER: IRIT ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">מייסדת האקדמיה הוויה</div>
+      <h2 class="section-title">אירית רולניק</h2>
+    </div>
+    <a class="founder-spotlight fade-up" href="about-irit.html">
+      <img class="founder-spotlight-photo" src="irit_founder_photo.jpg" alt="אירית רולניק">
+      <div class="founder-spotlight-body">
+        <p class="founder-spotlight-text">אירית רולניק, מייסדת "הוויה", משלבת רקע של הייטק (מיקרוסופט, CA) עם חיבור רוחני עמוק שליווה אותה מילדות.<br>בהמשך דרכה עברה להוראה וריפוי, ופיתחה — מתוך השיטות שקיבלה אמה שושנה דונאיה וניסיון רב עם מטופלים — דרך טיפול והכשרה שלמה.<br>מאמינה שכל אדם נושא בתוכו מתנות ייחודיות, ושכשמשתחררים מהפחדים אפשר לחיות חיים של משמעות.</p>
+        <span class="c-link">לסיפור המלא ←</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOUNDER: SHOSHANA ═══ -->
+<section style="padding-top:0">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-tag">מייסדת השיטה</div>
+      <h2 class="section-title">שושנה דונאיה</h2>
+    </div>
+    <a class="founder-spotlight fade-up" href="about-irit.html#shoshana">
+      <img class="founder-spotlight-photo" src="founder_shoshana.jpg" alt="שושנה דונאיה">
+      <div class="founder-spotlight-body">
+        <p class="founder-spotlight-text">שושנה דונאיה, מייסדת השיטה, היא מורה רוחנית, הילרית ומתקשרת, מאסטר לרייקי, אמנית וסופרת — עם כשלושה עשורים של הוראה, טיפול וריפוי אנרגטי.<br>לאורך דרכה קיבלה בתקשור גוף ידע ייחודי: חיבור לנשמה עם המלאך מיכאל, תקשור קו האמצע, מפתחות המאסטר חנוך ומטטרון, מפתחות וחותמות המלך שלמה ועוד.<br>מתוך הדרך והידע שלה הקימה בתה אירית את האקדמיה "הוויה", הממשיכה ומנגישה את המורשת הזו.</p>
+        <span class="c-link">לסיפור המלא ←</span>
+      </div>
+    </a>
   </div>
 </section>
 
