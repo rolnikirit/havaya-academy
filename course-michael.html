@@ -105,6 +105,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .c-materials h3{font-size:1.05rem; color:var(--teal-dark); margin-bottom:14px}
   .c-materials .pending{font-size:0.85rem; color:var(--text-mid); background:var(--off-white); display:inline-block; padding:6px 14px; border-radius:10px}
 
+  .course-intro-video{max-width:760px; margin:0 auto; border-radius:20px; overflow:hidden; box-shadow:0 16px 44px rgba(1,92,120,0.14)}
+  .course-intro-video video{width:100%; aspect-ratio:16/9; display:block}
+
   .syllabus-heading{font-size:1.3rem; font-weight:800; color:var(--teal-dark); margin-bottom:24px; text-align:center}
   .faq-list{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
   .faq-item{background:var(--white); border-radius:16px; border:1px solid rgba(1,108,145,0.09); padding:4px 22px; box-shadow:0 6px 18px rgba(1,92,120,0.05)}
@@ -191,6 +194,12 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   <div class="c-tag fade-up">קורס</div>
   <h1 class="c-title fade-up">תקשור קו אמצע עם המלאך מיכאל</h1>
   <div class="c-meta-line fade-up">27 שעות לימוד · 9 מפגשים של 3 שעות · זום או כפר סבא</div>
+</section>
+
+<section>
+  <div class="course-intro-video fade-up">
+    <video controls playsinline preload="metadata" src="course-michael-intro.mp4"></video>
+  </div>
 </section>
 
 
