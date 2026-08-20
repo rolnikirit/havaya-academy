@@ -39,7 +39,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   header{background:linear-gradient(90deg, #f2e6c9 0%, #8fb5c4 14%, #3d7d92 32%, #015c78 52%, #2a7288 68%, #a8cdd8 86%, #f2e6c9 100%); border-bottom:1px solid rgba(0,0,0,0.08); position:sticky; top:0; z-index:50}
   .header-inner{max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff}
-  .brand img{height:64px; width:auto}
+  .brand img{height:64px; width:auto; filter:drop-shadow(0 0 2px rgba(255,255,255,0.85)) drop-shadow(0 0 7px rgba(255,255,255,0.5))}
   nav{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
   nav a{position:relative; color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.9rem; font-weight:600; padding:8px 14px; border-radius:10px; transition:color 200ms ease}
   nav a:hover, nav a:focus-visible, nav a.active{color:#fff}
@@ -71,6 +71,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
     .nav-toggle{display:flex}
     .nav-toggle{order:1}
     .brand{order:2}
+    .brand img{height:70px}
     .header-cta{order:3}
     .nav-dropdown{width:100%; flex-direction:column; align-items:stretch}
     .nav-dropdown-row{width:100%; justify-content:flex-start; gap:8px}
@@ -82,7 +83,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   }
   @media(max-width:420px){
     .header-cta{padding:8px 14px; font-size:0.78rem}
-    .brand img{height:52px}
+    .brand img{height:60px}
   }
 
   /* ── Hero ── */
