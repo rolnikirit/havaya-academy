@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<meta name="facebook-domain-verification" content="gxy0rumjn72ednhl3yb0a0ojhhv0yn" />
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1531256248310049');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1531256248310049&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <script src="accessibility.js"></script>
 <script>
@@ -324,6 +342,16 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.08 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+<!-- Meta Pixel: Lead tracking on WhatsApp / phone clicks -->
+<script>
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[href^="https://wa.me/"], a[href^="tel:"]');
+  if (!a) return;
+  if (typeof fbq !== 'function') return;
+  var isWa = a.href.indexOf('wa.me') !== -1;
+  fbq('track', 'Lead', { content_name: isWa ? 'whatsapp_click' : 'phone_click' });
+});
 </script>
 </body>
 </html>
