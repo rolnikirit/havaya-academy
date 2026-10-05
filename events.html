@@ -58,7 +58,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff}
   .brand img{height:64px; width:auto; filter:drop-shadow(0 0 2px rgba(255,255,255,0.85)) drop-shadow(0 0 7px rgba(255,255,255,0.5))}
   nav{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
-  nav a{position:relative; color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.9rem; font-weight:600; padding:8px 14px; border-radius:10px; transition:color 200ms ease}
+  nav a{position:relative; color:rgba(255,255,255,0.82); text-decoration:none; font-size:0.9rem; font-weight:600; padding:8px 10px; border-radius:10px; transition:color 200ms ease}
   nav a:hover, nav a:focus-visible, nav a.active{color:#fff}
   nav a:hover, nav a:focus-visible{animation:tab-pop 4.5s ease-in-out infinite}
   nav a.active::after{content:''; position:absolute; right:14px; left:14px; bottom:2px; height:3px; border-radius:3px; background:var(--glow)}
@@ -116,12 +116,14 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .sticky-gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:1000px; margin:0 auto}
   .sticky-gallery-col{display:flex; flex-direction:column; gap:14px}
   .sticky-gallery-col:not(.sticky-col) .gallery-photo{height:260px}
-  .sticky-gallery-col.sticky-col{position:sticky; top:96px; height:calc(100vh - 116px); max-height:800px; display:grid; grid-template-rows:1fr 1fr; gap:14px}
+  .sticky-gallery-col:not(.sticky-col) .gallery-photo.gallery-long{height:420px}
+  .sticky-gallery-col.sticky-col{position:sticky; top:96px; height:calc(100vh - 116px); max-height:800px; display:grid; grid-template-rows:minmax(0,1fr) minmax(0,1fr); gap:14px}
   @media(max-width:768px){
     .sticky-gallery{grid-template-columns:1fr}
     .sticky-gallery-col.sticky-col{position:static; height:auto; display:flex; flex-direction:column}
     .sticky-gallery-col.sticky-col .gallery-photo{height:260px}
     .sticky-gallery-col .gallery-photo.gallery-portrait{height:auto; aspect-ratio:3/4; object-fit:cover}
+    .sticky-gallery-col .gallery-photo.gallery-long{height:auto; aspect-ratio:3/4; object-fit:cover}
   }
 
   /* ── Calendar ── */
@@ -201,6 +203,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <a href="about-irit.html">אודות האקדמיה</a>
       <a href="blog.html">בלוג</a>
       <a href="events.html" class="active">אירועים וגלריה</a>
+      <a href="lectures.html">הרצאות</a>
     </nav>
     <a class="header-cta" href="index.html#contact">קביעת שיחת היכרות</a>
     <button class="nav-toggle" id="navToggle" aria-label="תפריט" aria-expanded="false" aria-controls="mainNav">
@@ -247,22 +250,19 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   </div>
   <div class="sticky-gallery fade-up">
     <div class="sticky-gallery-col">
-      <img class="gallery-photo" src="gallery_1.jpg" alt="אירית לצד עמודי המידע של הוויה באירוע" loading="lazy">
+      <img class="gallery-photo gallery-long" src="gallery_1.jpg" alt="אירית לצד עמודי המידע של הוויה באירוע" style="object-position:82% center" loading="lazy">
       <img class="gallery-photo" src="gallery_11.jpg" alt="אירית ושושנה דונאיה" loading="lazy">
       <img class="gallery-photo" src="gallery_5.jpg" alt="הענקת תעודת רייקי לבוגרת" loading="lazy">
-      <img class="gallery-photo gallery-portrait" src="gallery_9.jpg" alt="אירית מרצה עם מיקרופון" loading="lazy">
-      <img class="gallery-photo" src="gallery_12.jpg" alt="אירית מתראיינת בשידור חי ברדיו" loading="lazy">
+      <img class="gallery-photo" src="gallery_7.jpg" alt="הענקת תעודת רייקי לבוגרת" style="object-position:center 44%" loading="lazy">
     </div>
     <div class="sticky-gallery-col sticky-col">
-      <img class="gallery-photo gallery-portrait" src="gallery_2.jpg" alt="אירית מרצה מול מסך הוויה" loading="lazy">
       <img class="gallery-photo gallery-portrait" src="gallery_8.jpg" alt="טיפול אנרגטי במהלך מפגש" loading="lazy">
+      <img class="gallery-photo" src="gallery_12.jpg" alt="אירית מתראיינת בשידור חי ברדיו" loading="lazy">
     </div>
     <div class="sticky-gallery-col">
-      <img class="gallery-photo" src="gallery_4.jpg" alt="מפגש קבוצתי בסלון ביתי" loading="lazy">
-      <img class="gallery-photo" src="gallery_7.jpg" alt="הענקת תעודת רייקי לבוגרת" style="object-position:center 44%" loading="lazy">
       <img class="gallery-photo" src="gallery_6.jpg" alt="הענקת תעודת רייקי לבוגרת" loading="lazy">
       <img class="gallery-photo" src="gallery_10.jpg" alt="קבוצת בוגרות רייקי עם תעודות" loading="lazy">
-      <img class="gallery-photo" src="gallery_13.jpg" alt="הענקת תעודת רייקי לשרון גוטליב" style="object-position:center 15%" loading="lazy">
+      <img class="gallery-photo gallery-long" src="gallery_13.jpg" alt="הענקת תעודת רייקי לשרון גוטליב" style="object-position:center 15%" loading="lazy">
     </div>
   </div>
 </section>
