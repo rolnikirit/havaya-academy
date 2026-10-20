@@ -178,7 +178,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .lec-hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem); font-weight:800; color:var(--teal-dark); max-width:900px; margin:10px auto 8px; line-height:1.3}
   .lec-sub{font-size:clamp(1.05rem,2vw,1.3rem); color:var(--gold); font-weight:500; margin-bottom:22px}
   .lec-lead{max-width:760px; margin:0 auto 26px; font-size:17px; line-height:1.85; color:var(--teal-dark)}
-  .lec-hero-img{width:100%; max-width:1100px; height:auto; border-radius:18px; box-shadow:0 10px 30px rgba(1,92,120,0.18); display:block; margin:0 auto}
+  .lec-hero-img{width:100%; max-width:539px; height:560px; object-fit:cover; object-position:center 3%; border-radius:18px; box-shadow:0 10px 30px rgba(1,92,120,0.18); display:block; margin:0 auto}
   .lec-btn{display:inline-block; margin-top:26px; background:var(--teal-mid); color:var(--white); padding:14px 30px; border-radius:100px; font-weight:600; text-decoration:none; font-size:17px}
   .lec-btn:hover{background:var(--teal-dark)}
   .lec-btn-2{display:inline-block; margin:10px 8px 0; border:2px solid var(--teal-mid); color:var(--teal-dark); padding:12px 26px; border-radius:100px; font-weight:600; text-decoration:none; font-size:16px}
@@ -187,6 +187,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .lec-p{max-width:780px; margin:0 auto 14px; font-size:17px; line-height:1.85; color:var(--ink); text-align:center}
   .lec-me{display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:center; margin-top:28px}
   .lec-me img{width:100%; height:560px; object-fit:cover; object-position:center 3%; border-radius:16px; box-shadow:0 8px 24px rgba(1,92,120,0.12); display:block}
+  .lec-me img.lec-group-photo{height:auto; max-height:560px; object-fit:contain; object-position:center}
   .lec-group{margin-top:34px}
   .lec-group h2{text-align:right}
   .lec-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:14px}
@@ -201,7 +202,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .lec-cta .lec-btn{background:var(--glow); color:var(--teal-dark)}
   .lec-cta .lec-btn:hover{background:var(--gold); color:var(--white)}
   .lec-cta .lec-btn-2{border-color:var(--white); color:var(--white)}
-  @media (max-width:760px){ .lec-me{grid-template-columns:1fr} .lec-me img{height:auto; aspect-ratio:4/3} }
+  @media (max-width:760px){ .lec-me{grid-template-columns:1fr} .lec-me img{height:auto; aspect-ratio:4/3} .lec-me img.lec-group-photo{aspect-ratio:auto} }
 </style>
 </head>
 <body>
@@ -262,8 +263,8 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 <section class="lec-section">
   <h2>מי אני כמרצה?</h2>
   <div class="lec-me">
-    <img src="gallery_4.jpg" alt="אירית מרצה בישיבה מול קהל בסלון ביתי" loading="lazy">
-    <img src="gallery_9.jpg" alt="אירית מרצה עם מיקרופון" loading="lazy">
+    <img class="lec-group-photo" src="lecture-photo-2026-10-05-201102.jpeg" alt="אירית מנחה מפגש עם משתתפות" loading="lazy">
+    <img src="lecture-photo-2026-10-05-203837.jpeg" alt="אירית לצד שלט האקדמיה" loading="lazy">
   </div>
   <h2 style="margin-top:34px; font-size:clamp(1.2rem,2.4vw,1.5rem)">הרצאה שהיא הרבה מעבר לידע</h2>
   <p class="lec-p">אני מאמינה שהרצאה טובה לא מסתיימת כשנגמרת ההרצאה.<br>היא מתחילה כשמשהו בתוכנו זז.</p>
