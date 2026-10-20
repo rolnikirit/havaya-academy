@@ -91,6 +91,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .c-hero{background:var(--lav-pale); text-align:center; padding:60px 20px}
   .c-tag{font-size:0.78rem; font-weight:700; letter-spacing:2.5px; color:var(--teal-mid); text-transform:uppercase; margin-bottom:12px}
   .c-title{font-size:clamp(1.6rem,4vw,2.4rem); font-weight:800; color:var(--teal-dark); margin-bottom:14px; max-width:760px; margin-left:auto; margin-right:auto}
+  .c-hero-lead{max-width:760px; margin:0 auto; color:var(--text-body); font-size:1.05rem; line-height:1.8; font-style:italic}
   .c-meta-line{font-size:0.95rem; color:var(--gold); font-weight:700}
 
   .c-video-wrap{max-width:760px; margin:0 auto}
@@ -102,6 +103,8 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
   .c-body{max-width:700px; margin:0 auto}
   .c-body p{font-size:1.02rem; line-height:1.9; color:var(--text-body); margin-bottom:18px}
+  .course-section-title{font-size:1.35rem; line-height:1.4; color:var(--teal-dark); margin:0 0 16px; font-weight:800}
+  .course-subtitle{font-size:1.05rem; color:var(--teal-dark); margin:22px 0 8px; font-weight:700}
   .c-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin:22px 0}
   .c-list li{font-size:0.95rem; color:var(--text-mid); padding-right:20px; position:relative; line-height:1.6}
   .c-list li::before{content:'•'; color:var(--gold); position:absolute; right:0}
@@ -115,6 +118,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .syllabus-lesson{background:var(--white); border-radius:14px; padding:12px 18px; display:flex; gap:12px; align-items:flex-start; border:1px solid rgba(1,108,145,0.08); box-shadow:0 6px 16px rgba(1,92,120,0.05)}
   .syllabus-num{width:28px; height:28px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
   .syllabus-content{flex:1; min-width:0}
+  .syllabus-title{font-size:1rem; color:var(--teal-dark); line-height:1.6; margin-bottom:4px; font-weight:700}
   .syllabus-topics{font-size:0.94rem; color:var(--text-body); line-height:1.75}
   .syllabus-init{display:inline-block; font-size:0.76rem; font-weight:700; color:var(--teal-dark); background:var(--lav-pale); padding:4px 13px; border-radius:20px; margin-top:8px}
   .syllabus-pending{font-size:0.9rem; color:var(--text-mid); background:var(--white); border-radius:16px; padding:26px; text-align:center; border:1px dashed rgba(1,108,145,0.2)}
@@ -134,6 +138,10 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
   .btn-primary{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid)); color:#fff; padding:16px 40px; border-radius:50px; font-size:1.05rem; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 6px 22px rgba(1,108,145,0.3)}
   .c-cta{text-align:center; margin-top:8px}
+  .faq-section{background:var(--lav-pale)}
+  .faq-section .c-body{max-width:800px}
+  .faq-answer{background:var(--white); padding:24px; border-radius:18px; border:1px solid rgba(1,108,145,0.09)}
+  .faq-answer p:last-child{margin-bottom:0}
 
   footer{background:var(--off-white); border-top:1px solid rgba(1,108,145,0.1); padding:34px 20px; text-align:center; color:var(--text-mid); font-size:0.85rem}
   footer a{text-decoration:none; color:var(--text-mid); margin:0 8px}
@@ -185,9 +193,10 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 </header>
 
 <section class="c-hero">
-  <div class="c-tag fade-up">קורס · זהב הרייקי</div>
+  <div class="c-tag fade-up">קורס</div>
   <h1 class="c-title fade-up">רייקי 1+2</h1>
-  <div class="c-meta-line fade-up">4 שבועות · מפגשי 3 שעות · קבוצה אינטימית</div>
+  <p class="c-hero-lead fade-up">שני השלבים הראשונים בדרך הרייקי — חיבור לאנרגיית החיים, התפתחות אישית ולימוד יסודות הטיפול האנרגטי.</p>
+  <div class="c-meta-line fade-up">12 שעות לימוד · 4 מפגשים של 3 שעות · זום או כפר סבא</div>
 </section>
 
 <section>
@@ -201,14 +210,14 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
 <section>
   <div class="c-body fade-up">
-    <p>שני השלבים הראשונים בדרך הרייקי — יסודות והעמקה. תוכנית שמלמדת לעבוד עם אנרגיית ריפוי בצורה ברורה, בטוחה ומחוברת ללב.</p>
-    <p>שיטת ריפוי אנרגטית מסורתית הפועלת במישור הרגשי, האנרגטי והפיזי — ומביאה לאיזון, רגיעה ושחרור מתחים.</p>
-    <ul class="c-list">
-      <li>לימוד קבוצתי אינטימי, 4 שבועות, מפגשי 3 שעות</li>
-      <li>אתחולים (attunements) להגברת יכולת העברת הריפוי</li>
-      <li>אינטראקציה ישירה עם המנחה לאורך הקורס</li>
-      <li>קבוצת וואטסאפ תומכת + הקלטות מהמפגשים</li>
-    </ul>
+    <p>שיטת טיפול אנרגטית מסורתית המאפשרת לעצור, להירגע ולהתחבר לעצמנו. בקורס תלמדו לעבוד עם אנרגיית הרייקי, לתרגל טיפול עצמי ולהעניק טיפול לאחרים, בדרך המשלבת ידע, התנסות מעשית וחיבור ללב.</p>
+    <h2 class="course-section-title">מהי רייקי?</h2>
+    <p>רייקי היא שיטת טיפול אנרגטית שמקורה ביפן, שהתפתחה בהובלת ד״ר מיקאו אוסואי בתחילת המאה ה־20.</p>
+    <p>המילה רייקי מורכבת משתי מילים יפניות: <em>ריי (Rei), המתייחסת לאנרגיה אוניברסלית או לחכמה רוחנית, וקי (Ki), כוח החיים הזורם בכל גוף חי.</em></p>
+    <p>השיטה מבוססת על הנחת ידיים ועל העברת אנרגיה, בהתאם למסורת הרייקי. לצד התרגול הטיפולי, הרייקי היא גם דרך חיים המזמינה אותנו לפתח מודעות, להעמיק את ההקשבה הפנימית ולטפח חיבור בין הגוף, הנפש והרוח.</p>
+    <h2 class="course-section-title">איך לומדים רייקי בהוויה?</h2>
+    <p>הקורס משלב לימוד תיאורטי, חניכות ותרגול מעשי. כבר במפגש הראשון, לאחר החניכה, מתחילים לתרגל טיפול עצמי ולחוות את הטיפול בפועל.</p>
+    <p>הלימוד מתפתח בהדרגה: מהחיבור האישי לרייקי, דרך הכרת הסמלים ושיטות הטיפול, ועד להתנסות בטיפול באחרים ובשליחת רייקי מרחוק.</p>
   </div>
 </section>
 
@@ -223,34 +232,74 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">1</div>
         <div class="syllabus-content">
-          <p class="syllabus-topics">מה זה רייקי, היסטוריה ועקרונות הרייקי, וטיפול עצמי. סמל ראשון.</p>
+          <h3 class="syllabus-title">מפגש 1 – היכרות עם הרייקי וטיפול עצמי</h3>
+          <p class="syllabus-topics">מהי רייקי, ההיסטוריה של השיטה ועקרונותיה. חניכה ראשונה, לימוד הסמל הראשון ותחילת התרגול של טיפול עצמי.</p>
           <span class="syllabus-init">חניכה ראשונה</span>
         </div>
       </div>
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">2</div>
         <div class="syllabus-content">
-          <p class="syllabus-topics">ניקוי מרכזי האנרגיה בגוף, ההילה, סמל שני.</p>
+          <h3 class="syllabus-title">מפגש 2 – מרכזי האנרגיה והסמל השני</h3>
+          <p class="syllabus-topics">ניקוי מרכזי האנרגיה בגוף והיכרות עם ההילה. חניכה שנייה ולימוד הסמל השני והשימוש בו.</p>
           <span class="syllabus-init">חניכה שנייה</span>
         </div>
       </div>
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">3</div>
         <div class="syllabus-content">
-          <p class="syllabus-topics">סמל שלישי, טיפול מקוצר וארוך באחרים.</p>
+          <h3 class="syllabus-title">מפגש 3 – טיפול באחרים ושליחת רייקי מרחוק</h3>
+          <p class="syllabus-topics">חניכה שלישית, לימוד הסמל השלישי ותרגול טיפול מקוצר וטיפול מלא באחרים.</p>
           <span class="syllabus-init">חניכה שלישית</span>
         </div>
       </div>
       <div class="syllabus-lesson fade-up">
         <div class="syllabus-num">4</div>
         <div class="syllabus-content">
-          <p class="syllabus-topics">שימושי רייקי, לייזרים, טיפול קבוצתי ארוך, קבלת תעודות.</p>
+          <h3 class="syllabus-title">מפגש 4 – שימושי הרייקי וסיום הקורס</h3>
+          <p class="syllabus-topics">העמקת ההיכרות עם שימושי הרייקי, לימוד טכניקת הלייזרים, טיפול קבוצתי ארוך וקבלת תעודות הסיום.</p>
         </div>
       </div>
     </div>
     </div>
     <div class="course-side-image fade-up">
       <img src="course_img_reiki12.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="c-body fade-up">
+    <h2 class="course-section-title">מה כולל הקורס?</h2>
+    <ul class="c-list">
+      <li>ארבעה מפגשים שבועיים, בני שלוש שעות כל אחד.</li>
+      <li>שלוש חניכות לאורך הקורס.</li>
+      <li>לימוד ותרגול מעשי של טיפול עצמי וטיפול באחרים.</li>
+      <li>היכרות עם סמלי הרייקי והשימושים בהם.</li>
+      <li>התנסות בטיפול קבוצתי.</li>
+      <li>קשר ישיר עם המנחה לאורך הקורס.</li>
+      <li>קבוצת וואטסאפ תומכת והקלטות מהמפגשים.</li>
+    </ul>
+    <h2 class="course-section-title">למי הקורס מתאים?</h2>
+    <p>הקורס מתאים למי שרוצה להכיר את עולם הטיפול האנרגטי, ללמוד כלי לטיפול עצמי, לרכוש בסיס לטיפול באחרים או להעמיק את הדרך האישית והרוחנית שלה.</p>
+    <p>אין צורך בניסיון קודם.</p>
+    <p><em>הצעד הראשון בדרך הרייקי מתחיל בחיבור לעצמכם.</em></p>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="c-body fade-up">
+    <h2 class="course-section-title">שאלות נפוצות</h2>
+    <div class="faq-answer">
+      <h3 class="course-subtitle">באילו תחומים תרגול רייקי יכול לתמוך?</h3>
+      <p>אנשים פונים לרייקי מסיבות שונות: מתוך רצון להירגע, להתמודד עם מתח ועומס רגשי, להקדיש זמן לעצמם או להעמיק את החיבור הפנימי.</p>
+      <h4 class="course-subtitle">ברמה הפיזית</h4>
+      <p>התרגול עשוי לתמוך בהרפיה, בהפחתת תחושת מתח ובתחושת נינוחות בגוף.</p>
+      <h4 class="course-subtitle">ברמה הרגשית</h4>
+      <p>הוא מאפשר זמן של הקשבה פנימית והתבוננות בתחושות, ועשוי לתמוך בהתמודדות עם עומס רגשי.</p>
+      <h4 class="course-subtitle">ברמה הרוחנית</h4>
+      <p>התרגול יכול לעודד מודעות עצמית, הקשבה פנימית, חיבור לעוצמה הפנימית והתפתחות אישית ורוחנית.</p>
+      <p>החוויה וההשפעה משתנות מאדם לאדם. רייקי אינה תחליף לאבחון או לטיפול רפואי או נפשי, אלא יכולה להשתלב לצדם ככלי משלים לרווחה האישית.</p>
     </div>
   </div>
 </section>
