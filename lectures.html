@@ -216,7 +216,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <a href="index.html">דף הבית</a>
       <div class="nav-dropdown">
         <span class="nav-dropdown-row">
-          <a href="courses-orbit.html" class="active">מפת קורסים</a>
+          <a href="courses-orbit.html">מפת קורסים</a>
           <button type="button" class="nav-dropdown-toggle" aria-label="רשימת קורסים מהירה" aria-expanded="false">▾</button>
         </span>
         <div class="nav-dropdown-panel">
@@ -236,7 +236,7 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
       <a href="about-irit.html">אודות האקדמיה</a>
       <a href="blog.html">בלוג</a>
       <a href="events.html">אירועים וגלריה</a>
-      <a href="lectures.html">הרצאות</a>
+      <a href="lectures.html" class="active">הרצאות</a>
     </nav>
     <a class="header-cta" href="index.html#contact">קביעת שיחת היכרות</a>
     <button class="nav-toggle" id="navToggle" aria-label="תפריט" aria-expanded="false" aria-controls="mainNav">
@@ -387,7 +387,9 @@ document.addEventListener('keydown', (e) => {
    אחרי 2 שניות היא נסגרת לבד, אלא אם העכבר באותו רגע נמצא מעל הטאב "מפת קורסים" -
    ואז ה-hover הרגיל (CSS) פשוט ממשיך להחזיק אותה פתוחה כרגיל.
    בכל שאר העמודים חוץ מדפי קורס בודדים, "מפת קורסים" הוא קישור רגיל בלבד. */
-const mapDropdown = document.querySelector('.nav-dropdown');
+const mapDropdown = document.getElementById('mapStage')
+  ? document.querySelector('.nav-dropdown')
+  : null;
 if (mapDropdown) {
   const toggleBtn = mapDropdown.querySelector('.nav-dropdown-toggle');
   // במובייל התפריט עצמו סגור מאחורי ההמבורגר, אז בלי לפתוח גם אותו הרשימה
@@ -691,9 +693,11 @@ function mapWireHover(items) {
   });
 }
 
-const items = mapLayout();
-mapPlaySequence(items);
-mapWireHover(items);
+if (mapStage) {
+  const items = mapLayout();
+  mapPlaySequence(items);
+  mapWireHover(items);
+}
 </script>
 <!-- Meta Pixel: Lead tracking on WhatsApp / phone clicks -->
 <script>
