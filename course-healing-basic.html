@@ -96,6 +96,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
   .c-body{max-width:700px; margin:0 auto}
   .c-body p{font-size:1.02rem; line-height:1.9; color:var(--text-body); margin-bottom:18px}
+  .course-outline{list-style:none; display:flex; flex-direction:column; gap:10px; margin:12px 0 24px; padding:0}
+  .course-outline li{font-size:0.98rem; color:var(--text-body); line-height:1.75; padding-right:20px; position:relative}
+  .course-outline li::before{content:'•'; color:var(--gold); position:absolute; right:0}
 
   .c-materials{background:var(--off-white); border-radius:20px; padding:28px; border:1px solid rgba(1,108,145,0.09); margin-top:10px}
   .c-materials h3{font-size:1.05rem; color:var(--teal-dark); margin-bottom:14px}
@@ -185,7 +188,18 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
 <section>
   <div class="c-body fade-up">
-    <p>יסודות הריפוי האנרגטי, כחלק ממסלול שנה א׳ — 5 מפגשים של 3 שעות כל אחד, בזום או פרונטלי.</p>
+    <p>ללמוד לזהות חוסר איזון אנרגטי ולהעניק טיפול הילינג מעשי על מיטת טיפולים. במהלך הקורס תכירו את מבנה האנרגיה של האדם, תלמדו לאבחן באמצעות המבנה הפיזי וחמשת האלמנטים, לעבוד עם קריסטלים ולשלוח אנרגיה מאזנת, לצד תקשורים להעמקת ההבנה של מרכזי האנרגיה וההילה.</p>
+    <p>הקורס מתאים למי שרוצה להיחשף לעולם הטיפול באנרגיית ההילינג, להכיר את המבנה האנרגטי של האדם ולהתנסות בטיפול מעשי על מיטת טיפולים.</p>
+    <p>במהלך הקורס נלמד:</p>
+    <ul class="course-outline">
+      <li>כיצד הכול בנוי מאנרגיות וכיצד לשלוח אנרגיה מאזנת.</li>
+      <li>אבחון פיזי וזיהוי חוסר ועודף אנרגיה.</li>
+      <li>אבחון לפי חמשת האלמנטים.</li>
+      <li>עבודה עם קריסטלים בתהליכי ריפוי על מיטת טיפולים.</li>
+      <li>פתיחת שדות אנרגיה.</li>
+      <li>תקשורים העוסקים ברבדים עמוקים של מרכזי האנרגיה בגוף ושל ההילה.</li>
+    </ul>
+    <p>הקורס משלב לימוד, תקשורים ותרגול מעשי, ומעניק היכרות ראשונית עם עולם ההילינג ועם כלי האבחון והטיפול האנרגטיים.</p>
   </div>
 </section>
 
@@ -202,9 +216,8 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="syllabus-content">
           <ul class="syllabus-topics">
             <li>מבוא להילינג</li>
-            <li>הדגמה במטוטלת</li>
-            <li>טיפול עצמי</li>
-            <li>טיפול מרחוק</li>
+            <li>ריפוי עצמי</li>
+            <li>שליחת אנרגיה</li>
           </ul>
         </div>
       </div>
@@ -212,9 +225,8 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="syllabus-num">2</div>
         <div class="syllabus-content">
           <ul class="syllabus-topics">
-            <li>שימוש בקריסטלים</li>
-            <li>שימוש במטוטלת</li>
-            <li>ניקוי פחד</li>
+            <li>ריפוי באמצעות קריסטלים</li>
+            <li>עבודה עם מטוטלת</li>
           </ul>
         </div>
       </div>
@@ -222,9 +234,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="syllabus-num">3</div>
         <div class="syllabus-content">
           <ul class="syllabus-topics">
-            <li>ישויות</li>
-            <li>התאמת קריסטלים למרכזי אנרגיה</li>
-            <li>חמשת האלמנטים</li>
+            <li>אבחון אנרגטי</li>
+            <li>אבחון מרכזי האנרגיה</li>
+            <li>אנרגיית הגוף הפיזי</li>
           </ul>
         </div>
       </div>
@@ -232,9 +244,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="syllabus-num">4</div>
         <div class="syllabus-content">
           <ul class="syllabus-topics">
-            <li>אנרגיית הגוף</li>
-            <li>מבנה ההילה</li>
-            <li>הדרכה למטפל</li>
+            <li>חמשת האלמנטים</li>
+            <li>אנרגיית ההילה</li>
+            <li>אנרגיית היהלום</li>
           </ul>
         </div>
       </div>
@@ -242,9 +254,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
         <div class="syllabus-num">5</div>
         <div class="syllabus-content">
           <ul class="syllabus-topics">
+            <li>הדרכת מדיטציה</li>
+            <li>טיפול בעמוד השדרה</li>
             <li>טיפול על מיטה</li>
-            <li>טיפול בעמוד שדרה</li>
-            <li>אנרגיית היהלום</li>
           </ul>
         </div>
       </div>
