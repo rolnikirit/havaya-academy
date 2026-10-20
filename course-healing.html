@@ -108,6 +108,14 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .c-materials .pending{font-size:0.85rem; color:var(--text-mid); background:var(--off-white); display:inline-block; padding:6px 14px; border-radius:10px}
 
   .syllabus-heading{font-size:1.3rem; font-weight:800; color:var(--teal-dark); margin-bottom:24px; text-align:center}
+  .course-copy-heading{font-size:1.2rem; font-weight:800; color:var(--teal-dark); margin:28px 0 14px}
+  .faq-list{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
+  .faq-item{background:var(--white); border-radius:16px; border:1px solid rgba(1,108,145,0.09); padding:4px 22px; box-shadow:0 6px 18px rgba(1,92,120,0.05)}
+  .faq-item summary{padding:16px 0; font-weight:700; color:var(--teal-dark); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+'; font-size:1.3rem; color:var(--gold); flex-shrink:0; transition:transform 180ms var(--ease-ui)}
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-answer{padding:0 0 18px; color:var(--text-body); line-height:1.8; font-size:0.95rem}
   .syllabus-list{display:flex; flex-direction:column; gap:9px}
   .syllabus-lesson{background:var(--white); border-radius:14px; padding:12px 18px; display:flex; gap:12px; align-items:flex-start; border:1px solid rgba(1,108,145,0.08); box-shadow:0 6px 16px rgba(1,92,120,0.05)}
   .syllabus-num{width:28px; height:28px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
@@ -183,15 +191,31 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
 <section class="c-hero">
   <div class="c-tag fade-up">קורס</div>
-  <h1 class="c-title fade-up">הילינג מטפלים ב׳ - חיבור לנשמה</h1>
+  <h1 class="c-title fade-up">הילינג מטפלים ב׳ – בחיבור לנשמה עם המלאך מיכאל</h1>
   <div class="c-meta-line fade-up">30 שעות לימוד · 10 מפגשים של 3 שעות · זום או כפר סבא</div>
 </section>
 
-
-
 <section>
   <div class="c-body fade-up">
-    <p>תהליך ריפוי נפשי ורגשי עמוק, דרך שיטת חיבור לנשמה — עבודה ישירה עם התכנים הרגשיים והנפשיים שדורשים ריפוי.</p>
+    <p>לימוד ריפוי ואבחון אנרגטי, לצד תהליך ריפוי נפשי ורגשי עמוק באמצעות שיטת החיבור לנשמה, להעמקת החיבור הפנימי ולזיהוי ושחרור חסמים רגשיים ואנרגטיים.</p>
+    <p>קורס המשך לבוגרי הילינג מטפלים א׳, המעמיק את יכולות האבחון והטיפול ומעניק כלים לעבודה עם השדות האנרגטיים של האדם ועם התכנים הרגשיים העומדים בבסיס קשיים ודפוסים בחייו.</p>
+
+    <h2 class="course-copy-heading">מה לומדים בקורס?</h2>
+    <h3 class="course-copy-heading">אבחון אנרגטי וזיהוי חסימות</h3>
+    <p>העמקת יכולת האבחון של השדות האנרגטיים, זיהוי הגורמים החוסמים אותם ולימוד דרכי התמודדות עם חסימות והפרעות אנרגטיות.</p>
+
+    <h3 class="course-copy-heading">חיבור לנשמה וריפוי פציעות ברוח</h3>
+    <p>לימוד שיטת החיבור לנשמה ועבודה עם אירועים מטלטלים שהותירו חותם רגשי ואנרגטי. על פי תפיסת השיטה, אירועים אלה עשויים ליצור ניתוק מחלקים אנרגטיים של הנשמה, המכונה ״פציעה ברוח״. הטיפול מתמקד בעיבוד החוויה ובשחרור המטען הקשור אליה.</p>
+
+    <h3 class="course-copy-heading">טיפול בפחדים, טראומות ודפוסים</h3>
+    <p>כלים לעבודה עם פחדים, אמונות לא מודעות ודפוסי חשיבה, וכן עם חוויות אובדן, חוויית הלידה וחסימות בתחומי חיים שונים. הלימוד כולל גם עבודה עם תכנים המיוחסים לגלגולים קודמים, בהתאם לתפיסת השיטה.</p>
+
+    <h3 class="course-copy-heading">פיתוח מיומנויות המטפל</h3>
+    <p>לימוד אבחון עצמי, זיהוי התנגדויות במהלך הטיפול והתמודדות עם מצבים שבהם המטופל מתקשה להתחבר לאירוע או לזהות את מקור הקושי. הקורס כולל גם פיתוח האינטואיציה, עבודה עם הגנות וכלים לטיפול עצמי.</p>
+
+    <h3 class="course-copy-heading">חניכה, תרגול מעשי וסטאז׳</h3>
+    <p>הקורס משלב טיפולים הדדיים, התנסות מעשית וסטאז׳, וכן חניכה לחיבור לבורא עם המאסטר מטטרון והמלאך מיכאל, כחלק מהעמקת העבודה האנרגטית וההתפתחות האישית והמקצועית של המטפל.</p>
+    <p>הקורס מיועד למטפלים המעוניינים להרחיב את ארגז הכלים שלהם ולפתח יכולת אבחון וטיפול מעמיקה יותר, המשלבת עבודה אנרגטית עם התייחסות לעולמו הרגשי והפנימי של האדם.</p>
   </div>
 </section>
 
@@ -269,6 +293,35 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
     <div class="course-side-image fade-up">
       <img src="course_img_healing.jpg" alt="" loading="lazy">
     </div>
+  </div>
+</section>
+
+<section style="padding-top:0; padding-bottom:0">
+  <h2 class="syllabus-heading fade-up" style="max-width:1140px; margin:0 auto 28px">שאלות ותשובות</h2>
+</section>
+
+<section style="padding-top:0">
+  <div class="faq-list">
+    <details class="faq-item fade-up">
+      <summary>למי מיועד הקורס?</summary>
+      <p class="faq-answer">הקורס מיועד לבוגרי הילינג מטפלים א׳ המעוניינים להעמיק את יכולות האבחון והטיפול ולרכוש כלים לעבודה מרחוק בשיטת החיבור לנשמה.</p>
+    </details>
+    <details class="faq-item fade-up">
+      <summary>מה ההבדל בין הילינג מטפלים א׳ להילינג מטפלים ב׳?</summary>
+      <p class="faq-answer">הילינג מטפלים א׳ מתמקד באבחון ובטיפול אנרגטי מעשי, בעיקר על מיטת טיפולים. הילינג מטפלים ב׳ מעמיק את העבודה עם פחדים, טראומות וחסימות באמצעות שיטת החיבור לנשמה, וכולל לימוד ותרגול של טיפול מרחוק.</p>
+    </details>
+    <details class="faq-item fade-up">
+      <summary>מהן ״פציעות ברוח״?</summary>
+      <p class="faq-answer">זהו מושג בשיטת החיבור לנשמה המתאר ניתוק מחלקים אנרגטיים של הנשמה בעקבות אירועים מטלטלים. במסגרת הקורס לומדים כיצד לעבוד עם החוויות והמטען הרגשי הקשורים אליהן.</p>
+    </details>
+    <details class="faq-item fade-up">
+      <summary>האם לומדים לטפל בטראומות מגלגולים קודמים?</summary>
+      <p class="faq-answer">כן. על פי תפיסת השיטה, ניתן לעבוד גם עם תכנים המיוחסים לגלגולים קודמים, בהתאם לתהליך הטיפולי.</p>
+    </details>
+    <details class="faq-item fade-up">
+      <summary>האם הקורס כולל תרגול מעשי?</summary>
+      <p class="faq-answer">כן. הקורס כולל תרגול, טיפולים הדדיים וסטאז׳, לצד עבודה אישית ופיתוח יכולות האבחון והטיפול.</p>
+    </details>
   </div>
 </section>
 

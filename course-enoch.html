@@ -11,7 +11,7 @@ if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מפתחות המאסטר חנוך — הוויה</title>
+<title>קורס מפתחות חנוך לידע העילאי – הקבלה הנקבית — הוויה</title>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -96,12 +96,20 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
   .c-body{max-width:700px; margin:0 auto}
   .c-body p{font-size:1.02rem; line-height:1.9; color:var(--text-body); margin-bottom:18px}
+  .course-copy-heading{font-size:1.2rem; font-weight:800; color:var(--teal-dark); margin:28px 0 14px}
 
   .c-materials{background:var(--off-white); border-radius:20px; padding:28px; border:1px solid rgba(1,108,145,0.09); margin-top:10px}
   .c-materials h3{font-size:1.05rem; color:var(--teal-dark); margin-bottom:14px}
   .c-materials .pending{font-size:0.85rem; color:var(--text-mid); background:var(--off-white); display:inline-block; padding:6px 14px; border-radius:10px}
 
   .syllabus-heading{font-size:1.3rem; font-weight:800; color:var(--teal-dark); margin-bottom:24px; text-align:center}
+  .faq-list{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
+  .faq-item{background:var(--white); border-radius:16px; border:1px solid rgba(1,108,145,0.09); padding:4px 22px; box-shadow:0 6px 18px rgba(1,92,120,0.05)}
+  .faq-item summary{padding:16px 0; font-weight:700; color:var(--teal-dark); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+'; font-size:1.3rem; color:var(--gold); flex-shrink:0; transition:transform 180ms var(--ease-ui)}
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-answer{padding:0 0 18px; color:var(--text-body); line-height:1.8; font-size:0.95rem}
   .syllabus-list{display:flex; flex-direction:column; gap:9px}
   .syllabus-lesson{background:var(--white); border-radius:14px; padding:12px 18px; display:flex; gap:12px; align-items:flex-start; border:1px solid rgba(1,108,145,0.08); box-shadow:0 6px 16px rgba(1,92,120,0.05)}
   .syllabus-num{width:28px; height:28px; border-radius:50%; background:var(--teal-dark); color:#fff; font-weight:800; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0}
@@ -178,15 +186,30 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 
 <section class="c-hero">
   <div class="c-tag fade-up">קורס</div>
-  <h1 class="c-title fade-up">מפתחות המאסטר חנוך</h1>
+  <h1 class="c-title fade-up">קורס מפתחות חנוך לידע העילאי – הקבלה הנקבית</h1>
   <div class="c-meta-line fade-up">24 שעות לימוד · 8 מפגשים של 3 שעות · זום או כפר סבא</div>
 </section>
 
-
-
 <section>
   <div class="c-body fade-up">
-    <p>מסלול שנה ב׳ — מפתחות המאסטר חנוך. 8 מפגשים של 3 שעות כל אחד, בזום או פרונטלי.</p>
+    <p>להתחבר לידע עתיק, לקבל חניכות ולהכיר מפתחות וסמלים אנרגטיים להתפתחות רוחנית ולעבודה אישית וטיפולית.</p>
+    <p>קורס מפתחות חנוך מבוסס על ידע שהועבר בתקשור על ידי שושנה דונאיה ומיוחס למאסטר חנוך. הקורס משלב חניכות, סמלים, מפתחות ואנרגיות רוחניות, ומציע כלים לעבודה אנרגטית עם עצמנו ועם אחרים.</p>
+
+    <h2 class="course-copy-heading">מפתחות וסמלים לעבודה אנרגטית</h2>
+    <p>המפתחות והסמלים נועדו לתמוך בתהליכי שינוי, איזון והתפתחות ברבדים הפיזי, הרגשי, המנטלי והרוחני. הלימוד כולל הכנה אנרגטית, קבלת חניכות והדרכה לשימוש במפתחות ובסמלים, לצד היכרות עם תפיסות רוחניות הנוגעות לתודעה, לקארמה ולמבנה העולם הרוחני.</p>
+
+    <h2 class="course-copy-heading">מה תעברו בקורס?</h2>
+    <h3 class="course-copy-heading">חניכות והכנה אנרגטית</h3>
+    <p>הכנה לעבודה עם המפתחות והסמלים, העמקת החיבור לאנרגיות הנלמדות ופיתוח היכולת להשתמש בכלים בהתאם להדרכה הניתנת בקורס.</p>
+
+    <h3 class="course-copy-heading">עבודה עם פחדים, טראומות וחסימות עמוקות</h3>
+    <p>היכרות עם כלים לעבודה אנרגטית בנושאים כגון פחדים, קארמה, דפוסי הישרדות וניתוק מתלות. הקורס כולל גם עבודה עם חוויות קשות, ובהן חוויות של אלימות ואונס המיוחסות לגלגולים קודמים במסגרת תפיסת השיטה, וכן תהליך המכונה בשיטה ״ניקוי הקשר הגנטי״.</p>
+
+    <h3 class="course-copy-heading">שפע, גוף ואתגרי החיים</h3>
+    <p>עבודה עם נושאים כגון אנרגיית הכסף, חיבור לגוף הפיזי, מערכות יחסים והתמודדות עם אתגרים בחיים, לצד היכרות עם סמלים ומפתחות המיועדים לתהליכי שינוי ואיזון.</p>
+
+    <h3 class="course-copy-heading">התפתחות אישית ועבודה קולקטיבית</h3>
+    <p>העמקת המודעות וההתבוננות בדפוסים האישיים, לצד היכרות עם תפיסת העבודה האנרגטית ברמה הקולקטיבית, לרבות תרגולים המכוונים לאיזון ולריפוי אנרגטי של כדור הארץ.</p>
   </div>
 </section>
 
@@ -296,6 +319,24 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
     <div class="course-side-image fade-up">
       <img src="course_img_enoch.jpg" alt="" loading="lazy">
     </div>
+  </div>
+</section>
+
+<section style="padding-top:0; padding-bottom:0">
+  <h2 class="syllabus-heading fade-up" style="max-width:1140px; margin:0 auto 28px">שאלות ותשובות</h2>
+</section>
+
+<section style="padding-top:0">
+  <div class="faq-list">
+    <details class="faq-item fade-up">
+      <summary>מי הוא חנוך?</summary>
+      <p class="faq-answer">חנוך הוא דמות מקראית, מצאצאי אדם הראשון. בספר בראשית נאמר: ״ויתהלך חנוך את האלוהים ואיננו כי לקח אותו אלוהים״. לפי הפסוקים, חנוך חי 365 שנים, ולאחר מכן מתואר כי אלוהים לקח אותו.</p>
+      <p class="faq-answer">במסורות מדרשיות ומיסטיות יהודיות התפתחה התפיסה שלפיה חנוך עבר שינוי יוצא דופן והפך למלאך מטטרון. דמותו מזוהה במסורות אלה עם ידע רוחני גבוה ועם עולמות עליונים.</p>
+    </details>
+    <details class="faq-item fade-up">
+      <summary>כיצד הגיע הידע של מפתחות חנוך?</summary>
+      <p class="faq-answer">על פי סיפורה של שושנה דונאיה, בשנת 2013 התבקשה להתחיל להעביר בתקשור את הידע המיוחס למאסטר חנוך, הכולל סמלים, מפתחות וחניכות. הספר מפתחות חנוך לידע העילאי – הקבלה הנקבית הושלם בסביבות 2014. לאחר שנים שבהן נשמר, באפריל 2023 התבקשה שושנה להוציאו לאור ולהתחיל ללמד את הידע ולהעבירו הלאה.</p>
+    </details>
   </div>
 </section>
 
