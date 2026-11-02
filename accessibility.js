@@ -184,19 +184,21 @@
 
     var style = document.createElement('style');
     style.textContent = [
-      '@media(max-width:900px){.nav-toggle{animation:tab-pop 4.5s ease-in-out infinite}}',
-      '@media(prefers-reduced-motion:reduce){.nav-toggle{animation:none}}',
+      '@keyframes hamburger-attention{0%,100%{transform:scaleX(1);background:#fff;box-shadow:0 0 0 rgba(246,217,160,0)}50%{transform:scaleX(1.35);background:#f6d9a0;box-shadow:0 0 8px rgba(246,217,160,.8)}}',
+      '@media(max-width:900px){.nav-toggle{border-radius:12px;animation:tab-pop 4.5s ease-in-out infinite}.nav-toggle span{transform-origin:center;animation:hamburger-attention 4.5s ease-in-out infinite}}',
+      '@media(prefers-reduced-motion:reduce){.nav-toggle,.nav-toggle span{animation:none}}',
     ].join('\n');
     document.head.appendChild(style);
 
-    var gesture = null;
+    var touchGesture = null;
     var previewTimer = null;
     var isPreviewOpen = false;
     var suppressNextClick = false;
+    var suppressClickTimer = null;
 
     function isInHotZone(x, y) {
       var rect = navToggle.getBoundingClientRect();
-      var padding = 18;
+      var padding = 32;
       return x >= rect.left - padding && x <= rect.right + padding &&
         y >= rect.top - padding && y <= rect.bottom + padding;
     }
@@ -208,26 +210,38 @@
       navToggle.setAttribute('aria-expanded', 'false');
     }
 
-    document.addEventListener('pointerdown', function (event) {
-      if (event.pointerType !== 'touch' || !window.matchMedia('(max-width:900px)').matches) return;
+    document.addEventListener('touchstart', function (event) {
+      if (!window.matchMedia('(max-width:900px)').matches || event.touches.length !== 1) return;
+      if (suppressClickTimer !== null) {
+        window.clearTimeout(suppressClickTimer);
+        suppressClickTimer = null;
+      }
       suppressNextClick = false;
-      gesture = {
-        pointerId: event.pointerId,
-        startX: event.clientX,
-        startY: event.clientY,
+      var touch = event.touches[0];
+      touchGesture = {
+        identifier: touch.identifier,
+        startX: touch.clientX,
+        startY: touch.clientY,
         activated: false
       };
     }, { passive: true });
 
-    document.addEventListener('pointermove', function (event) {
-      if (!gesture || event.pointerId !== gesture.pointerId || gesture.activated) return;
-      var moved = Math.hypot(event.clientX - gesture.startX, event.clientY - gesture.startY) >= 12;
-      var inHotZone = isInHotZone(event.clientX, event.clientY);
+    document.addEventListener('touchmove', function (event) {
+      if (!touchGesture || touchGesture.activated) return;
+      var touch = Array.from(event.touches).find(function (item) {
+        return item.identifier === touchGesture.identifier;
+      });
+      if (!touch) return;
+      var moved = Math.hypot(touch.clientX - touchGesture.startX, touch.clientY - touchGesture.startY) >= 6;
+      var inHotZone = isInHotZone(touch.clientX, touch.clientY);
       if (!moved || !inHotZone) return;
 
-      gesture.activated = true;
+      touchGesture.activated = true;
       suppressNextClick = true;
-      window.setTimeout(function () { suppressNextClick = false; }, 700);
+      suppressClickTimer = window.setTimeout(function () {
+        suppressClickTimer = null;
+        suppressNextClick = false;
+      }, 700);
       if (mainNav.classList.contains('open')) return;
 
       isPreviewOpen = true;
@@ -239,11 +253,13 @@
       }, 3000);
     }, { passive: true });
 
-    function finishGesture(event) {
-      if (gesture && event.pointerId === gesture.pointerId) gesture = null;
+    function finishTouch(event) {
+      if (touchGesture && Array.from(event.changedTouches).some(function (touch) {
+        return touch.identifier === touchGesture.identifier;
+      })) touchGesture = null;
     }
-    document.addEventListener('pointerup', finishGesture, { passive: true });
-    document.addEventListener('pointercancel', finishGesture, { passive: true });
+    document.addEventListener('touchend', finishTouch, { passive: true });
+    document.addEventListener('touchcancel', finishTouch, { passive: true });
 
     navToggle.addEventListener('click', function (event) {
       if (suppressNextClick) {
