@@ -1,4 +1,4 @@
-/* ווידג'ט נגישות אתר "הוויה" — קובץ משותף לכל דפי האתר.
+/* התנהגויות נגישות וניווט אתר "הוויה" — קובץ משותף לכל דפי האתר.
    נטען מוקדם ב-<head> (בלי defer/async) כדי להחיל העדפות שמורות
    לפני הציור הראשון של העמוד (מונע הבזק של מצב לא-נגיש רגעי). */
 (function () {
@@ -173,6 +173,91 @@
       prefs = {};
       save();
     });
+
+    setupMobileNavCue();
+  }
+
+  function setupMobileNavCue() {
+    var navToggle = document.getElementById('navToggle');
+    var mainNav = document.getElementById('mainNav');
+    if (!navToggle || !mainNav) return;
+
+    var style = document.createElement('style');
+    style.textContent = [
+      '@media(max-width:900px){.nav-toggle{animation:tab-pop 4.5s ease-in-out infinite}}',
+      '@media(prefers-reduced-motion:reduce){.nav-toggle{animation:none}}',
+    ].join('\n');
+    document.head.appendChild(style);
+
+    var gesture = null;
+    var previewTimer = null;
+    var isPreviewOpen = false;
+    var suppressNextClick = false;
+
+    function isInHotZone(x, y) {
+      var rect = navToggle.getBoundingClientRect();
+      var padding = 18;
+      return x >= rect.left - padding && x <= rect.right + padding &&
+        y >= rect.top - padding && y <= rect.bottom + padding;
+    }
+
+    function closePreview() {
+      if (!isPreviewOpen) return;
+      isPreviewOpen = false;
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    document.addEventListener('pointerdown', function (event) {
+      if (event.pointerType !== 'touch' || !window.matchMedia('(max-width:900px)').matches) return;
+      suppressNextClick = false;
+      gesture = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        activated: false
+      };
+    }, { passive: true });
+
+    document.addEventListener('pointermove', function (event) {
+      if (!gesture || event.pointerId !== gesture.pointerId || gesture.activated) return;
+      var moved = Math.hypot(event.clientX - gesture.startX, event.clientY - gesture.startY) >= 12;
+      var inHotZone = isInHotZone(event.clientX, event.clientY);
+      if (!moved || !inHotZone) return;
+
+      gesture.activated = true;
+      suppressNextClick = true;
+      window.setTimeout(function () { suppressNextClick = false; }, 700);
+      if (mainNav.classList.contains('open')) return;
+
+      isPreviewOpen = true;
+      mainNav.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      previewTimer = window.setTimeout(function () {
+        previewTimer = null;
+        closePreview();
+      }, 3000);
+    }, { passive: true });
+
+    function finishGesture(event) {
+      if (gesture && event.pointerId === gesture.pointerId) gesture = null;
+    }
+    document.addEventListener('pointerup', finishGesture, { passive: true });
+    document.addEventListener('pointercancel', finishGesture, { passive: true });
+
+    navToggle.addEventListener('click', function (event) {
+      if (suppressNextClick) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        suppressNextClick = false;
+        return;
+      }
+      if (previewTimer !== null) {
+        window.clearTimeout(previewTimer);
+        previewTimer = null;
+      }
+      isPreviewOpen = false;
+    }, true);
   }
 
   if (document.readyState === 'loading') {
