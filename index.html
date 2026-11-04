@@ -116,8 +116,9 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   .hero-content{position:relative; z-index:1; max-width:720px; padding:0 20px}
   .hero-logo{position:relative; width:100vw; margin-left:calc(-50vw + 50%); margin-right:calc(-50vw + 50%); margin-bottom:36px; aspect-ratio:1600/473.6}
   .hero-logo{overflow:hidden}
-  .hero-logo img{width:100%; height:100%; object-fit:cover; object-position:center center; display:block; filter:saturate(0.82) blur(9px)}
-  .hero-logo img.sharp{position:absolute; inset:0; object-fit:cover; object-position:center center; filter:saturate(0.82);
+  .hero-logo::before{content:''; position:absolute; inset:0; background:url('hands_sky_banner.jpg') center/cover no-repeat; filter:saturate(0.82) blur(9px)}
+  .hero-logo img{width:100%; height:100%; object-fit:cover; object-position:center center; display:block}
+  .hero-logo img.sharp{position:absolute; inset:0; z-index:1; object-fit:cover; object-position:center center; filter:saturate(0.82);
     -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 22%, black 78%, transparent 100%);
     mask-image:linear-gradient(90deg, transparent 0%, black 22%, black 78%, transparent 100%)}
   .hero-eyebrow{font-weight:600; font-style:italic; font-size:1.05rem; color:var(--sym-prayer); margin-bottom:8px}
@@ -373,7 +374,6 @@ window.addEventListener('pageshow', () => window.scrollTo(0, 0));
 <section class="hero" id="hero">
   <div class="hero-content">
     <div class="hero-logo fade-up">
-      <img src="hands_sky_banner.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'">
       <img class="sharp" src="hands_sky_banner.jpg" alt="שתי כפות ידיים מול שמיים וענן, עם ניצוץ אור ביניהן" onerror="this.style.display='none'">
     </div>
     <h2 class="academy-name fade-up">"הוויה" – האקדמיה להפצת אור הבורא</h2>
