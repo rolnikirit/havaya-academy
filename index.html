@@ -331,7 +331,7 @@ window.addEventListener('pageshow', () => { if (!location.hash) window.scrollTo(
   .cta-section .lead{max-width:520px; margin:0 auto 34px; opacity:0.92; line-height:1.8}
   .cta-form{max-width:440px; margin:0 auto; background:rgba(255,255,255,0.08); border-radius:20px; padding:28px; text-align:right}
   .form-group{margin-bottom:14px}
-  .cta-form input, .cta-form select{width:100%; padding:12px 14px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem}
+  .cta-form input, .cta-form select, .cta-form textarea{width:100%; padding:12px 14px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem}
   .phone-row{display:flex; gap:8px}
   .phone-row select{max-width:110px}
   .btn-submit{width:100%; margin-top:6px; background:#fff; color:var(--teal-dark); padding:14px; border:none; border-radius:12px; font-size:1rem; font-weight:800; cursor:pointer; transition:opacity 150ms ease}
@@ -752,6 +752,9 @@ window.addEventListener('pageshow', () => { if (!location.hash) window.scrollTo(
         <option>עוד לא בטוחה — שיחת ייעוץ</option>
       </select>
     </div>
+    <div class="form-group">
+      <textarea id="f-note" rows="3" maxlength="500" placeholder="משהו שחשוב לך לשאול או לדעת? (אופציונלי)" aria-label="משהו שחשוב לך לשאול או לדעת? (אופציונלי)" style="resize:vertical"></textarea>
+    </div>
     <button class="btn-submit" id="btn-submit" onclick="sendToWhatsApp()" disabled>שליחה בוואטסאפ ←</button>
     <div style="font-size:0.74rem; opacity:0.75; margin-top:8px; text-align:center">
       בלחיצה על השליחה הפרטים ייפתחו כהודעת וואטסאפ אל אירית בלבד. ראו
@@ -913,24 +916,31 @@ function checkForm(){
   document.getElementById('btn-submit').disabled = !valid;
 }
 
+// Which page sent her to the form: same-site referrer → course name / nav-link name / raw path.
+// A course page also preselects that course in "מתעניינת ב..." (she can still change it).
+let leadFrom = 'דף הבית';
+try {
+  const ref = new URL(document.referrer);
+  const path = ref.pathname.replace(/^\//, '').replace(/\.html$/, '');
+  if (ref.origin === location.origin && path && path !== 'index') {
+    const course = COURSES.find(c => c.page.replace(/\.html$/, '') === path);
+    const link = [...document.querySelectorAll('a[href]')].find(a => !a.children.length && a.getAttribute('href').replace(/\.html.*$/, '') === path);
+    leadFrom = course ? course.name : link ? link.textContent.trim() : decodeURIComponent(path);
+    if (course) {
+      const sel = document.getElementById('f-interest');
+      if (![...sel.options].some(o => o.text === course.name)) sel.add(new Option(course.name), 1);
+      sel.value = course.name;
+    }
+  }
+} catch (e) {}
+
 function sendToWhatsApp(){
   const name = document.getElementById('f-name').value.trim();
   const prefix = document.getElementById('f-phone-prefix').value;
   const num = document.getElementById('f-phone-num').value.trim();
   const interest = document.getElementById('f-interest').value;
   const phone = prefix + '-' + num;
-
-  // Which page sent her to the form: same-site referrer → course name / nav-link name / raw path.
-  let from = 'דף הבית';
-  try {
-    const ref = new URL(document.referrer);
-    const path = ref.pathname.replace(/^\//, '').replace(/\.html$/, '');
-    if (ref.origin === location.origin && path && path !== 'index') {
-      const course = COURSES.find(c => c.page.replace(/\.html$/, '') === path);
-      const link = [...document.querySelectorAll('a[href]')].find(a => !a.children.length && a.getAttribute('href').replace(/\.html.*$/, '') === path);
-      from = course ? course.name : link ? link.textContent.trim() : decodeURIComponent(path);
-    }
-  } catch (e) {}
+  const note = document.getElementById('f-note').value.trim();
 
   const lines = [
     'שלום אירית!',
@@ -939,7 +949,8 @@ function sendToWhatsApp(){
     '*שם:* ' + name,
     '*טלפון:* ' + phone,
     interest ? '*מתעניינת ב:* ' + interest : '',
-    '*הגיעה מעמוד:* ' + from,
+    '*הגיעה מעמוד:* ' + leadFrom,
+    note ? '*רוצה לשאול / לדעת:* ' + note : '',
     '',
     'המתעניינת מבקשת לשמוע עוד.',
   ].filter(Boolean);
