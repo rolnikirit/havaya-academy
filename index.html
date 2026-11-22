@@ -8,7 +8,7 @@
 <script src="accessibility.js"></script>
 <script>
 if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-window.addEventListener('pageshow', () => window.scrollTo(0, 0));
+window.addEventListener('pageshow', () => { if (!location.hash) window.scrollTo(0, 0); });
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הוויה — האקדמיה להפצת האור</title>
@@ -920,6 +920,18 @@ function sendToWhatsApp(){
   const interest = document.getElementById('f-interest').value;
   const phone = prefix + '-' + num;
 
+  // Which page sent her to the form: same-site referrer → course name / nav-link name / raw path.
+  let from = 'דף הבית';
+  try {
+    const ref = new URL(document.referrer);
+    const path = ref.pathname.replace(/^\//, '').replace(/\.html$/, '');
+    if (ref.origin === location.origin && path && path !== 'index') {
+      const course = COURSES.find(c => c.page.replace(/\.html$/, '') === path);
+      const link = [...document.querySelectorAll('a[href]')].find(a => !a.children.length && a.getAttribute('href').replace(/\.html.*$/, '') === path);
+      from = course ? course.name : link ? link.textContent.trim() : decodeURIComponent(path);
+    }
+  } catch (e) {}
+
   const lines = [
     'שלום אירית!',
     'קיבלת פנייה חדשה מהאתר:',
@@ -927,6 +939,7 @@ function sendToWhatsApp(){
     '*שם:* ' + name,
     '*טלפון:* ' + phone,
     interest ? '*מתעניינת ב:* ' + interest : '',
+    '*הגיעה מעמוד:* ' + from,
     '',
     'המתעניינת מבקשת לשמוע עוד.',
   ].filter(Boolean);
